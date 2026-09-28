@@ -1,0 +1,76 @@
+{
+ "test": "child_cuda",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "wall_s": 6.3,
+ "result": {
+  "before": {
+   "parent": 1636,
+   "child": 1636
+  },
+  "pause_parent": {
+   "lock": [
+    "OK",
+    0.0003
+   ],
+   "checkpoint": [
+    "OK",
+    0.4841
+   ],
+   "state": "checkpointed"
+  },
+  "parent_paused": {
+   "parent": "absent",
+   "child": 1636,
+   "child_state": "running",
+   "child_lines_in_2s": 101
+  },
+  "pause_child": {
+   "lock": [
+    "OK",
+    0.0003
+   ],
+   "checkpoint": [
+    "OK",
+    0.4544
+   ],
+   "state": "checkpointed"
+  },
+  "both_paused": {
+   "parent": "absent",
+   "child": "absent"
+  },
+  "resume_child": {
+   "restore": [
+    "OK",
+    0.3262
+   ],
+   "unlock": [
+    "OK",
+    0.001
+   ],
+   "state": "running"
+  },
+  "resume_parent": {
+   "restore": [
+    "OK",
+    0.3164
+   ],
+   "unlock": [
+    "OK",
+    0.002
+   ],
+   "state": "running"
+  },
+  "finish": {
+   "rc": 0,
+   "end": "END final=0x1.fdde20127c842p+17|child_rc=0 ballast_ok=True ballast=2c4c9c4d3f8f050aba2be89dd0f01149fa8387ad"
+  },
+  "child_end": [
+   "END final=0x1.96564516fdcc2p+17 ballast_ok=True ballast=af38d9abd07e379040bd99c925436ebac3bb971e"
+  ]
+ }
+}
