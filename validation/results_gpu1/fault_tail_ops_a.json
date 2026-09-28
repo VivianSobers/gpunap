@@ -1,0 +1,67 @@
+{
+ "test": "tail_ops",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "wall_s": 55.4,
+ "result": {
+  "sync": {
+   "pause": "checkpointed",
+   "ended_while_paused": true,
+   "rc": -11,
+   "tail": [],
+   "stderr_tail": "lease install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.\n  import pynvml  # type: ignore[import]\n"
+  },
+  "memcpy": {
+   "pause": "checkpointed",
+   "ended_while_paused": false,
+   "resume": "running",
+   "rc_after_resume": 0,
+   "tail": [
+    "TAIL op=memcpy done after 7.70s"
+   ],
+   "stderr_tail": "lease install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.\n  import pynvml  # type: ignore[import]\n"
+  },
+  "kernel_item": {
+   "pause": "checkpointed",
+   "ended_while_paused": false,
+   "resume": "running",
+   "rc_after_resume": 0,
+   "tail": [
+    "TAIL op=kernel_item done after 7.70s"
+   ],
+   "stderr_tail": "lease install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.\n  import pynvml  # type: ignore[import]\n"
+  },
+  "launch_only": {
+   "pause": "checkpointed",
+   "ended_while_paused": false,
+   "resume": "running",
+   "rc_after_resume": 0,
+   "tail": [
+    "TAIL op=launch_only done after 7.70s"
+   ],
+   "stderr_tail": "lease install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.\n  import pynvml  # type: ignore[import]\n"
+  },
+  "alloc": {
+   "pause": "checkpointed",
+   "ended_while_paused": false,
+   "resume": "running",
+   "rc_after_resume": 0,
+   "tail": [
+    "TAIL op=alloc done after 7.70s"
+   ],
+   "stderr_tail": "lease install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.\n  import pynvml  # type: ignore[import]\n"
+  },
+  "exit": {
+   "pause": "checkpointed",
+   "ended_while_paused": true,
+   "rc": 0,
+   "tail": [
+    "TAIL op=exit returning t=1790527456.293"
+   ],
+   "stderr_tail": "lease install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.\n  import pynvml  # type: ignore[import]\n"
+  }
+ }
+}
