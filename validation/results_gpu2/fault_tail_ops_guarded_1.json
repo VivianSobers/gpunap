@@ -1,0 +1,42 @@
+{
+ "test": "tail_ops",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 580.178.04, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu2"
+ },
+ "wall_s": 18.8,
+ "result": {
+  "guarded_sync": {
+   "pause": {
+    "lock": [
+     "OK",
+     0.0026
+    ],
+    "checkpoint": [
+     "OK",
+     0.5939
+    ],
+    "state": "checkpointed"
+   },
+   "ended_while_paused": false,
+   "t_pause_start": 1790528779.129,
+   "resume": {
+    "restore": [
+     "OK",
+     0.4385
+    ],
+    "unlock": [
+     "OK",
+     0.0157
+    ],
+    "state": "running"
+   },
+   "rc_after_resume": 0,
+   "tail": [
+    "TAIL op=guarded_sync done after 8.40s at 1790528790.216"
+   ],
+   "stderr_tail": ""
+  }
+ }
+}
