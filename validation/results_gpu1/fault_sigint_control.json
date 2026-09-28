@@ -1,0 +1,19 @@
+{
+ "test": "sigint_control",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "wall_s": 4.7,
+ "result": {
+  "never_paused": {
+   "rc": -2,
+   "out_tail": "you.\n  import pynvml  # type: ignore[import]\nTraceback (most recent call last):\n  File \"~/gpunap_validation/target.py\", line 309, in <module>\n    final = kinds[a.kind]()\n  File \"~/gpunap_validation/target.py\", line 241, in run_ballast\n    time.sleep(a.step_sleep)\nKeyboardInterrupt\n"
+  },
+  "paused_resumed_before": {
+   "rc": -2,
+   "out_tail": "you.\n  import pynvml  # type: ignore[import]\nTraceback (most recent call last):\n  File \"~/gpunap_validation/target.py\", line 309, in <module>\n    final = kinds[a.kind]()\n  File \"~/gpunap_validation/target.py\", line 241, in run_ballast\n    time.sleep(a.step_sleep)\nKeyboardInterrupt\n"
+  }
+ }
+}
