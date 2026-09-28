@@ -1,0 +1,42 @@
+{
+ "test": "tail_ops",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "wall_s": 11.7,
+ "result": {
+  "guarded_sync": {
+   "pause": {
+    "lock": [
+     "OK",
+     0.0006
+    ],
+    "checkpoint": [
+     "OK",
+     0.1918
+    ],
+    "state": "checkpointed"
+   },
+   "ended_while_paused": false,
+   "t_pause_start": 1790528727.284,
+   "resume": {
+    "restore": [
+     "OK",
+     0.1805
+    ],
+    "unlock": [
+     "OK",
+     0.0011
+    ],
+    "state": "running"
+   },
+   "rc_after_resume": 0,
+   "tail": [
+    "TAIL op=guarded_sync done after 7.68s at 1790528737.664"
+   ],
+   "stderr_tail": "lease install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.\n  import pynvml  # type: ignore[import]\n"
+  }
+ }
+}
