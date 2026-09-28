@@ -1,0 +1,130 @@
+{
+ "test": "ctlkill_ckpt",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "wall_s": 18.8,
+ "result": {
+  "target_gpu_mb": 16996,
+  "states_after_kill": [
+   [
+    1790525505.53,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525509.95,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525510.47,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525510.98,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525511.5,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525512.02,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525512.53,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525513.05,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525513.57,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525514.09,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525514.61,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525515.13,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525515.65,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525516.17,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525516.68,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525517.2,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525517.72,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525518.25,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525518.77,
+    "checkpointed",
+    "absent"
+   ],
+   [
+    1790525519.29,
+    "checkpointed",
+    "absent"
+   ]
+  ],
+  "recover": {
+   "restore": [
+    "OK",
+    2.4351
+   ],
+   "unlock": [
+    "OK",
+    0.0011
+   ],
+   "state": "running"
+  },
+  "state_final": "running",
+  "finish": {
+   "rc": 0,
+   "end": "END final=0x1.172c4024f9084p+16 ballast_ok=True ballast=aa60bfe6bb589394629e1052e15bd4a1a45575e9"
+  }
+ }
+}
