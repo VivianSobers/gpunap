@@ -1,0 +1,33 @@
+{
+ "test": "uvm",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 580.178.04, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu2"
+ },
+ "wall_s": 3.4,
+ "result": {
+  "gpu_mb": 642,
+  "pause": {
+   "lock": [
+    "OK",
+    0.0014
+   ],
+   "checkpoint": [
+    "CUDA_ERROR_NOT_SUPPORTED",
+    0.7397
+   ],
+   "unlock_after_fail": [
+    "OK",
+    0.0005
+   ],
+   "state": "running"
+  },
+  "state": "running",
+  "finish": {
+   "rc": 0,
+   "end": "END copy_rc=0 device_ok=True managed_ok=True"
+  },
+  "out_tail": ""
+ }
+}
