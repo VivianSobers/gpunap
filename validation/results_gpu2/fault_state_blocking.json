@@ -1,0 +1,49 @@
+{
+ "test": "state_blocking",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 580.178.04, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu2"
+ },
+ "wall_s": 32.8,
+ "result": {
+  "during_checkpoint_state_call": {
+   "call": "state",
+   "result": "checkpointed",
+   "wall_s": 14.91
+  },
+  "during_checkpoint_nvidia_smi_s": 0.042,
+  "during_checkpoint_op": {
+   "lock": [
+    "OK",
+    0.0022
+   ],
+   "checkpoint": [
+    "OK",
+    15.1904
+   ],
+   "state": "checkpointed"
+  },
+  "during_restore_state_call": {
+   "call": "state",
+   "result": "locked",
+   "wall_s": 7.711
+  },
+  "during_restore_nvidia_smi_s": 0.048,
+  "during_restore_op": {
+   "restore": [
+    "OK",
+    7.9907
+   ],
+   "unlock": [
+    "OK",
+    0.0023
+   ],
+   "state": "running"
+  },
+  "finish": {
+   "rc": 0,
+   "end": "END final=0x1.172c4024f9084p+16 ballast_ok=True ballast=aa60bfe6bb589394629e1052e15bd4a1a45575e9"
+  }
+ }
+}
