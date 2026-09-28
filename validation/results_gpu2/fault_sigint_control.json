@@ -1,0 +1,19 @@
+{
+ "test": "sigint_control",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 580.178.04, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu2"
+ },
+ "wall_s": 20.8,
+ "result": {
+  "never_paused": {
+   "rc": -2,
+   "out_tail": "Traceback (most recent call last):\n  File \"~/gpunap_validation/target.py\", line 295, in <module>\n    final = kinds[a.kind]()\n  File \"~/gpunap_validation/target.py\", line 241, in run_ballast\n    time.sleep(a.step_sleep)\nKeyboardInterrupt\n"
+  },
+  "paused_resumed_before": {
+   "rc": -2,
+   "out_tail": "Traceback (most recent call last):\n  File \"~/gpunap_validation/target.py\", line 295, in <module>\n    final = kinds[a.kind]()\n  File \"~/gpunap_validation/target.py\", line 238, in run_ballast\n    acc += x.double().sum()\nKeyboardInterrupt\n"
+  }
+ }
+}
