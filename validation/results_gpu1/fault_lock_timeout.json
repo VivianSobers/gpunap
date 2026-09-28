@@ -1,0 +1,39 @@
+{
+ "test": "lock_timeout",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "wall_s": 32.8,
+ "result": {
+  "lock_1s_timeout": [
+   "CUDA_ERROR_NOT_READY",
+   1.0006
+  ],
+  "state_after_timeout": "running",
+  "lock_no_timeout": [
+   "OK",
+   5.2412
+  ],
+  "state_after_lock": "locked",
+  "checkpoint": [
+   "OK",
+   1.7241
+  ],
+  "resume": {
+   "restore": [
+    "OK",
+    1.1344
+   ],
+   "unlock": [
+    "OK",
+    0.0059
+   ],
+   "state": "running"
+  },
+  "total_s": 8.11,
+  "target_rc": 0,
+  "log": "0 launch 1790525607.6537\n0 -0x1.beb407f60ad24p+10 1790525617.8073\n1 launch 1790525617.8073\n1 -0x1.beb407f60ad24p+10 1790525625.0149\n2 launch 1790525625.0149\n2 -0x1.beb407f60ad24p+10 1790525632.2224\n3 launch 1790525632.2225\n3 -0x1.beb407f60ad24p+10 1790525639.4299\nEND final=ok ballast_ok=True ballast=none\n"
+ }
+}
