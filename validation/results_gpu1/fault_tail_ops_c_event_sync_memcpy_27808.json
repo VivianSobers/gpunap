@@ -1,0 +1,71 @@
+{
+ "test": "tail_ops",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "wall_s": 23.3,
+ "result": {
+  "event_sync": {
+   "pause": {
+    "lock": [
+     "OK",
+     0.0011
+    ],
+    "checkpoint": [
+     "OK",
+     0.1913
+    ],
+    "state": "checkpointed"
+   },
+   "ended_while_paused": false,
+   "resume": {
+    "restore": [
+     "OK",
+     0.174
+    ],
+    "unlock": [
+     "OK",
+     0.0011
+    ],
+    "state": "CUDA_ERROR_OPERATING_SYSTEM"
+   },
+   "rc_after_resume": 0,
+   "tail": [
+    "TAIL op=event_sync done after 7.68s"
+   ],
+   "stderr_tail": "lease install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.\n  import pynvml  # type: ignore[import]\n"
+  },
+  "memcpy": {
+   "pause": {
+    "lock": [
+     "OK",
+     0.0007
+    ],
+    "checkpoint": [
+     "OK",
+     0.1809
+    ],
+    "state": "checkpointed"
+   },
+   "ended_while_paused": false,
+   "resume": {
+    "restore": [
+     "OK",
+     0.1511
+    ],
+    "unlock": [
+     "OK",
+     0.001
+    ],
+    "state": "running"
+   },
+   "rc_after_resume": 0,
+   "tail": [
+    "TAIL op=memcpy done after 7.66s"
+   ],
+   "stderr_tail": "lease install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.\n  import pynvml  # type: ignore[import]\n"
+  }
+ }
+}
