@@ -1,0 +1,58 @@
+{
+ "test": "ipc",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "wall_s": 72.8,
+ "result": {
+  "before": {
+   "parent": 2498,
+   "child": 1474
+  },
+  "pause_child_importer": {
+   "lock": [
+    "OK",
+    0.0003
+   ],
+   "checkpoint": [
+    "CUDA_ERROR_OPERATING_SYSTEM",
+    31.9384
+   ],
+   "unlock_after_fail": [
+    "CUDA_ERROR_NOT_INITIALIZED",
+    0.0
+   ],
+   "state": "CUDA_ERROR_NOT_INITIALIZED"
+  },
+  "child_state": "CUDA_ERROR_NOT_INITIALIZED",
+  "pause_parent_exporter": {
+   "lock": [
+    "OK",
+    0.001
+   ],
+   "checkpoint": [
+    "CUDA_ERROR_OPERATING_SYSTEM",
+    34.5355
+   ],
+   "unlock_after_fail": [
+    "CUDA_ERROR_NOT_INITIALIZED",
+    0.0
+   ],
+   "state": "CUDA_ERROR_NOT_INITIALIZED"
+  },
+  "parent_state": "CUDA_ERROR_NOT_INITIALIZED",
+  "finish": {
+   "rc": -11,
+   "end": null
+  },
+  "child_distinct_sums": [
+   "67041656128"
+  ],
+  "parent_distinct_sums": [
+   "67041656128"
+  ],
+  "child_alive_at_end": false
+ }
+}
