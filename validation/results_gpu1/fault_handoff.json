@@ -1,0 +1,50 @@
+{
+ "test": "handoff",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "wall_s": 2.7,
+ "result": {
+  "controller1_pause_then_exit": {
+   "call": "pause",
+   "result": {
+    "lock": [
+     "OK",
+     0.0006
+    ],
+    "checkpoint": [
+     "OK",
+     0.6967
+    ],
+    "state": "checkpointed"
+   },
+   "wall_s": 0.733
+  },
+  "controller2_state": {
+   "call": "state",
+   "result": "checkpointed",
+   "wall_s": 0.028
+  },
+  "controller3_resume": {
+   "call": "resume",
+   "result": {
+    "restore": [
+     "OK",
+     0.3906
+    ],
+    "unlock": [
+     "OK",
+     0.0011
+    ],
+    "state": "running"
+   },
+   "wall_s": 0.425
+  },
+  "finish": {
+   "rc": 0,
+   "end": "END final=0x1.e6188049f2108p+15 ballast_ok=True ballast=093281091e940c297a21bef3bb6a6b72d9766b31"
+  }
+ }
+}
