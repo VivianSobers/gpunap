@@ -1,0 +1,42 @@
+{
+ "test": "sigint",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 580.178.04, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu2"
+ },
+ "wall_s": 32.7,
+ "result": {
+  "pause": {
+   "lock": [
+    "OK",
+    0.002
+   ],
+   "checkpoint": [
+    "OK",
+    4.4675
+   ],
+   "state": "checkpointed"
+  },
+  "memavail_paused": 101557,
+  "exited_while_paused": null,
+  "state_after_15s": "checkpointed",
+  "resume": {
+   "restore": [
+    "OK",
+    2.4024
+   ],
+   "unlock": [
+    "OK",
+    0.0025
+   ],
+   "state": "running"
+  },
+  "exit_after_resume": {
+   "rc": -2
+  },
+  "memavail_after_exit": 106813,
+  "gpu_mb_after_exit": "absent",
+  "out_tail": "Traceback (most recent call last):\n  File \"~/gpunap_validation/target.py\", line 295, in <module>\n    final = kinds[a.kind]()\n  File \"~/gpunap_validation/target.py\", line 237, in run_ballast\n    x = torch.tanh(x @ x.T / 32)\nKeyboardInterrupt\n"
+ }
+}
