@@ -1,0 +1,1041 @@
+{
+ "tag": "cudagraph_p20_s0",
+ "config": {
+  "kind": "cudagraph",
+  "pauses": 20,
+  "seed": 0,
+  "steps": 600,
+  "ballast_gb": 0.0,
+  "env": [],
+  "tag": null,
+  "hold": [
+   0.3,
+   1.5
+  ],
+  "early": false
+ },
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "python": "3.10.12",
+ "target_pid": 3300857,
+ "target_rc": 0,
+ "ref_deterministic": true,
+ "rows_identical_to_ref": true,
+ "end_identical_to_ref": true,
+ "all_pauses_ok": false,
+ "n_rows": 600,
+ "n_ref_rows": 600,
+ "end_paused": "END final=14c9b1a47ea0abae1b45912bd7441cb28a194c6c ballast_ok=True ballast=none",
+ "end_ref": "END final=14c9b1a47ea0abae1b45912bd7441cb28a194c6c ballast_ok=True ballast=none",
+ "median_step_s_before_first_pause": 0.0011,
+ "median_step_s_after_last_resume": 0.0007,
+ "events": [
+  {
+   "i": 0,
+   "at_line": 49,
+   "hold_s": 0.838,
+   "gpu_mb_before": 708,
+   "memavail_before": 106594,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 749,
+    "RssAnon": 401,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0013
+    ],
+    "checkpoint": [
+     "OK",
+     0.2791
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 106248,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1405,
+    "RssAnon": 1120,
+    "RssFile": 267,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.1879
+    ],
+    "unlock": [
+     "OK",
+     0.0011
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 708,
+   "memavail_after": 107318
+  },
+  {
+   "i": 1,
+   "at_line": 93,
+   "hold_s": 0.354,
+   "gpu_mb_before": 708,
+   "memavail_before": 107215,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 749,
+    "RssAnon": 401,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0007
+    ],
+    "checkpoint": [
+     "OK",
+     0.2846
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 107084,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1405,
+    "RssAnon": 1120,
+    "RssFile": 267,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.1868
+    ],
+    "unlock": [
+     "OK",
+     0.0021
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 708,
+   "memavail_after": 107302
+  },
+  {
+   "i": 2,
+   "at_line": 158,
+   "hold_s": 1.193,
+   "gpu_mb_before": 708,
+   "memavail_before": 107302,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 749,
+    "RssAnon": 401,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0015
+    ],
+    "checkpoint": [
+     "OK",
+     0.2486
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 106509,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1405,
+    "RssAnon": 1120,
+    "RssFile": 267,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.2261
+    ],
+    "unlock": [
+     "OK",
+     0.0048
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 708,
+   "memavail_after": 106687
+  },
+  {
+   "i": 3,
+   "at_line": 195,
+   "hold_s": 0.521,
+   "gpu_mb_before": 708,
+   "memavail_before": 106679,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 749,
+    "RssAnon": 401,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0017
+    ],
+    "checkpoint": [
+     "OK",
+     0.2582
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 106059,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1405,
+    "RssAnon": 1120,
+    "RssFile": 267,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.2492
+    ],
+    "unlock": [
+     "OK",
+     0.0028
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 708,
+   "memavail_after": 106571
+  },
+  {
+   "i": 4,
+   "at_line": 211,
+   "hold_s": 1.003,
+   "gpu_mb_before": 708,
+   "memavail_before": 106563,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 749,
+    "RssAnon": 401,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0019
+    ],
+    "checkpoint": [
+     "OK",
+     0.3075
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 106635,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1405,
+    "RssAnon": 1120,
+    "RssFile": 267,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.2439
+    ],
+    "unlock": [
+     "OK",
+     0.0036
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 708,
+   "memavail_after": 106314
+  },
+  {
+   "i": 5,
+   "at_line": 226,
+   "hold_s": 0.45,
+   "gpu_mb_before": 708,
+   "memavail_before": 106306,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 749,
+    "RssAnon": 401,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0017
+    ],
+    "checkpoint": [
+     "OK",
+     0.2923
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 106074,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1405,
+    "RssAnon": 1120,
+    "RssFile": 267,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.2149
+    ],
+    "unlock": [
+     "OK",
+     0.006
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 708,
+   "memavail_after": 106775
+  },
+  {
+   "i": 6,
+   "at_line": 244,
+   "hold_s": 0.484,
+   "gpu_mb_before": 708,
+   "memavail_before": 106723,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 749,
+    "RssAnon": 401,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0033
+    ],
+    "checkpoint": [
+     "OK",
+     0.3428
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 106048,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1405,
+    "RssAnon": 1120,
+    "RssFile": 267,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.2581
+    ],
+    "unlock": [
+     "OK",
+     0.0096
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 708,
+   "memavail_after": 105757
+  },
+  {
+   "i": 7,
+   "at_line": 284,
+   "hold_s": 1.237,
+   "gpu_mb_before": 708,
+   "memavail_before": 105757,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 749,
+    "RssAnon": 401,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0011
+    ],
+    "checkpoint": [
+     "OK",
+     0.2722
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 105748,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1405,
+    "RssAnon": 1120,
+    "RssFile": 267,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.1968
+    ],
+    "unlock": [
+     "OK",
+     0.0016
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 708,
+   "memavail_after": 106929
+  },
+  {
+   "i": 8,
+   "at_line": 323,
+   "hold_s": 0.929,
+   "gpu_mb_before": 708,
+   "memavail_before": 106929,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 749,
+    "RssAnon": 401,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0004
+    ],
+    "checkpoint": [
+     "OK",
+     0.3194
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 106750,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1405,
+    "RssAnon": 1120,
+    "RssFile": 267,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.1936
+    ],
+    "unlock": [
+     "OK",
+     0.0023
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 708,
+   "memavail_after": 106167
+  },
+  {
+   "i": 9,
+   "at_line": 378,
+   "hold_s": 1.052,
+   "gpu_mb_before": 708,
+   "memavail_before": 106142,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 749,
+    "RssAnon": 401,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0007
+    ],
+    "checkpoint": [
+     "OK",
+     0.246
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 105607,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1405,
+    "RssAnon": 1120,
+    "RssFile": 267,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.2104
+    ],
+    "unlock": [
+     "OK",
+     0.0048
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 708,
+   "memavail_after": 105721
+  },
+  {
+   "i": 10,
+   "at_line": 405,
+   "hold_s": 0.3,
+   "gpu_mb_before": 708,
+   "memavail_before": 105705,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 749,
+    "RssAnon": 401,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0007
+    ],
+    "checkpoint": [
+     "OK",
+     0.2482
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 105077,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1405,
+    "RssAnon": 1120,
+    "RssFile": 267,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.2703
+    ],
+    "unlock": [
+     "OK",
+     0.0047
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 708,
+   "memavail_after": 105240
+  },
+  {
+   "i": 11,
+   "at_line": 421,
+   "hold_s": 0.777,
+   "gpu_mb_before": 708,
+   "memavail_before": 105255,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 749,
+    "RssAnon": 401,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.001
+    ],
+    "checkpoint": [
+     "OK",
+     0.2691
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 105962,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1405,
+    "RssAnon": 1120,
+    "RssFile": 267,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.2116
+    ],
+    "unlock": [
+     "OK",
+     0.0048
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 708,
+   "memavail_after": 106389
+  },
+  {
+   "i": 12,
+   "at_line": 435,
+   "hold_s": 0.511,
+   "gpu_mb_before": 708,
+   "memavail_before": 106389,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 749,
+    "RssAnon": 401,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0031
+    ],
+    "checkpoint": [
+     "OK",
+     0.3378
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 106348,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1405,
+    "RssAnon": 1120,
+    "RssFile": 267,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.2213
+    ],
+    "unlock": [
+     "OK",
+     0.0073
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 708,
+   "memavail_after": 106077
+  },
+  {
+   "i": 13,
+   "at_line": 451,
+   "hold_s": 0.433,
+   "gpu_mb_before": 708,
+   "memavail_before": 106076,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 749,
+    "RssAnon": 401,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0028
+    ],
+    "checkpoint": [
+     "OK",
+     0.254
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 105610,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1405,
+    "RssAnon": 1120,
+    "RssFile": 267,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.2315
+    ],
+    "unlock": [
+     "OK",
+     0.005
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 708,
+   "memavail_after": 105924
+  },
+  {
+   "i": 14,
+   "at_line": 473,
+   "hold_s": 1.365,
+   "gpu_mb_before": 708,
+   "memavail_before": 105929,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 749,
+    "RssAnon": 401,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0017
+    ],
+    "checkpoint": [
+     "OK",
+     0.2777
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 105757,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1405,
+    "RssAnon": 1120,
+    "RssFile": 267,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.2219
+    ],
+    "unlock": [
+     "OK",
+     0.0035
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 708,
+   "memavail_after": 106870
+  },
+  {
+   "i": 15,
+   "at_line": 514,
+   "hold_s": 1.272,
+   "gpu_mb_before": 708,
+   "memavail_before": 106847,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 749,
+    "RssAnon": 401,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0006
+    ],
+    "checkpoint": [
+     "OK",
+     0.2885
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 106622,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1405,
+    "RssAnon": 1120,
+    "RssFile": 267,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.1833
+    ],
+    "unlock": [
+     "OK",
+     0.002
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 708,
+   "memavail_after": 108611
+  },
+  {
+   "i": 16,
+   "at_line": 571,
+   "hold_s": 1.404,
+   "gpu_mb_before": 708,
+   "memavail_before": 108601,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 749,
+    "RssAnon": 401,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0006
+    ],
+    "checkpoint": [
+     "OK",
+     0.2744
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 107639,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1405,
+    "RssAnon": 1120,
+    "RssFile": 267,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.196
+    ],
+    "unlock": [
+     "OK",
+     0.0012
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 708,
+   "memavail_after": 106720
+  },
+  {
+   "i": 17,
+   "at_line": 600,
+   "hold_s": 0.578,
+   "gpu_mb_before": 708,
+   "memavail_before": 106672,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 883,
+    "RssAnon": 535,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0004
+    ],
+    "checkpoint": [
+     "OK",
+     0.272
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 106037,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1438,
+    "RssAnon": 1152,
+    "RssFile": 267,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.2366
+    ],
+    "unlock": [
+     "OK",
+     0.0029
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 708,
+   "memavail_after": 106443
+  },
+  {
+   "i": 18,
+   "at_line": 600,
+   "hold_s": 0.747,
+   "gpu_mb_before": 708,
+   "memavail_before": 106354,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 798,
+    "RssAnon": 449,
+    "RssFile": 330,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0007
+    ],
+    "checkpoint": [
+     "CUDA_ERROR_OPERATING_SYSTEM",
+     0.2653
+    ],
+    "unlock_after_fail": [
+     "CUDA_ERROR_NOT_INITIALIZED",
+     0.0
+    ],
+    "state": "CUDA_ERROR_NOT_INITIALIZED"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 106764,
+   "procmem_paused": {},
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.053,
+   "resume": {
+    "restore": [
+     "CUDA_ERROR_NOT_INITIALIZED",
+     0.0
+    ],
+    "state": "CUDA_ERROR_NOT_INITIALIZED"
+   },
+   "gpu_mb_after": 0,
+   "memavail_after": 108785
+  },
+  {
+   "i": 19,
+   "error": "target exited before pause point"
+  }
+ ],
+ "wall_s": 27.1
+}
