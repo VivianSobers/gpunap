@@ -1,0 +1,187 @@
+{
+ "test": "errors",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "wall_s": 2.9,
+ "result": {
+  "nonexistent_pid": {
+   "state": {
+    "call": "state",
+    "result": "CUDA_ERROR_OPERATING_SYSTEM",
+    "wall_s": 0.028
+   },
+   "lock": {
+    "call": "lock",
+    "result": [
+     "CUDA_ERROR_OPERATING_SYSTEM",
+     0.0
+    ],
+    "wall_s": 0.028
+   }
+  },
+  "non_cuda_pid": {
+   "state": {
+    "call": "state",
+    "result": "CUDA_ERROR_NOT_INITIALIZED",
+    "wall_s": 0.03
+   },
+   "lock": {
+    "call": "lock",
+    "result": [
+     "CUDA_ERROR_NOT_INITIALIZED",
+     0.0
+    ],
+    "wall_s": 0.029
+   },
+   "checkpoint": {
+    "call": "checkpoint",
+    "result": [
+     "CUDA_ERROR_NOT_INITIALIZED",
+     0.0
+    ],
+    "wall_s": 0.029
+   }
+  },
+  "wrong_state_sequence": [
+   {
+    "op": [
+     "checkpoint"
+    ],
+    "state_before": "running",
+    "res": [
+     "CUDA_ERROR_ILLEGAL_STATE",
+     0.0002
+    ],
+    "state_after": "running"
+   },
+   {
+    "op": [
+     "restore"
+    ],
+    "state_before": "running",
+    "res": [
+     "CUDA_ERROR_ILLEGAL_STATE",
+     0.0002
+    ],
+    "state_after": "running"
+   },
+   {
+    "op": [
+     "unlock"
+    ],
+    "state_before": "running",
+    "res": [
+     "CUDA_ERROR_ILLEGAL_STATE",
+     0.0002
+    ],
+    "state_after": "running"
+   },
+   {
+    "op": [
+     "lock",
+     0
+    ],
+    "state_before": "running",
+    "res": [
+     "OK",
+     0.0004
+    ],
+    "state_after": "locked"
+   },
+   {
+    "op": [
+     "lock",
+     1000
+    ],
+    "state_before": "locked",
+    "res": [
+     "CUDA_ERROR_ILLEGAL_STATE",
+     0.0001
+    ],
+    "state_after": "locked"
+   },
+   {
+    "op": [
+     "checkpoint"
+    ],
+    "state_before": "locked",
+    "res": [
+     "OK",
+     0.4792
+    ],
+    "state_after": "checkpointed"
+   },
+   {
+    "op": [
+     "checkpoint"
+    ],
+    "state_before": "checkpointed",
+    "res": [
+     "CUDA_ERROR_ILLEGAL_STATE",
+     0.0002
+    ],
+    "state_after": "checkpointed"
+   },
+   {
+    "op": [
+     "lock",
+     1000
+    ],
+    "state_before": "checkpointed",
+    "res": [
+     "CUDA_ERROR_ILLEGAL_STATE",
+     0.0003
+    ],
+    "state_after": "checkpointed"
+   },
+   {
+    "op": [
+     "unlock"
+    ],
+    "state_before": "checkpointed",
+    "res": [
+     "CUDA_ERROR_ILLEGAL_STATE",
+     0.0003
+    ],
+    "state_after": "checkpointed"
+   },
+   {
+    "op": [
+     "restore"
+    ],
+    "state_before": "checkpointed",
+    "res": [
+     "OK",
+     0.3252
+    ],
+    "state_after": "locked"
+   },
+   {
+    "op": [
+     "unlock"
+    ],
+    "state_before": "locked",
+    "res": [
+     "OK",
+     0.001
+    ],
+    "state_after": "running"
+   },
+   {
+    "op": [
+     "state"
+    ],
+    "state_before": "running",
+    "res": "running",
+    "state_after": "running"
+   }
+  ],
+  "finish": {
+   "rc": 0,
+   "end": "END final=0x1.5f6c4024f9084p+16 ballast_ok=True ballast=2c4c9c4d3f8f050aba2be89dd0f01149fa8387ad"
+  }
+ }
+}
