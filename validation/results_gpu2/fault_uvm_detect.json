@@ -1,0 +1,57 @@
+{
+ "test": "uvm_detect",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 580.178.04, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu2"
+ },
+ "wall_s": 91.3,
+ "result": {
+  "plain_torch": {
+   "n_uvm_maps": 1,
+   "sample": [
+    "206800000-206a00000 /dev/nvidia-uvm"
+   ],
+   "fds_uvm": 1,
+   "finish": {
+    "rc": 0,
+    "end": "END final=0x1.c7ae20127c842p+17 ballast_ok=True ballast=2c4c9c4d3f8f050aba2be89dd0f01149fa8387ad"
+   }
+  },
+  "pinned_loader": {
+   "n_uvm_maps": 1,
+   "sample": [
+    "206800000-206a00000 /dev/nvidia-uvm"
+   ],
+   "fds_uvm": 1,
+   "finish": {
+    "rc": "timeout",
+    "end": null
+   }
+  },
+  "driver_api_managed": {
+   "n_uvm_maps": 2,
+   "sample": [
+    "206800000-206a00000 /dev/nvidia-uvm",
+    "706982000000-706992000000 /dev/nvidia-uvm"
+   ],
+   "fds_uvm": 1,
+   "finish": {
+    "rc": 0,
+    "end": "END copy_rc=0 device_ok=True managed_ok=True"
+   }
+  },
+  "torch_ipc": {
+   "n_uvm_maps": 1,
+   "sample": [
+    "206800000-206a00000 /dev/nvidia-uvm"
+   ],
+   "fds_uvm": 1,
+   "child_n_uvm_maps": 0,
+   "finish": {
+    "rc": 0,
+    "end": "END expect=67041656128 child_rc=0"
+   }
+  }
+ }
+}
