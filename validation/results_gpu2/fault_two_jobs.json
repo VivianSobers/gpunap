@@ -1,0 +1,89 @@
+{
+ "test": "two_jobs",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 580.178.04, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu2"
+ },
+ "wall_s": 29.7,
+ "result": {
+  "pause_A": {
+   "lock": [
+    "OK",
+    0.0021
+   ],
+   "checkpoint": [
+    "OK",
+    4.4739
+   ],
+   "state": "checkpointed"
+  },
+  "pause_B": {
+   "lock": [
+    "OK",
+    0.0015
+   ],
+   "checkpoint": [
+    "OK",
+    3.8152
+   ],
+   "state": "checkpointed"
+  },
+  "gpu_both_paused": [
+   "absent",
+   "absent"
+  ],
+  "resume_A": {
+   "restore": [
+    "OK",
+    2.45
+   ],
+   "unlock": [
+    "OK",
+    0.0027
+   ],
+   "state": "running"
+  },
+  "pause_A_again": {
+   "lock": [
+    "OK",
+    0.0013
+   ],
+   "checkpoint": [
+    "OK",
+    4.4318
+   ],
+   "state": "checkpointed"
+  },
+  "resume_B": {
+   "restore": [
+    "OK",
+    1.6203
+   ],
+   "unlock": [
+    "OK",
+    0.0029
+   ],
+   "state": "running"
+  },
+  "resume_A_2": {
+   "restore": [
+    "OK",
+    2.3244
+   ],
+   "unlock": [
+    "OK",
+    0.0027
+   ],
+   "state": "running"
+  },
+  "finish_A": {
+   "rc": 0,
+   "end": "END final=0x1.e6188049f2108p+15 ballast_ok=True ballast=08c3a99dc01dcdc5140ec334509568a90f22db0c"
+  },
+  "finish_B": {
+   "rc": 0,
+   "end": "END final=0x1.c1d1c4024f908p+20 ballast_ok=True ballast=08c3a99dc01dcdc5140ec334509568a90f22db0c"
+  }
+ }
+}
