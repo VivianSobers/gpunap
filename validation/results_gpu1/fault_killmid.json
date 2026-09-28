@@ -1,0 +1,34 @@
+{
+ "test": "killmid",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "wall_s": 4.9,
+ "result": {
+  "target_gpu_mb": 16996,
+  "memavail_before": 115098,
+  "pause_result": {
+   "lock": [
+    "OK",
+    0.0007
+   ],
+   "checkpoint": [
+    "CUDA_ERROR_OPERATING_SYSTEM",
+    0.3289
+   ],
+   "unlock_after_fail": [
+    "CUDA_ERROR_NOT_INITIALIZED",
+    0.0
+   ],
+   "state": "CUDA_ERROR_NOT_INITIALIZED"
+  },
+  "memavail_after": 115649,
+  "gpu_mb_after": "absent",
+  "gpu_used_free_after": [
+   663,
+   23411
+  ]
+ }
+}
