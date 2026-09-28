@@ -1,0 +1,58 @@
+{
+ "test": "exit_while_paused",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "wall_s": 18.7,
+ "result": {
+  "cpu_only_tail": {
+   "pause": {
+    "lock": [
+     "OK",
+     0.0006
+    ],
+    "checkpoint": [
+     "OK",
+     0.1933
+    ],
+    "state": "checkpointed"
+   },
+   "exited_while_paused": true,
+   "rc": -11,
+   "after_s": 3.62,
+   "memavail_delta_mb": 184,
+   "log_tail": "1.2100000000000p+12 1790527329.1329\n26 0x1.2100000000000p+12 1790527329.1330\n27 0x1.2100000000000p+12 1790527329.1331\n28 0x1.2100000000000p+12 1790527329.1333\n29 0x1.2100000000000p+12 1790527329.1334\n"
+  },
+  "cuda_call_in_tail": {
+   "pause": {
+    "lock": [
+     "OK",
+     0.0009
+    ],
+    "checkpoint": [
+     "OK",
+     0.1915
+    ],
+    "state": "checkpointed"
+   },
+   "exited_while_paused": false,
+   "state_after_10s": "checkpointed",
+   "resume": {
+    "restore": [
+     "OK",
+     0.1752
+    ],
+    "unlock": [
+     "OK",
+     0.0013
+    ],
+    "state": "running"
+   },
+   "rc_after_resume": 0,
+   "memavail_delta_mb": 425,
+   "log_tail": "2100000000000p+12 1790527335.0994\n28 0x1.2100000000000p+12 1790527335.0995\n29 0x1.2100000000000p+12 1790527335.0996\nTAIL cuda_value=4624.0 t=1790527345.778\nEND final=tail ballast_ok=True ballast=none\n"
+  }
+ }
+}
