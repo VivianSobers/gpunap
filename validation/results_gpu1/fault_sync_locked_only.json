@@ -1,0 +1,37 @@
+{
+ "test": "sync_locked_only",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "wall_s": 14.4,
+ "result": {
+  "sync": {
+   "lock": [
+    "OK",
+    0.0007
+   ],
+   "alive_after_6s_locked": false,
+   "state": null,
+   "unlock": null,
+   "rc": 0,
+   "tail": [
+    "TAIL op=sync done after 0.00s at 1790528677.663"
+   ]
+  },
+  "stream_sync": {
+   "lock": [
+    "OK",
+    0.0009
+   ],
+   "alive_after_6s_locked": false,
+   "state": null,
+   "unlock": null,
+   "rc": 0,
+   "tail": [
+    "TAIL op=stream_sync done after 0.00s at 1790528684.848"
+   ]
+  }
+ }
+}
