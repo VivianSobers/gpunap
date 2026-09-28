@@ -1,0 +1,30 @@
+{
+ "test": "sigkill",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "wall_s": 4.8,
+ "result": {
+  "pause": {
+   "lock": [
+    "OK",
+    0.0005
+   ],
+   "checkpoint": [
+    "OK",
+    1.2337
+   ],
+   "state": "checkpointed"
+  },
+  "memavail_paused": 110440,
+  "exited_while_paused": {
+   "rc": -9,
+   "after_s": 0.26
+  },
+  "memavail_after_exit": 115202,
+  "gpu_mb_after_exit": "absent",
+  "out_tail": "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.\n  import pynvml  # type: ignore[import]\n"
+ }
+}
