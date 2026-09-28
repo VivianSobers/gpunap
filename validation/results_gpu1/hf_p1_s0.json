@@ -1,0 +1,91 @@
+{
+ "tag": "hf_p1_s0",
+ "config": {
+  "kind": "hf",
+  "pauses": 1,
+  "seed": 0,
+  "steps": 40,
+  "ballast_gb": 0.0,
+  "env": [],
+  "tag": null,
+  "hold": [
+   0.3,
+   1.5
+  ],
+  "early": false
+ },
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "python": "3.10.12",
+ "target_pid": 3304970,
+ "target_rc": 0,
+ "ref_deterministic": true,
+ "rows_identical_to_ref": true,
+ "end_identical_to_ref": true,
+ "all_pauses_ok": true,
+ "n_rows": 40,
+ "n_ref_rows": 40,
+ "end_paused": "END final=5c2cf1a237a434faf504b989ddf74701e28e66e0 ballast_ok=True ballast=none",
+ "end_ref": "END final=5c2cf1a237a434faf504b989ddf74701e28e66e0 ballast_ok=True ballast=none",
+ "median_step_s_before_first_pause": 0.6915,
+ "median_step_s_after_last_resume": 0.6383,
+ "events": [
+  {
+   "i": 0,
+   "at_line": 6,
+   "hold_s": 1.213,
+   "gpu_mb_before": 3820,
+   "memavail_before": 108764,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1625,
+    "RssAnon": 1102,
+    "RssFile": 505,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0006
+    ],
+    "checkpoint": [
+     "OK",
+     1.0458
+    ],
+    "state": "checkpointed"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 104961,
+   "procmem_paused": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 5393,
+    "RssAnon": 4932,
+    "RssFile": 443,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.0,
+   "resume": {
+    "restore": [
+     "OK",
+     0.6816
+    ],
+    "unlock": [
+     "OK",
+     0.001
+    ],
+    "state": "running"
+   },
+   "gpu_mb_after": 3820,
+   "memavail_after": 108427
+  }
+ ],
+ "wall_s": 97.4
+}
