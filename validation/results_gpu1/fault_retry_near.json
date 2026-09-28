@@ -1,0 +1,80 @@
+{
+ "test": "retry_near",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "wall_s": 39.3,
+ "result": {
+  "target_gpu_mb": 4708,
+  "used_before_pause": 5377,
+  "pause": {
+   "lock": [
+    "OK",
+    0.0005
+   ],
+   "checkpoint": [
+    "OK",
+    1.2207
+   ],
+   "state": "checkpointed"
+  },
+  "used_after_pause": 664,
+  "hog": {
+   "hog_mb": 18583,
+   "free_after_hog": 4374
+  },
+  "restore_1": [
+   "CUDA_ERROR_OUT_OF_MEMORY",
+   0.0066
+  ],
+  "used_delta_from_failed_restore_mb": 4200,
+  "state_1": "checkpointed",
+  "used_after_hog_killed": 4864,
+  "attempts": [
+   {
+    "t": 0.0,
+    "state": "checkpointed",
+    "restore": [
+     "CUDA_ERROR_OPERATING_SYSTEM",
+     0.0019
+    ],
+    "state_after": "checkpointed"
+   },
+   {
+    "t": 10.0,
+    "state": "checkpointed",
+    "restore": [
+     "CUDA_ERROR_OPERATING_SYSTEM",
+     0.0021
+    ],
+    "state_after": "checkpointed"
+   },
+   {
+    "t": 30.0,
+    "state": "checkpointed",
+    "restore": [
+     "CUDA_ERROR_OPERATING_SYSTEM",
+     0.0019
+    ],
+    "state_after": "checkpointed"
+   }
+  ],
+  "try_checkpoint_again": [
+   "CUDA_ERROR_ILLEGAL_STATE",
+   0.0001
+  ],
+  "try_unlock": [
+   "CUDA_ERROR_ILLEGAL_STATE",
+   0.0001
+  ],
+  "try_restore_last": [
+   "CUDA_ERROR_OPERATING_SYSTEM",
+   0.0017
+  ],
+  "state_final": "checkpointed",
+  "killed_target": true,
+  "used_at_end": 664
+ }
+}
