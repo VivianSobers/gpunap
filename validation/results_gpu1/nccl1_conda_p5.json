@@ -1,0 +1,98 @@
+{
+ "tag": "nccl1_conda_p5",
+ "config": {
+  "kind": "nccl1",
+  "pauses": 5,
+  "seed": 0,
+  "steps": 600,
+  "ballast_gb": 0.0,
+  "env": [],
+  "tag": "nccl1_conda_p5",
+  "hold": [
+   0.3,
+   1.5
+  ],
+  "early": false
+ },
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "python": "3.13.12",
+ "target_pid": 3344491,
+ "target_rc": -6,
+ "ref_deterministic": true,
+ "rows_identical_to_ref": false,
+ "end_identical_to_ref": false,
+ "all_pauses_ok": false,
+ "n_rows": 314,
+ "n_ref_rows": 600,
+ "end_paused": null,
+ "end_ref": "END final=73b2c3e1aeca165142df538fe5a2a6287eb1a42b ballast_ok=True ballast=none",
+ "median_step_s_before_first_pause": 0.0003,
+ "median_step_s_after_last_resume": null,
+ "events": [
+  {
+   "i": 0,
+   "at_line": 262,
+   "hold_s": 0.793,
+   "gpu_mb_before": 1082,
+   "memavail_before": 116591,
+   "procmem_before": {
+    "VmLck": 0,
+    "VmPin": 0,
+    "VmRSS": 1207,
+    "RssAnon": 796,
+    "RssFile": 392,
+    "RssShmem": 18,
+    "VmSwap": 0
+   },
+   "pause": {
+    "lock": [
+     "OK",
+     0.0005
+    ],
+    "checkpoint": [
+     "CUDA_ERROR_OPERATING_SYSTEM",
+     0.4004
+    ],
+    "unlock_after_fail": [
+     "CUDA_ERROR_NOT_INITIALIZED",
+     0.0
+    ],
+    "state": "CUDA_ERROR_NOT_INITIALIZED"
+   },
+   "gpu_mb_paused": "absent",
+   "memavail_paused": 116950,
+   "procmem_paused": {},
+   "lines_during_pause": 0,
+   "cpu_s_per_s_paused": 0.025,
+   "resume": {
+    "restore": [
+     "CUDA_ERROR_NOT_INITIALIZED",
+     0.0
+    ],
+    "state": "CUDA_ERROR_NOT_INITIALIZED"
+   },
+   "gpu_mb_after": 0,
+   "memavail_after": 116978
+  },
+  {
+   "i": 1,
+   "error": "target exited before pause point"
+  }
+ ],
+ "wall_s": 2.8,
+ "first_diff": [
+  2,
+  [
+   "2",
+   "0x1.0fdbac0000000p+0"
+  ],
+  [
+   "2",
+   "0x1.0fdbaa0000000p+0"
+  ]
+ ]
+}
