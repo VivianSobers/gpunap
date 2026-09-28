@@ -1,0 +1,50 @@
+{
+ "test": "short_near",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 580.178.04, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu2"
+ },
+ "wall_s": 145.9,
+ "result": {
+  "target_gpu_mb": 8804,
+  "pause": {
+   "lock": [
+    "OK",
+    0.0012
+   ],
+   "checkpoint": [
+    "OK",
+    8.0655
+   ],
+   "state": "checkpointed"
+  },
+  "free_after_pause": 23620,
+  "hog": {
+   "hog_mb": 14983,
+   "hog_ready": "READY",
+   "free_after_hog": 8183
+  },
+  "restore_1": [
+   "CUDA_ERROR_OUT_OF_MEMORY",
+   0.0168
+  ],
+  "state_after_restore_1": "checkpointed",
+  "target_alive_after_1": true,
+  "gpu_mb_target_after_1": "absent",
+  "state_3s_later": "checkpointed",
+  "free_after_hog_killed": 15516,
+  "resume_2": {
+   "restore": [
+    "CUDA_ERROR_OPERATING_SYSTEM",
+    0.0041
+   ],
+   "state": "checkpointed"
+  },
+  "state_final": "checkpointed",
+  "finish": {
+   "rc": "timeout",
+   "end": null
+  }
+ }
+}
