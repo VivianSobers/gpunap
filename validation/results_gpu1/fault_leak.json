@@ -1,0 +1,468 @@
+{
+ "test": "leak",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "wall_s": 84.5,
+ "result": {
+  "rows": [
+   {
+    "i": 0,
+    "ok": true,
+    "ckpt_s": 0.7483,
+    "restore_s": 0.4907,
+    "memavail": 114514,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 1,
+    "ok": true,
+    "ckpt_s": 0.746,
+    "restore_s": 0.4935,
+    "memavail": 114144,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 2,
+    "ok": true,
+    "ckpt_s": 0.7643,
+    "restore_s": 0.4889,
+    "memavail": 114559,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 3,
+    "ok": true,
+    "ckpt_s": 0.7442,
+    "restore_s": 0.4943,
+    "memavail": 114584,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 4,
+    "ok": true,
+    "ckpt_s": 0.7444,
+    "restore_s": 0.4925,
+    "memavail": 114578,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 5,
+    "ok": true,
+    "ckpt_s": 0.7539,
+    "restore_s": 0.4999,
+    "memavail": 114792,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 6,
+    "ok": true,
+    "ckpt_s": 0.7423,
+    "restore_s": 0.489,
+    "memavail": 114658,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 7,
+    "ok": true,
+    "ckpt_s": 0.7495,
+    "restore_s": 0.4913,
+    "memavail": 114662,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 8,
+    "ok": true,
+    "ckpt_s": 0.7688,
+    "restore_s": 0.4926,
+    "memavail": 114308,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 9,
+    "ok": true,
+    "ckpt_s": 0.745,
+    "restore_s": 0.4895,
+    "memavail": 114363,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 10,
+    "ok": true,
+    "ckpt_s": 0.7481,
+    "restore_s": 0.5034,
+    "memavail": 114382,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 11,
+    "ok": true,
+    "ckpt_s": 0.7501,
+    "restore_s": 0.4958,
+    "memavail": 114268,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 12,
+    "ok": true,
+    "ckpt_s": 0.7377,
+    "restore_s": 0.4937,
+    "memavail": 114315,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 13,
+    "ok": true,
+    "ckpt_s": 0.7426,
+    "restore_s": 0.485,
+    "memavail": 114257,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 14,
+    "ok": true,
+    "ckpt_s": 0.7561,
+    "restore_s": 0.4872,
+    "memavail": 114214,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 15,
+    "ok": true,
+    "ckpt_s": 0.7374,
+    "restore_s": 0.4878,
+    "memavail": 114583,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 16,
+    "ok": true,
+    "ckpt_s": 0.7472,
+    "restore_s": 0.5143,
+    "memavail": 114349,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 17,
+    "ok": true,
+    "ckpt_s": 0.7449,
+    "restore_s": 0.4851,
+    "memavail": 114342,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 18,
+    "ok": true,
+    "ckpt_s": 0.7485,
+    "restore_s": 0.4879,
+    "memavail": 114375,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 19,
+    "ok": true,
+    "ckpt_s": 0.7456,
+    "restore_s": 0.4858,
+    "memavail": 114436,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 20,
+    "ok": true,
+    "ckpt_s": 0.7467,
+    "restore_s": 0.4866,
+    "memavail": 114449,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 21,
+    "ok": true,
+    "ckpt_s": 0.7381,
+    "restore_s": 0.495,
+    "memavail": 114638,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 22,
+    "ok": true,
+    "ckpt_s": 0.738,
+    "restore_s": 0.4703,
+    "memavail": 115108,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 23,
+    "ok": true,
+    "ckpt_s": 0.7569,
+    "restore_s": 0.4893,
+    "memavail": 114735,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 24,
+    "ok": true,
+    "ckpt_s": 0.7395,
+    "restore_s": 0.4856,
+    "memavail": 114419,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 25,
+    "ok": true,
+    "ckpt_s": 0.7513,
+    "restore_s": 0.4885,
+    "memavail": 114449,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 26,
+    "ok": true,
+    "ckpt_s": 0.7758,
+    "restore_s": 0.4927,
+    "memavail": 114394,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 27,
+    "ok": true,
+    "ckpt_s": 0.7465,
+    "restore_s": 0.4928,
+    "memavail": 114401,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 28,
+    "ok": true,
+    "ckpt_s": 0.7433,
+    "restore_s": 0.4892,
+    "memavail": 114449,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 29,
+    "ok": true,
+    "ckpt_s": 0.7365,
+    "restore_s": 0.4906,
+    "memavail": 114502,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 30,
+    "ok": true,
+    "ckpt_s": 0.7452,
+    "restore_s": 0.4846,
+    "memavail": 114805,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 31,
+    "ok": true,
+    "ckpt_s": 0.7418,
+    "restore_s": 0.4881,
+    "memavail": 114568,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 32,
+    "ok": true,
+    "ckpt_s": 0.7772,
+    "restore_s": 0.4893,
+    "memavail": 114520,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 33,
+    "ok": true,
+    "ckpt_s": 0.7379,
+    "restore_s": 0.484,
+    "memavail": 114251,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 34,
+    "ok": true,
+    "ckpt_s": 0.7388,
+    "restore_s": 0.4831,
+    "memavail": 114318,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 35,
+    "ok": true,
+    "ckpt_s": 0.7516,
+    "restore_s": 0.4866,
+    "memavail": 114308,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 36,
+    "ok": true,
+    "ckpt_s": 0.7345,
+    "restore_s": 0.4983,
+    "memavail": 114307,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 37,
+    "ok": true,
+    "ckpt_s": 0.749,
+    "restore_s": 0.493,
+    "memavail": 114241,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 38,
+    "ok": true,
+    "ckpt_s": 0.7469,
+    "restore_s": 0.4861,
+    "memavail": 114456,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 39,
+    "ok": true,
+    "ckpt_s": 0.7542,
+    "restore_s": 0.4892,
+    "memavail": 114325,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 40,
+    "ok": true,
+    "ckpt_s": 0.7384,
+    "restore_s": 0.4858,
+    "memavail": 114128,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 41,
+    "ok": true,
+    "ckpt_s": 0.739,
+    "restore_s": 0.4891,
+    "memavail": 114132,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 42,
+    "ok": true,
+    "ckpt_s": 0.7418,
+    "restore_s": 0.492,
+    "memavail": 114544,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 43,
+    "ok": true,
+    "ckpt_s": 0.7382,
+    "restore_s": 0.4858,
+    "memavail": 114427,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 44,
+    "ok": true,
+    "ckpt_s": 0.7591,
+    "restore_s": 0.4969,
+    "memavail": 114358,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 45,
+    "ok": true,
+    "ckpt_s": 0.7399,
+    "restore_s": 0.5016,
+    "memavail": 114763,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 46,
+    "ok": true,
+    "ckpt_s": 0.7458,
+    "restore_s": 0.49,
+    "memavail": 114679,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 47,
+    "ok": true,
+    "ckpt_s": 0.7373,
+    "restore_s": 0.4863,
+    "memavail": 114717,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 48,
+    "ok": true,
+    "ckpt_s": 0.7462,
+    "restore_s": 0.4842,
+    "memavail": 114350,
+    "rss": 803,
+    "gpu": 2660
+   },
+   {
+    "i": 49,
+    "ok": true,
+    "ckpt_s": 0.7449,
+    "restore_s": 0.5092,
+    "memavail": 114294,
+    "rss": 803,
+    "gpu": 2660
+   }
+  ],
+  "all_ok": true,
+  "finish": {
+   "rc": 0,
+   "end": "END final=0x1.3cea620127c84p+21 ballast_ok=True ballast=093281091e940c297a21bef3bb6a6b72d9766b31"
+  }
+ }
+}
