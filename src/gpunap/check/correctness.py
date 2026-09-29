@@ -18,6 +18,9 @@ from gpunap.check import base
 
 STEPS, PAUSES, SEED, MARGIN = 300, 20, 0, 10
 WAIT_S = (0.3, 1.5)
+# Slow enough that a pause lands within a few steps of its chosen step: starting a worker and
+# locking takes about 0.3 s.
+STEP_SLEEP_S = 0.05
 RUN_LIMIT_S = 600
 
 
@@ -97,7 +100,8 @@ def _last_step(s: base.Session) -> Optional[int]:
 
 
 def run_train(ctx: base.Context, plan: List[Tuple[int, float]]) -> Dict:
-    t, s = base.start_target(ctx, "torch_train", "--steps", STEPS, "--seed", SEED)
+    t, s = base.start_target(ctx, "torch_train", "--steps", STEPS, "--seed", SEED,
+                                "--step-sleep", STEP_SLEEP_S)
     pauses = []
     for at, wait in plan:
         if s.wait_for(f"STEP {at} ", RUN_LIMIT_S) is None:
@@ -130,7 +134,7 @@ def run(ctx: base.Context) -> results.CheckResult:
     except base.NotReady as e:
         return base.not_ready_result("correctness", e, time.time() - t0)
     v, summary = verdict(refs, paused)
-    data = {"steps": STEPS, "seed": SEED, "schedule": plan, "wait_s": WAIT_S,
+    data = {"steps": STEPS, "seed": SEED, "step_sleep_s": STEP_SLEEP_S, "schedule": plan, "wait_s": WAIT_S,
             "references": [{k: r[k] for k in ("rc", "end", "tail")} for r in refs],
             "paused": {k: paused[k] for k in ("rc", "end", "tail", "pauses")}}
     return base.result("correctness", v, summary, data, t0)
