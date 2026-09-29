@@ -1,0 +1,2150 @@
+{
+ "gpunap": "0.1.0",
+ "header": {
+  "label": "gpu1",
+  "token": "gpunap-cf42028335b5",
+  "full": false,
+  "started": 1790700499.3754725,
+  "checks": [
+   "api",
+   "roundtrip",
+   "errors",
+   "sync_first_call",
+   "managed_memory",
+   "sigstop",
+   "exit_while_paused",
+   "child_context",
+   "cgroup",
+   "nccl_single_gpu",
+   "ipc_shared_memory",
+   "restore_oom",
+   "size_sweep",
+   "controller_death",
+   "correctness"
+  ],
+  "system": {
+   "gpu": "NVIDIA GeForce RTX 4090",
+   "gpu_count": 1,
+   "driver": "595.84",
+   "cuda_driver_api_version": 13020,
+   "kernel_module": "proprietary",
+   "gpu_memory_mb": {
+    "used": 698,
+    "free": 23377,
+    "total": 24564
+   },
+   "pcie_idle": {
+    "pcie.link.gen.current": 1,
+    "pcie.link.gen.max": 4,
+    "pcie.link.width.current": 16,
+    "pcie.link.width.max": 16
+   },
+   "kernel_release": "6.8.0-138-generic",
+   "memory_mb": {
+    "MemTotal": 128498,
+    "MemAvailable": 117875,
+    "SwapTotal": 0
+   },
+   "python": "3.10.12",
+   "packages": {
+    "torch": "2.8.0",
+    "nvidia-nccl-cu12": "2.27.3",
+    "nvidia-nccl-cu13": null
+   }
+  },
+  "available": [
+   "libcuda",
+   "systemd-run",
+   "torch"
+  ],
+  "other_gpu_processes": {
+   "count": 1,
+   "mb": 392
+  },
+  "idle_other_mb_allowed": 1024,
+  "gpu_memory_used_mb_before": 698,
+  "reconciled": [],
+  "ended": 1790700706.8684576,
+  "gpu_memory_used_mb_after": 762,
+  "other_gpu_processes_after": {
+   "count": 1,
+   "mb": 392
+  }
+ },
+ "partial": false,
+ "counts": {
+  "ok": 5,
+  "hazard": 6,
+  "skipped": 4,
+  "invalid": 0,
+  "error": 0
+ },
+ "results": [
+  {
+   "name": "api",
+   "verdict": "ok",
+   "summary": "all 5 checkpoint functions present, driver 595.84, proprietary kernel module",
+   "data": {
+    "functions": [
+     "cuCheckpointProcessLock",
+     "cuCheckpointProcessCheckpoint",
+     "cuCheckpointProcessRestore",
+     "cuCheckpointProcessUnlock",
+     "cuCheckpointProcessGetState"
+    ],
+    "missing": [],
+    "cuInit": "OK",
+    "cuda_driver_api_version": 13020,
+    "driver": "595.84",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "kernel_module": "proprietary"
+   },
+   "seconds": 0.02
+  },
+  {
+   "name": "roundtrip",
+   "verdict": "ok",
+   "summary": "3 cycles on 256 MB, data intact; checkpoint 0.22-0.23 s, restore 0.17-0.18 s",
+   "data": {
+    "mb": 256,
+    "cycles": [
+     {
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700499.6376023,
+         "end": 1790700499.6457412,
+         "seconds": 0.0081
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700499.6457467,
+         "end": 1790700499.8654385,
+         "seconds": 0.2197
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700499.6376023,
+       "end": 1790700499.8654385,
+       "hung": false,
+       "wall_s": 0.26
+      },
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700500.406787,
+         "end": 1790700500.5790792,
+         "seconds": 0.1723
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700500.5791156,
+         "end": 1790700500.5801132,
+         "seconds": 0.001
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700500.406787,
+       "end": 1790700500.5801132,
+       "hung": false,
+       "wall_s": 0.212
+      },
+      "verify": "ok"
+     },
+     {
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700500.6116261,
+         "end": 1790700500.6195068,
+         "seconds": 0.0079
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700500.6195152,
+         "end": 1790700500.848205,
+         "seconds": 0.2287
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700500.6116261,
+       "end": 1790700500.848205,
+       "hung": false,
+       "wall_s": 0.269
+      },
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700501.3797855,
+         "end": 1790700501.5604906,
+         "seconds": 0.1807
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700501.5605195,
+         "end": 1790700501.561564,
+         "seconds": 0.001
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700501.3797855,
+       "end": 1790700501.561564,
+       "hung": false,
+       "wall_s": 0.21
+      },
+      "verify": "ok"
+     },
+     {
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700501.5924325,
+         "end": 1790700501.60029,
+         "seconds": 0.0079
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700501.6002958,
+         "end": 1790700501.8178756,
+         "seconds": 0.2176
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700501.5924325,
+       "end": 1790700501.8178756,
+       "hung": false,
+       "wall_s": 0.255
+      },
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700502.3486016,
+         "end": 1790700502.5204,
+         "seconds": 0.1718
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700502.5204177,
+         "end": 1790700502.5214593,
+         "seconds": 0.001
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700502.3486016,
+       "end": 1790700502.5214593,
+       "hung": false,
+       "wall_s": 0.206
+      },
+      "verify": "ok"
+     }
+    ],
+    "target_rc": 0
+   },
+   "seconds": 3.08
+  },
+  {
+   "name": "errors",
+   "verdict": "ok",
+   "summary": "wrong-state, missing-PID and no-CUDA calls all failed without effect: CUDA_ERROR_ILLEGAL_STATE, CUDA_ERROR_NOT_INITIALIZED, CUDA_ERROR_OPERATING_SYSTEM",
+   "data": {
+    "sequence": [
+     {
+      "op": "checkpoint",
+      "should_work": false,
+      "result": "CUDA_ERROR_ILLEGAL_STATE"
+     },
+     {
+      "op": "restore",
+      "should_work": false,
+      "result": "CUDA_ERROR_ILLEGAL_STATE"
+     },
+     {
+      "op": "unlock",
+      "should_work": false,
+      "result": "CUDA_ERROR_ILLEGAL_STATE"
+     },
+     {
+      "op": "lock",
+      "should_work": true,
+      "result": "OK"
+     },
+     {
+      "op": "lock",
+      "should_work": false,
+      "result": "CUDA_ERROR_ILLEGAL_STATE"
+     },
+     {
+      "op": "checkpoint",
+      "should_work": true,
+      "result": "OK"
+     },
+     {
+      "op": "checkpoint",
+      "should_work": false,
+      "result": "CUDA_ERROR_ILLEGAL_STATE"
+     },
+     {
+      "op": "unlock",
+      "should_work": false,
+      "result": "CUDA_ERROR_ILLEGAL_STATE"
+     },
+     {
+      "op": "restore",
+      "should_work": true,
+      "result": "OK"
+     },
+     {
+      "op": "unlock",
+      "should_work": true,
+      "result": "OK"
+     }
+    ],
+    "others": {
+     "missing_pid_state": "CUDA_ERROR_OPERATING_SYSTEM",
+     "missing_pid_lock": "CUDA_ERROR_OPERATING_SYSTEM",
+     "no_cuda_state": "CUDA_ERROR_NOT_INITIALIZED",
+     "no_cuda_lock": "CUDA_ERROR_NOT_INITIALIZED",
+     "no_cuda_checkpoint": "CUDA_ERROR_NOT_INITIALIZED"
+    },
+    "final_state": "running",
+    "verify": "ok",
+    "target_rc": 0,
+    "missing_pid": 4194303,
+    "cleanup": [
+     {
+      "pid": 3095832,
+      "kind": "no_cuda",
+      "sigcont": null,
+      "state": "CUDA_ERROR_NOT_INITIALIZED",
+      "steps": [
+       "sigkill"
+      ],
+      "calls": [],
+      "sigkill": null
+     }
+    ]
+   },
+   "seconds": 1.08
+  },
+  {
+   "name": "sync_first_call",
+   "verdict": "hazard",
+   "summary": "driver ctx_sync: crash: SIGSEGV 2/2; driver event_sync: waited for resume 2/2; driver guarded_ctx_sync: waited for resume 2/2; driver memcpy: waited for resume 2/2; driver stream_sync: crash: SIGSEGV 2/2; torch ctx_sync: crash: SIGSEGV 2/2; torch event_sync: waited for resume 2/2; torch guarded_ctx_sync: waited for resume 2/2; torch memcpy: waited for resume 2/2; torch stream_sync: crash: SIGSEGV 2/2",
+   "data": {
+    "repeats": 2,
+    "apis": [
+     "driver",
+     "torch"
+    ],
+    "notes": [],
+    "sleep_s": 3.0,
+    "pause_at_s": 0.5,
+    "runs": [
+     {
+      "api": "driver",
+      "op": "ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700504.389331,
+         "end": 1790700504.397664,
+         "seconds": 0.0083
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700504.3976688,
+         "end": 1790700504.574606,
+         "seconds": 0.1769
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700504.389331,
+       "end": 1790700504.574606,
+       "hung": false,
+       "wall_s": 0.217
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "READY 3095941",
+       "CALL 1790700506.8691"
+      ],
+      "call_after_checkpoint_s": 2.294,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "driver",
+      "op": "stream_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700508.5862763,
+         "end": 1790700508.595318,
+         "seconds": 0.009
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700508.595327,
+         "end": 1790700508.764536,
+         "seconds": 0.1692
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700508.5862763,
+       "end": 1790700508.764536,
+       "hung": false,
+       "wall_s": 0.21
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "READY 3096084",
+       "CALL 1790700511.0651"
+      ],
+      "call_after_checkpoint_s": 2.301,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "driver",
+      "op": "event_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700512.7801912,
+         "end": 1790700512.7886024,
+         "seconds": 0.0084
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700512.7886102,
+         "end": 1790700512.9550967,
+         "seconds": 0.1665
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700512.7801912,
+       "end": 1790700512.9550967,
+       "hung": false,
+       "wall_s": 0.206
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700518.9876437,
+         "end": 1790700519.2658489,
+         "seconds": 0.2782
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700519.2658737,
+         "end": 1790700519.2887387,
+         "seconds": 0.0229
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700518.9876437,
+       "end": 1790700519.2887387,
+       "hung": false,
+       "wall_s": 0.333
+      },
+      "rc": 0,
+      "output": [
+       "READY 3096217",
+       "CALL 1790700515.2595",
+       "DONE 1790700519.2887 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.304,
+      "label": "waited for resume"
+     },
+     {
+      "api": "driver",
+      "op": "memcpy",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700519.9831626,
+         "end": 1790700519.991753,
+         "seconds": 0.0086
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700519.9917607,
+         "end": 1790700520.1590993,
+         "seconds": 0.1673
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700519.9831626,
+       "end": 1790700520.1590993,
+       "hung": false,
+       "wall_s": 0.205
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700526.1882586,
+         "end": 1790700526.4667673,
+         "seconds": 0.2785
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700526.4667864,
+         "end": 1790700526.4920392,
+         "seconds": 0.0253
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700526.1882586,
+       "end": 1790700526.4920392,
+       "hung": false,
+       "wall_s": 0.335
+      },
+      "rc": 0,
+      "output": [
+       "READY 3096397",
+       "CALL 1790700522.4621",
+       "DONE 1790700526.4922 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.303,
+      "label": "waited for resume"
+     },
+     {
+      "api": "driver",
+      "op": "guarded_ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700527.1850412,
+         "end": 1790700527.1938503,
+         "seconds": 0.0088
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700527.1938584,
+         "end": 1790700527.3626091,
+         "seconds": 0.1688
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700527.1850412,
+       "end": 1790700527.3626091,
+       "hung": false,
+       "wall_s": 0.21
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700533.3927925,
+         "end": 1790700533.6747546,
+         "seconds": 0.282
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700533.674774,
+         "end": 1790700533.695761,
+         "seconds": 0.021
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700533.3927925,
+       "end": 1790700533.695761,
+       "hung": false,
+       "wall_s": 0.335
+      },
+      "rc": 0,
+      "output": [
+       "READY 3096576",
+       "CALL 1790700529.6612",
+       "DONE 1790700533.6958 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.299,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700535.1392703,
+         "end": 1790700535.1477602,
+         "seconds": 0.0085
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700535.147768,
+         "end": 1790700535.3310385,
+         "seconds": 0.1833
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700535.1392703,
+       "end": 1790700535.3310385,
+       "hung": false,
+       "wall_s": 0.224
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3096853",
+       "CALL 1790700537.6181"
+      ],
+      "call_after_checkpoint_s": 2.287,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "torch",
+      "op": "stream_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700540.1707928,
+         "end": 1790700540.1790588,
+         "seconds": 0.0083
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700540.1790657,
+         "end": 1790700540.3622277,
+         "seconds": 0.1832
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700540.1707928,
+       "end": 1790700540.3622277,
+       "hung": false,
+       "wall_s": 0.229
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3097014",
+       "CALL 1790700542.6439"
+      ],
+      "call_after_checkpoint_s": 2.282,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "torch",
+      "op": "event_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700545.170448,
+         "end": 1790700545.178861,
+         "seconds": 0.0084
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700545.1788685,
+         "end": 1790700545.3624368,
+         "seconds": 0.1836
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700545.170448,
+       "end": 1790700545.3624368,
+       "hung": false,
+       "wall_s": 0.224
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700551.3933651,
+         "end": 1790700551.6954088,
+         "seconds": 0.302
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700551.695429,
+         "end": 1790700551.7250824,
+         "seconds": 0.0297
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700551.3933651,
+       "end": 1790700551.7250824,
+       "hung": false,
+       "wall_s": 0.363
+      },
+      "rc": 0,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3097195",
+       "CALL 1790700547.6481",
+       "DONE 1790700551.7252 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.286,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "memcpy",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700553.1904397,
+         "end": 1790700553.199403,
+         "seconds": 0.009
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700553.1994135,
+         "end": 1790700553.3848875,
+         "seconds": 0.1855
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700553.1904397,
+       "end": 1790700553.3848875,
+       "hung": false,
+       "wall_s": 0.229
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700559.4201965,
+         "end": 1790700559.7208173,
+         "seconds": 0.3006
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700559.7208414,
+         "end": 1790700559.7318516,
+         "seconds": 0.011
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700559.4201965,
+       "end": 1790700559.7318516,
+       "hung": false,
+       "wall_s": 0.344
+      },
+      "rc": 0,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3097442",
+       "CALL 1790700555.6671",
+       "DONE 1790700559.7334 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.282,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "guarded_ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700561.167936,
+         "end": 1790700561.1769326,
+         "seconds": 0.009
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700561.1769402,
+         "end": 1790700561.3606212,
+         "seconds": 0.1837
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700561.167936,
+       "end": 1790700561.3606212,
+       "hung": false,
+       "wall_s": 0.226
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700567.3988407,
+         "end": 1790700567.7038019,
+         "seconds": 0.305
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700567.703822,
+         "end": 1790700567.719362,
+         "seconds": 0.0155
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700567.3988407,
+       "end": 1790700567.719362,
+       "hung": false,
+       "wall_s": 0.356
+      },
+      "rc": 0,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3097761",
+       "CALL 1790700563.6464",
+       "DONE 1790700567.7247 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.286,
+      "label": "waited for resume"
+     },
+     {
+      "api": "driver",
+      "op": "ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700568.4091432,
+         "end": 1790700568.417265,
+         "seconds": 0.0081
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700568.417273,
+         "end": 1790700568.5869164,
+         "seconds": 0.1696
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700568.4091432,
+       "end": 1790700568.5869164,
+       "hung": false,
+       "wall_s": 0.21
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "READY 3097959",
+       "CALL 1790700570.8882"
+      ],
+      "call_after_checkpoint_s": 2.301,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "driver",
+      "op": "stream_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700572.6019378,
+         "end": 1790700572.6100416,
+         "seconds": 0.0081
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700572.6100643,
+         "end": 1790700572.7796257,
+         "seconds": 0.1696
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700572.6019378,
+       "end": 1790700572.7796257,
+       "hung": false,
+       "wall_s": 0.209
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "READY 3098104",
+       "CALL 1790700575.0811"
+      ],
+      "call_after_checkpoint_s": 2.301,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "driver",
+      "op": "event_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700576.858105,
+         "end": 1790700576.8667932,
+         "seconds": 0.0087
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700576.8668015,
+         "end": 1790700577.0363395,
+         "seconds": 0.1695
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700576.858105,
+       "end": 1790700577.0363395,
+       "hung": false,
+       "wall_s": 0.212
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700583.0698519,
+         "end": 1790700583.347014,
+         "seconds": 0.2772
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700583.347031,
+         "end": 1790700583.3755407,
+         "seconds": 0.0285
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700583.0698519,
+       "end": 1790700583.3755407,
+       "hung": false,
+       "wall_s": 0.34
+      },
+      "rc": 0,
+      "output": [
+       "READY 3098276",
+       "CALL 1790700579.3340",
+       "DONE 1790700583.3756 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.298,
+      "label": "waited for resume"
+     },
+     {
+      "api": "driver",
+      "op": "memcpy",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700584.0899253,
+         "end": 1790700584.098403,
+         "seconds": 0.0085
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700584.0984118,
+         "end": 1790700584.2682977,
+         "seconds": 0.1699
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700584.0899253,
+       "end": 1790700584.2682977,
+       "hung": false,
+       "wall_s": 0.219
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700590.3003128,
+         "end": 1790700590.574903,
+         "seconds": 0.2746
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700590.5749235,
+         "end": 1790700590.5858715,
+         "seconds": 0.0109
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700590.3003128,
+       "end": 1790700590.5858715,
+       "hung": false,
+       "wall_s": 0.317
+      },
+      "rc": 0,
+      "output": [
+       "READY 3098443",
+       "CALL 1790700586.5591",
+       "DONE 1790700590.5860 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.291,
+      "label": "waited for resume"
+     },
+     {
+      "api": "driver",
+      "op": "guarded_ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700591.2476869,
+         "end": 1790700591.255909,
+         "seconds": 0.0082
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700591.255916,
+         "end": 1790700591.4303439,
+         "seconds": 0.1744
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700591.2476869,
+       "end": 1790700591.4303439,
+       "hung": false,
+       "wall_s": 0.221
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700597.4662104,
+         "end": 1790700597.7449799,
+         "seconds": 0.2788
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700597.7450032,
+         "end": 1790700597.770752,
+         "seconds": 0.0257
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700597.4662104,
+       "end": 1790700597.770752,
+       "hung": false,
+       "wall_s": 0.339
+      },
+      "rc": 0,
+      "output": [
+       "READY 3098659",
+       "CALL 1790700593.7243",
+       "DONE 1790700597.7707 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.294,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700599.1819108,
+         "end": 1790700599.1902761,
+         "seconds": 0.0084
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700599.1902845,
+         "end": 1790700599.3744254,
+         "seconds": 0.1841
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700599.1819108,
+       "end": 1790700599.3744254,
+       "hung": false,
+       "wall_s": 0.222
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3098930",
+       "CALL 1790700601.6609"
+      ],
+      "call_after_checkpoint_s": 2.286,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "torch",
+      "op": "stream_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700604.1617932,
+         "end": 1790700604.1703823,
+         "seconds": 0.0086
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700604.1703904,
+         "end": 1790700604.3515425,
+         "seconds": 0.1812
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700604.1617932,
+       "end": 1790700604.3515425,
+       "hung": false,
+       "wall_s": 0.22
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3099099",
+       "CALL 1790700606.6403"
+      ],
+      "call_after_checkpoint_s": 2.289,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "torch",
+      "op": "event_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700609.160776,
+         "end": 1790700609.1693106,
+         "seconds": 0.0085
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700609.1693153,
+         "end": 1790700609.3534365,
+         "seconds": 0.1841
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700609.160776,
+       "end": 1790700609.3534365,
+       "hung": false,
+       "wall_s": 0.223
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700615.391748,
+         "end": 1790700615.692275,
+         "seconds": 0.3005
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700615.6922958,
+         "end": 1790700615.7124293,
+         "seconds": 0.0201
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700615.391748,
+       "end": 1790700615.7124293,
+       "hung": false,
+       "wall_s": 0.361
+      },
+      "rc": 0,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3099226",
+       "CALL 1790700611.6381",
+       "DONE 1790700615.7124 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.285,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "memcpy",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700617.136068,
+         "end": 1790700617.144296,
+         "seconds": 0.0082
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700617.1443038,
+         "end": 1790700617.3241763,
+         "seconds": 0.1799
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700617.136068,
+       "end": 1790700617.3241763,
+       "hung": false,
+       "wall_s": 0.219
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700623.3572216,
+         "end": 1790700623.6591723,
+         "seconds": 0.302
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700623.6592088,
+         "end": 1790700623.685918,
+         "seconds": 0.0267
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700623.3572216,
+       "end": 1790700623.685918,
+       "hung": false,
+       "wall_s": 0.363
+      },
+      "rc": 0,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3099468",
+       "CALL 1790700619.6151",
+       "DONE 1790700623.6874 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.291,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "guarded_ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700625.112032,
+         "end": 1790700625.1205583,
+         "seconds": 0.0085
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700625.1205654,
+         "end": 1790700625.303578,
+         "seconds": 0.183
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700625.112032,
+       "end": 1790700625.303578,
+       "hung": false,
+       "wall_s": 0.228
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700631.343458,
+         "end": 1790700631.6442032,
+         "seconds": 0.3007
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700631.644231,
+         "end": 1790700631.6659765,
+         "seconds": 0.0217
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790700631.343458,
+       "end": 1790700631.6659765,
+       "hung": false,
+       "wall_s": 0.363
+      },
+      "rc": 0,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3099783",
+       "CALL 1790700627.5851",
+       "DONE 1790700631.6715 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.282,
+      "label": "waited for resume"
+     }
+    ]
+   },
+   "seconds": 127.97
+  },
+  {
+   "name": "managed_memory",
+   "verdict": "hazard",
+   "summary": "pause refused (CUDA_ERROR_NOT_SUPPORTED); afterwards data check bad cuMemcpyDtoH rc=719 at offset 0; cuMemcpyDtoH rc=719 at offset 0, exit 0; /dev/nvidia-uvm mappings: 1 without managed memory, 2 with",
+   "data": {
+    "pause": {
+     "op": "pause",
+     "calls": [
+      {
+       "op": "lock",
+       "result": "OK",
+       "code": 0,
+       "start": 1790700632.5680575,
+       "end": 1790700632.576023,
+       "seconds": 0.008
+      },
+      {
+       "op": "checkpoint",
+       "result": "CUDA_ERROR_NOT_SUPPORTED",
+       "code": 801,
+       "start": 1790700632.5760293,
+       "end": 1790700632.7184985,
+       "seconds": 0.1425
+      },
+      {
+       "op": "unlock",
+       "result": "OK",
+       "code": 0,
+       "start": 1790700632.7185333,
+       "end": 1790700633.033164,
+       "seconds": 0.3146
+      }
+     ],
+     "result": "CUDA_ERROR_NOT_SUPPORTED",
+     "code": 801,
+     "start": 1790700632.5680575,
+     "end": 1790700633.033164,
+     "hung": false,
+     "wall_s": 0.504
+    },
+    "resume": null,
+    "verify": "bad cuMemcpyDtoH rc=719 at offset 0; cuMemcpyDtoH rc=719 at offset 0",
+    "target_rc": 0,
+    "mb": 128,
+    "managed_mb": 64,
+    "uvm_maps_plain": 1,
+    "uvm_maps_managed": 2,
+    "uvm_signal_separates": true
+   },
+   "seconds": 2.3
+  },
+  {
+   "name": "sigstop",
+   "verdict": "hazard",
+   "summary": "hung while the process was stopped: lock (running), state (running), restore (checkpointed), state (checkpointed); recovered after SIGCONT with data intact",
+   "data": {
+    "stopped_running": {
+     "calls": {
+      "lock": {
+       "result": "hung",
+       "hung": true,
+       "limit_s": 15.0,
+       "wall_s": 15.017,
+       "stderr": "",
+       "op": "lock"
+      },
+      "state": {
+       "result": "hung",
+       "hung": true,
+       "limit_s": 10.0,
+       "wall_s": 10.013,
+       "stderr": "",
+       "op": "state"
+      }
+     },
+     "state_after_cont": "running",
+     "verify": "ok",
+     "rc": 0
+    },
+    "stopped_checkpointed": {
+     "calls": {
+      "restore": {
+       "result": "hung",
+       "hung": true,
+       "limit_s": 15.0,
+       "wall_s": 15.018,
+       "stderr": "",
+       "op": "restore"
+      },
+      "state": {
+       "result": "hung",
+       "hung": true,
+       "limit_s": 10.0,
+       "wall_s": 10.006,
+       "stderr": "",
+       "op": "state"
+      }
+     },
+     "pause": {
+      "op": "pause",
+      "calls": [
+       {
+        "op": "lock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790700661.4470744,
+        "end": 1790700661.4550192,
+        "seconds": 0.0079
+       },
+       {
+        "op": "checkpoint",
+        "result": "OK",
+        "code": 0,
+        "start": 1790700661.4550245,
+        "end": 1790700661.6367583,
+        "seconds": 0.1817
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790700661.4470744,
+      "end": 1790700661.6367583,
+      "hung": false,
+      "wall_s": 0.222
+     },
+     "state_after_cont": "checkpointed",
+     "resume": {
+      "op": "resume",
+      "calls": [
+       {
+        "op": "restore",
+        "result": "OK",
+        "code": 0,
+        "start": 1790700688.7635198,
+        "end": 1790700689.063107,
+        "seconds": 0.2996
+       },
+       {
+        "op": "unlock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790700689.063127,
+        "end": 1790700689.0735958,
+        "seconds": 0.0105
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790700688.7635198,
+      "end": 1790700689.0735958,
+      "hung": false,
+      "wall_s": 0.349
+     },
+     "verify": "ok",
+     "rc": 0
+    },
+    "limits_s": {
+     "lock": 15.0,
+     "state": 10.0,
+     "restore": 15.0
+    },
+    "lock_timeout_ms": 5000
+   },
+   "seconds": 55.04
+  },
+  {
+   "name": "exit_while_paused",
+   "verdict": "ok",
+   "summary": "exited with code 0 while checkpointed",
+   "data": {
+    "pause": {
+     "op": "pause",
+     "calls": [
+      {
+       "op": "lock",
+       "result": "OK",
+       "code": 0,
+       "start": 1790700689.7981384,
+       "end": 1790700689.8065615,
+       "seconds": 0.0084
+      },
+      {
+       "op": "checkpoint",
+       "result": "OK",
+       "code": 0,
+       "start": 1790700689.8065703,
+       "end": 1790700689.9777312,
+       "seconds": 0.1712
+      }
+     ],
+     "result": "OK",
+     "code": 0,
+     "start": 1790700689.7981384,
+     "end": 1790700689.9777312,
+     "hung": false,
+     "wall_s": 0.214
+    },
+    "resume": null,
+    "exited_while_paused": true,
+    "target_rc": 0,
+    "output": [
+     "READY 3101682",
+     "EXITING 1790700692.2734"
+    ]
+   },
+   "seconds": 3.13
+  },
+  {
+   "name": "child_context",
+   "verdict": "ok",
+   "summary": "pausing the parent left the child running; pausing each process separately worked, data intact",
+   "data": {
+    "steps": {
+     "pause parent": {
+      "op": "pause",
+      "calls": [
+       {
+        "op": "lock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790700692.554189,
+        "end": 1790700692.562449,
+        "seconds": 0.0083
+       },
+       {
+        "op": "checkpoint",
+        "result": "OK",
+        "code": 0,
+        "start": 1790700692.5624557,
+        "end": 1790700692.7526193,
+        "seconds": 0.1902
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790700692.554189,
+      "end": 1790700692.7526193,
+      "hung": false,
+      "wall_s": 0.23
+     },
+     "pause child": {
+      "op": "pause",
+      "calls": [
+       {
+        "op": "lock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790700692.8370507,
+        "end": 1790700692.8450613,
+        "seconds": 0.008
+       },
+       {
+        "op": "checkpoint",
+        "result": "OK",
+        "code": 0,
+        "start": 1790700692.8450668,
+        "end": 1790700693.0203161,
+        "seconds": 0.1752
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790700692.8370507,
+      "end": 1790700693.0203161,
+      "hung": false,
+      "wall_s": 0.216
+     },
+     "resume child": {
+      "op": "resume",
+      "calls": [
+       {
+        "op": "restore",
+        "result": "OK",
+        "code": 0,
+        "start": 1790700693.0530796,
+        "end": 1790700693.181773,
+        "seconds": 0.1287
+       },
+       {
+        "op": "unlock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790700693.1817927,
+        "end": 1790700693.1827705,
+        "seconds": 0.001
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790700693.0530796,
+      "end": 1790700693.1827705,
+      "hung": false,
+      "wall_s": 0.162
+     },
+     "resume parent": {
+      "op": "resume",
+      "calls": [
+       {
+        "op": "restore",
+        "result": "OK",
+        "code": 0,
+        "start": 1790700693.2142475,
+        "end": 1790700693.37488,
+        "seconds": 0.1606
+       },
+       {
+        "op": "unlock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790700693.374899,
+        "end": 1790700693.3771455,
+        "seconds": 0.0022
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790700693.2142475,
+      "end": 1790700693.3771455,
+      "hung": false,
+      "wall_s": 0.194
+     }
+    },
+    "child_state_after_parent_pause": "running",
+    "gpu_mb_after_parent_pause": {
+     "parent": 0,
+     "child": 514
+    },
+    "verify": "ok",
+    "target_rc": 0
+   },
+   "seconds": 1.16
+  },
+  {
+   "name": "cgroup",
+   "verdict": "hazard",
+   "summary": "killed during the checkpoint with a 363 MB cgroup limit: exit -9 (SIGKILL)",
+   "data": {
+    "probe_rss_mb": 107,
+    "gpu_mb": 512,
+    "memory_max_mb": 363,
+    "cgroup": {
+     "scope": "run-rf3a30c1e0b354feca2522fb49fee768d.scope",
+     "max_bytes": 380633088,
+     "limit_on_own_cgroup": true,
+     "current_bytes": 30621696
+    },
+    "pause": {
+     "op": "pause",
+     "calls": [
+      {
+       "op": "lock",
+       "result": "OK",
+       "code": 0,
+       "start": 1790700693.8265593,
+       "end": 1790700693.8410249,
+       "seconds": 0.0145
+      },
+      {
+       "op": "checkpoint",
+       "result": "CUDA_ERROR_OPERATING_SYSTEM",
+       "code": 304,
+       "start": 1790700693.8410304,
+       "end": 1790700693.921366,
+       "seconds": 0.0803
+      },
+      {
+       "op": "unlock",
+       "result": "CUDA_ERROR_NOT_INITIALIZED",
+       "code": 3,
+       "start": 1790700693.9214005,
+       "end": 1790700693.9214277,
+       "seconds": 0.0
+      }
+     ],
+     "result": "CUDA_ERROR_OPERATING_SYSTEM",
+     "code": 304,
+     "start": 1790700693.8265593,
+     "end": 1790700693.9214277,
+     "hung": false,
+     "wall_s": 0.145
+    },
+    "resume": null,
+    "alive_after_pause": false,
+    "verify": "not checked",
+    "target_rc": -9
+   },
+   "seconds": 1.42
+  },
+  {
+   "name": "nccl_single_gpu",
+   "verdict": "hazard",
+   "summary": "the job exited -6 (SIGABRT) after the checkpoint returned CUDA_ERROR_OPERATING_SYSTEM; NCCL threads seen: pt_nccl_heartbt, pt_nccl_watchdg",
+   "data": {
+    "cycles": [
+     {
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790700696.008311,
+         "end": 1790700696.016749,
+         "seconds": 0.0084
+        },
+        {
+         "op": "checkpoint",
+         "result": "CUDA_ERROR_OPERATING_SYSTEM",
+         "code": 304,
+         "start": 1790700696.016756,
+         "end": 1790700697.53753,
+         "seconds": 1.5208
+        },
+        {
+         "op": "unlock",
+         "result": "CUDA_ERROR_NOT_INITIALIZED",
+         "code": 3,
+         "start": 1790700697.537571,
+         "end": 1790700697.537607,
+         "seconds": 0.0
+        }
+       ],
+       "result": "CUDA_ERROR_OPERATING_SYSTEM",
+       "code": 304,
+       "start": 1790700696.008311,
+       "end": 1790700697.537607,
+       "hung": false,
+       "wall_s": 1.586
+      },
+      "resume": null,
+      "verify": "no reply"
+     }
+    ],
+    "target_rc": -6,
+    "threads": [
+     "cuda-EvtHandlr",
+     "cuda00001800007",
+     "pt_nccl_heartbt",
+     "pt_nccl_watchdg",
+     "pt_tcpstore_uv",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3"
+    ],
+    "nccl_threads": [
+     "pt_nccl_heartbt",
+     "pt_nccl_watchdg"
+    ],
+    "output": [
+     "frame #6: <unknown function> + 0xdc253 (0x717adaadc253 in /lib/x86_64-linux-gnu/libstdc++.so.6)",
+     "frame #7: <unknown function> + 0x94a83 (0x717b55c94a83 in /lib/x86_64-linux-gnu/libc.so.6)",
+     "frame #8: <unknown function> + 0x1268e0 (0x717b55d268e0 in /lib/x86_64-linux-gnu/libc.so.6)",
+     "",
+     "Exception raised from run at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:2074 (most recent call first):",
+     "frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x80 (0x717b5457eeb0 in /usr/local/lib/python3.10/dist-packages/torch/lib/libc10.so)",
+     "frame #1: <unknown function> + 0xe1c1a1 (0x717af761c1a1 in /usr/local/lib/python3.10/dist-packages/torch/lib/libtorch_cuda.so)",
+     "frame #2: <unknown function> + 0x9468e6 (0x717af71468e6 in /usr/local/lib/python3.10/dist-packages/torch/lib/libtorch_cuda.so)",
+     "frame #3: <unknown function> + 0xdc253 (0x717adaadc253 in /lib/x86_64-linux-gnu/libstdc++.so.6)",
+     "frame #4: <unknown function> + 0x94a83 (0x717b55c94a83 in /lib/x86_64-linux-gnu/libc.so.6)",
+     "frame #5: <unknown function> + 0x1268e0 (0x717b55d268e0 in /lib/x86_64-linux-gnu/libc.so.6)",
+     ""
+    ]
+   },
+   "seconds": 5.59
+  },
+  {
+   "name": "ipc_shared_memory",
+   "verdict": "hazard",
+   "summary": "pause child returned CUDA_ERROR_OPERATING_SYSTEM; data check no reply, exit -11",
+   "data": {
+    "steps": {
+     "pause child": {
+      "op": "pause",
+      "calls": [
+       {
+        "op": "lock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790700702.2434611,
+        "end": 1790700702.2518778,
+        "seconds": 0.0084
+       },
+       {
+        "op": "checkpoint",
+        "result": "CUDA_ERROR_OPERATING_SYSTEM",
+        "code": 304,
+        "start": 1790700702.251883,
+        "end": 1790700703.452641,
+        "seconds": 1.2008
+       },
+       {
+        "op": "unlock",
+        "result": "CUDA_ERROR_NOT_INITIALIZED",
+        "code": 3,
+        "start": 1790700703.4526882,
+        "end": 1790700703.4527245,
+        "seconds": 0.0
+       }
+      ],
+      "result": "CUDA_ERROR_OPERATING_SYSTEM",
+      "code": 304,
+      "start": 1790700702.2434611,
+      "end": 1790700703.4527245,
+      "hung": false,
+      "wall_s": 1.241
+     },
+     "resume child": null,
+     "pause parent": {
+      "op": "pause",
+      "calls": [
+       {
+        "op": "lock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790700704.4859965,
+        "end": 1790700704.4944527,
+        "seconds": 0.0085
+       },
+       {
+        "op": "checkpoint",
+        "result": "CUDA_ERROR_OPERATING_SYSTEM",
+        "code": 304,
+        "start": 1790700704.494458,
+        "end": 1790700705.857326,
+        "seconds": 1.3629
+       },
+       {
+        "op": "unlock",
+        "result": "CUDA_ERROR_NOT_INITIALIZED",
+        "code": 3,
+        "start": 1790700705.8573844,
+        "end": 1790700705.8574214,
+        "seconds": 0.0
+       }
+      ],
+      "result": "CUDA_ERROR_OPERATING_SYSTEM",
+      "code": 304,
+      "start": 1790700704.4859965,
+      "end": 1790700705.8574214,
+      "hung": false,
+      "wall_s": 1.404
+     },
+     "resume parent": null
+    },
+    "verify": "no reply",
+    "target_rc": -11,
+    "child_alive_at_end": false,
+    "output": [
+     "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+     "  import pynvml  # type: ignore[import]",
+     "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+     "  import pynvml  # type: ignore[import]",
+     "CHILD 3102140",
+     "READY 3102034",
+     "/usr/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown",
+     "  warnings.warn('resource_tracker: There appear to be %d '"
+    ]
+   },
+   "seconds": 6.27
+  },
+  {
+   "name": "restore_oom",
+   "verdict": "skipped",
+   "summary": "needs --full",
+   "data": {},
+   "seconds": 0.0
+  },
+  {
+   "name": "size_sweep",
+   "verdict": "skipped",
+   "summary": "needs --full",
+   "data": {},
+   "seconds": 0.0
+  },
+  {
+   "name": "controller_death",
+   "verdict": "skipped",
+   "summary": "needs --full",
+   "data": {},
+   "seconds": 0.0
+  },
+  {
+   "name": "correctness",
+   "verdict": "skipped",
+   "summary": "needs --full",
+   "data": {},
+   "seconds": 0.0
+  }
+ ]
+}
