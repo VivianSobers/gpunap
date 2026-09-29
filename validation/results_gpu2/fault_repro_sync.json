@@ -1,0 +1,914 @@
+{
+ "label": "gpu2",
+ "gpu": "NVIDIA GeForce RTX 4090",
+ "driver": "580.178.04",
+ "cuda_driver_api_version": 13000,
+ "gpu_mb_used_before": 21066,
+ "gpu_mb_free_before": 3007,
+ "co_tenant_apps": 1,
+ "co_tenant_mb": 20540,
+ "python": "3.10.12",
+ "torch": "2.14.0",
+ "seed": 0,
+ "config": {
+  "repeats": 3,
+  "apis": "driver,torch",
+  "ops": "ctx_sync,stream_sync,event_sync,memcpy,guarded_ctx_sync",
+  "sleep_s": 3.0,
+  "pause_at_s": 0.5,
+  "wait_s": 10.0,
+  "after_resume_s": 30.0
+ },
+ "started": 1790662076.9,
+ "runs": [
+  {
+   "api": "driver",
+   "op": "ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662077.7663,
+    "end": 1790662077.7681
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662077.7681,
+    "end": 1790662078.455
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "READY",
+    "CALL 1790662080.2678"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 0
+  },
+  {
+   "api": "driver",
+   "op": "stream_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662081.6039,
+    "end": 1790662081.6054
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662081.6054,
+    "end": 1790662082.2945
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "READY",
+    "CALL 1790662084.1060"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 0
+  },
+  {
+   "api": "driver",
+   "op": "event_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662085.3897,
+    "end": 1790662085.3909
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662085.3909,
+    "end": 1790662086.0711
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790662096.0717,
+    "end": 1790662096.4997
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790662096.4997,
+    "end": 1790662096.5111
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790662087.8919",
+    "DONE 1790662096.5112 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 0
+  },
+  {
+   "api": "driver",
+   "op": "memcpy",
+   "lock": {
+    "result": "OK",
+    "start": 1790662097.494,
+    "end": 1790662097.496
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662097.496,
+    "end": 1790662098.1986
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790662108.1999,
+    "end": 1790662108.6624
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790662108.6624,
+    "end": 1790662108.671
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790662099.9958",
+    "DONE 1790662108.6718 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 0
+  },
+  {
+   "api": "driver",
+   "op": "guarded_ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662109.6724,
+    "end": 1790662109.6744
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662109.6744,
+    "end": 1790662110.4141
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790662120.4146,
+    "end": 1790662120.9743
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790662120.9744,
+    "end": 1790662120.9833
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790662112.1740",
+    "DONE 1790662120.9834 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 0
+  },
+  {
+   "api": "torch",
+   "op": "ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662125.8754,
+    "end": 1790662125.8782
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662125.8783,
+    "end": 1790662126.4018
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "READY",
+    "CALL 1790662128.3772"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 0
+  },
+  {
+   "api": "torch",
+   "op": "stream_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662133.6237,
+    "end": 1790662133.6264
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662133.6264,
+    "end": 1790662134.1629
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "READY",
+    "CALL 1790662136.1259"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 0
+  },
+  {
+   "api": "torch",
+   "op": "event_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662141.3889,
+    "end": 1790662141.3912
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662141.3912,
+    "end": 1790662141.9573
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790662151.9587,
+    "end": 1790662152.4624
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790662152.4624,
+    "end": 1790662152.4754
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790662143.8909",
+    "DONE 1790662152.4755 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 0
+  },
+  {
+   "api": "torch",
+   "op": "memcpy",
+   "lock": {
+    "result": "OK",
+    "start": 1790662157.4574,
+    "end": 1790662157.4597
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662157.4598,
+    "end": 1790662158.0003
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790662168.0012,
+    "end": 1790662168.4323
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790662168.4324,
+    "end": 1790662168.4395
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790662159.9596",
+    "DONE 1790662168.4485 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 0
+  },
+  {
+   "api": "torch",
+   "op": "guarded_ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662173.4527,
+    "end": 1790662173.4557
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662173.4557,
+    "end": 1790662174.0242
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790662184.0253,
+    "end": 1790662184.3932
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790662184.3932,
+    "end": 1790662184.4034
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790662175.9539",
+    "DONE 1790662184.4373 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 0
+  },
+  {
+   "api": "driver",
+   "op": "ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662185.4827,
+    "end": 1790662185.4844
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662185.4844,
+    "end": 1790662186.1925
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "READY",
+    "CALL 1790662187.9848"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 1
+  },
+  {
+   "api": "driver",
+   "op": "stream_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662189.3037,
+    "end": 1790662189.3055
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662189.3056,
+    "end": 1790662189.9933
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "READY",
+    "CALL 1790662191.8058"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 1
+  },
+  {
+   "api": "driver",
+   "op": "event_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662193.0828,
+    "end": 1790662193.0841
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662193.0841,
+    "end": 1790662193.7661
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790662203.7667,
+    "end": 1790662204.2132
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790662204.2132,
+    "end": 1790662204.2205
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790662195.5851",
+    "DONE 1790662204.2207 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 1
+  },
+  {
+   "api": "driver",
+   "op": "memcpy",
+   "lock": {
+    "result": "OK",
+    "start": 1790662205.1979,
+    "end": 1790662205.1996
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662205.1996,
+    "end": 1790662205.8843
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790662215.8854,
+    "end": 1790662216.4728
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790662216.4728,
+    "end": 1790662216.4805
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790662207.7006",
+    "DONE 1790662216.4810 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 1
+  },
+  {
+   "api": "driver",
+   "op": "guarded_ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662217.4739,
+    "end": 1790662217.4751
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662217.4751,
+    "end": 1790662218.1843
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790662228.1848,
+    "end": 1790662228.6402
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790662228.6403,
+    "end": 1790662228.6507
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790662219.9758",
+    "DONE 1790662228.6508 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 1
+  },
+  {
+   "api": "torch",
+   "op": "ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662233.5476,
+    "end": 1790662233.5501
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662233.5501,
+    "end": 1790662234.0851
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "READY",
+    "CALL 1790662236.0489"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 1
+  },
+  {
+   "api": "torch",
+   "op": "stream_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662241.1929,
+    "end": 1790662241.1956
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662241.1956,
+    "end": 1790662241.759
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "READY",
+    "CALL 1790662243.6949"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 1
+  },
+  {
+   "api": "torch",
+   "op": "event_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662248.9156,
+    "end": 1790662248.9186
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662248.9186,
+    "end": 1790662249.4569
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790662259.4583,
+    "end": 1790662259.8292
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790662259.8292,
+    "end": 1790662259.8404
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790662251.4177",
+    "DONE 1790662259.8406 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 1
+  },
+  {
+   "api": "torch",
+   "op": "memcpy",
+   "lock": {
+    "result": "OK",
+    "start": 1790662264.7929,
+    "end": 1790662264.7956
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662264.7956,
+    "end": 1790662265.338
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790662275.339,
+    "end": 1790662275.7431
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790662275.7431,
+    "end": 1790662275.7542
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790662267.2949",
+    "DONE 1790662275.7615 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 1
+  },
+  {
+   "api": "torch",
+   "op": "guarded_ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662280.6364,
+    "end": 1790662280.6389
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662280.6389,
+    "end": 1790662281.1792
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790662291.1801,
+    "end": 1790662291.5583
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790662291.5584,
+    "end": 1790662291.5712
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790662283.1387",
+    "DONE 1790662291.6139 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 1
+  },
+  {
+   "api": "driver",
+   "op": "ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662292.6531,
+    "end": 1790662292.6549
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662292.6549,
+    "end": 1790662293.3562
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "READY",
+    "CALL 1790662295.1525"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 2
+  },
+  {
+   "api": "driver",
+   "op": "stream_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662296.4894,
+    "end": 1790662296.4916
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662296.4916,
+    "end": 1790662297.1715
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "READY",
+    "CALL 1790662298.9918"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 2
+  },
+  {
+   "api": "driver",
+   "op": "event_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662300.2629,
+    "end": 1790662300.2644
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662300.2644,
+    "end": 1790662300.9444
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790662310.9449,
+    "end": 1790662311.5055
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790662311.5055,
+    "end": 1790662311.5109
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790662302.7651",
+    "DONE 1790662311.5110 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 2
+  },
+  {
+   "api": "driver",
+   "op": "memcpy",
+   "lock": {
+    "result": "OK",
+    "start": 1790662312.6209,
+    "end": 1790662312.6227
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662312.6227,
+    "end": 1790662313.2431
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790662323.2437,
+    "end": 1790662323.6128
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790662323.6128,
+    "end": 1790662323.6198
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790662315.1236",
+    "DONE 1790662323.6202 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 2
+  },
+  {
+   "api": "driver",
+   "op": "guarded_ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662324.604,
+    "end": 1790662324.6059
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662324.606,
+    "end": 1790662325.2859
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790662335.2868,
+    "end": 1790662335.7283
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790662335.7283,
+    "end": 1790662335.7362
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790662327.1058",
+    "DONE 1790662335.7364 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 2
+  },
+  {
+   "api": "torch",
+   "op": "ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662340.6051,
+    "end": 1790662340.6076
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662340.6076,
+    "end": 1790662341.1463
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "READY",
+    "CALL 1790662343.1072"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 2
+  },
+  {
+   "api": "torch",
+   "op": "stream_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662348.3179,
+    "end": 1790662348.3207
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662348.3207,
+    "end": 1790662348.8687
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "READY",
+    "CALL 1790662350.8199"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 2
+  },
+  {
+   "api": "torch",
+   "op": "event_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662355.9719,
+    "end": 1790662355.9752
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662355.9752,
+    "end": 1790662356.532
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790662366.5329,
+    "end": 1790662366.8396
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790662366.8396,
+    "end": 1790662366.8468
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790662358.4743",
+    "DONE 1790662366.8469 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 2
+  },
+  {
+   "api": "torch",
+   "op": "memcpy",
+   "lock": {
+    "result": "OK",
+    "start": 1790662371.7979,
+    "end": 1790662371.7997
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662371.7997,
+    "end": 1790662372.3482
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790662382.3492,
+    "end": 1790662382.7131
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790662382.7131,
+    "end": 1790662382.72
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790662374.3019",
+    "DONE 1790662382.7272 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 2
+  },
+  {
+   "api": "torch",
+   "op": "guarded_ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790662387.6269,
+    "end": 1790662387.6291
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790662387.6291,
+    "end": 1790662388.1747
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790662398.1757,
+    "end": 1790662398.5519
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790662398.5519,
+    "end": 1790662398.5587
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790662390.1289",
+    "DONE 1790662398.5936 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 2
+  }
+ ],
+ "finished": 1790662398.8
+}
