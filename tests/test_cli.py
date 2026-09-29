@@ -82,3 +82,12 @@ def test_sysinfo_prints_json(monkeypatch, capsys):
 def test_no_command_prints_help(capsys):
     assert cli.main([]) == 2
     assert "check" in capsys.readouterr().out
+
+
+def test_python_dash_m_runs_the_cli():
+    import subprocess
+    import sys
+    src = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "src")
+    p = subprocess.run([sys.executable, "-m", "gpunap", "--version"], capture_output=True, text=True,
+                       env=dict(os.environ, PYTHONPATH=src))
+    assert p.returncode == 0 and gpunap.__version__ in p.stdout
