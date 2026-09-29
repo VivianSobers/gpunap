@@ -90,7 +90,7 @@ def run_one(ctx: base.Context, api: str, op: str) -> Dict:
             rc = t.popen.wait(timeout=AFTER_RESUME_S)
         except subprocess.TimeoutExpired:
             rc = "timeout"
-    s.wait_for("NEVER", 0.3)  # let the reader collect the last lines
+    s.settle()
     out = s.output()
     call_t, _ = stamp(out, "CALL")
     done_t, done_rc = stamp(out, "DONE")

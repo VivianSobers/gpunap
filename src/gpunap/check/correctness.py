@@ -87,7 +87,7 @@ def _collect(s: base.Session, t, limit_s: float) -> Dict:
         rc = t.popen.wait(timeout=limit_s)
     except subprocess.TimeoutExpired:
         rc = "timeout"
-    s.wait_for("NEVER", 0.3)  # let the reader collect the last lines
+    s.settle()
     steps, end = parse([x for _, x in s.lines])
     return {"steps": steps, "end": end, "rc": rc, "tail": s.output(3)}
 

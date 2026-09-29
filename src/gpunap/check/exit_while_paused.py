@@ -52,7 +52,7 @@ def run(ctx: base.Context) -> results.CheckResult:
             rc = t.popen.wait(timeout=30)
         except subprocess.TimeoutExpired:
             rc = "timeout"
-    s.wait_for("NEVER", 0.3)
+    s.settle()
     exiting_t, _ = stamp(s.output(), "EXITING")
     v, summary = verdict(base.ok(p), ckpt_end, exiting_t, exited, rc)
     return base.result("exit_while_paused", v, summary, {"pause": p, "resume": r, "exited_while_paused": exited,

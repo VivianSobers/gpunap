@@ -42,3 +42,12 @@ def test_start_target_raises_not_ready_when_the_child_dies_first(tmp_path):
 def test_not_ready_becomes_an_invalid_result():
     r = base.not_ready_result("roundtrip", base.NotReady(["boom"], 1), 1.5)
     assert r.verdict == "invalid" and r.data["output"] == ["boom"] and r.data["rc"] == 1
+
+
+def test_settle_returns_once_the_output_ends(tmp_path):
+    c = ctx(tmp_path)
+    t = c.owned.start([PY, "-c", "print('READY'); print('LAST')", "tok9"], stdout=base.PIPE, text=True)
+    s = base.Session(t.popen)
+    t.popen.wait(timeout=10)
+    s.settle(timeout=10)
+    assert s.eof and s.output()[-1] == "LAST"

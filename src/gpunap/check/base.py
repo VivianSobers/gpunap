@@ -98,6 +98,13 @@ class Session:
         got = self.wait_for(reply, timeout, start=n)
         return got[1] if got else None
 
+    def settle(self, timeout: float = 0.3) -> None:
+        """Wait, at most timeout seconds, for the target's output to end, so its last lines are in."""
+        end = time.time() + timeout
+        with self._cv:
+            while not self.eof and time.time() < end:
+                self._cv.wait(max(0.0, end - time.time()))
+
     def output(self, n: int = 40) -> List[str]:
         return [text for _, text in self.lines[-n:]]
 
