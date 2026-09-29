@@ -165,3 +165,11 @@ def finish(s: Session, t: Target, timeout: float = 30):
 
 def result(name: str, verdict: str, summary: str, data: Dict, t0: float) -> results.CheckResult:
     return results.CheckResult(name, verdict, summary, data, time.time() - t0)
+
+
+def has_module(name: str) -> bool:
+    import importlib.util
+    try:
+        return importlib.util.find_spec(name) is not None
+    except (ImportError, ValueError):
+        return False
