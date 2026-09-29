@@ -23,8 +23,8 @@ def test_limit_sits_between_running_and_paused_size():
 
 
 def test_redact_drops_the_user_path():
-    got = cg.redact({"path": "/user.slice/user-1001.slice/user@1001.service/app.slice/run-r1.scope",
-                     "max_bytes": 5, "limit_at": "/user.slice/user-1001.slice/user@1001.service/app.slice/run-r1.scope",
+    got = cg.redact({"path": "/user.slice/user-4242.slice/user@4242.service/app.slice/run-r1.scope",
+                     "max_bytes": 5, "limit_at": "/user.slice/user-4242.slice/user@4242.service/app.slice/run-r1.scope",
                      "current_bytes": 3})
     assert got == {"scope": "run-r1.scope", "max_bytes": 5, "limit_on_own_cgroup": True, "current_bytes": 3}
-    assert "1001" not in repr(got)
+    assert "4242" not in repr(got)
