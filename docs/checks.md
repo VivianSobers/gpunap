@@ -104,7 +104,9 @@ the restore completes but leaves the process locked until another controller unl
 `correctness` (PyTorch) trains a small MLP deterministically for 300 steps, printing each step's loss
 as an exact hex float and a hash of the final weights. Two uninterrupted runs must match each other.
 A third run is paused at 20 seeded random steps for 0.3 to 1.5 s each and must match them line for
-line.
+line. Each step sleeps 50 ms, so a pause lands within a few steps of the one chosen; the report records
+where each landed. If the last pause lands after the job's final CUDA call, the job exits on its own
+while paused, as FINDINGS found, and the failed restore that follows is not counted against it.
 
 ## Cleanup
 
