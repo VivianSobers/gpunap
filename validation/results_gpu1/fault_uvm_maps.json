@@ -1,0 +1,211 @@
+{
+ "test": "uvm_maps",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "wall_s": 30.4,
+ "result": {
+  "counts_by_case": {
+   "plain_torch": [
+    1,
+    1,
+    1
+   ],
+   "pinned_loader": [
+    1,
+    1,
+    1
+   ],
+   "driver_api_plain": [
+    1,
+    1,
+    1
+   ],
+   "driver_api_managed": [
+    2,
+    2,
+    2
+   ],
+   "torch_managed": [
+    2,
+    2,
+    2
+   ]
+  },
+  "runs": [
+   {
+    "case": "plain_torch",
+    "managed": false,
+    "repeat": 0,
+    "n_uvm_maps": 1,
+    "maps": [
+     "206800000-206a00000 /dev/nvidia-uvm"
+    ],
+    "children_n_uvm_maps": []
+   },
+   {
+    "case": "pinned_loader",
+    "managed": false,
+    "repeat": 0,
+    "n_uvm_maps": 1,
+    "maps": [
+     "206800000-206a00000 /dev/nvidia-uvm"
+    ],
+    "children_n_uvm_maps": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "case": "driver_api_plain",
+    "managed": false,
+    "repeat": 0,
+    "n_uvm_maps": 1,
+    "maps": [
+     "206800000-206a00000 /dev/nvidia-uvm"
+    ],
+    "children_n_uvm_maps": []
+   },
+   {
+    "case": "driver_api_managed",
+    "managed": true,
+    "repeat": 0,
+    "n_uvm_maps": 2,
+    "maps": [
+     "206800000-206a00000 /dev/nvidia-uvm",
+     "70401c000000-70402c000000 /dev/nvidia-uvm"
+    ],
+    "children_n_uvm_maps": []
+   },
+   {
+    "case": "torch_managed",
+    "managed": true,
+    "repeat": 0,
+    "n_uvm_maps": 2,
+    "maps": [
+     "206800000-206a00000 /dev/nvidia-uvm",
+     "740a92000000-740a96000000 /dev/nvidia-uvm"
+    ],
+    "children_n_uvm_maps": []
+   },
+   {
+    "case": "plain_torch",
+    "managed": false,
+    "repeat": 1,
+    "n_uvm_maps": 1,
+    "maps": [
+     "206800000-206a00000 /dev/nvidia-uvm"
+    ],
+    "children_n_uvm_maps": []
+   },
+   {
+    "case": "pinned_loader",
+    "managed": false,
+    "repeat": 1,
+    "n_uvm_maps": 1,
+    "maps": [
+     "206800000-206a00000 /dev/nvidia-uvm"
+    ],
+    "children_n_uvm_maps": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "case": "driver_api_plain",
+    "managed": false,
+    "repeat": 1,
+    "n_uvm_maps": 1,
+    "maps": [
+     "206800000-206a00000 /dev/nvidia-uvm"
+    ],
+    "children_n_uvm_maps": []
+   },
+   {
+    "case": "driver_api_managed",
+    "managed": true,
+    "repeat": 1,
+    "n_uvm_maps": 2,
+    "maps": [
+     "206800000-206a00000 /dev/nvidia-uvm",
+     "764efc000000-764f0c000000 /dev/nvidia-uvm"
+    ],
+    "children_n_uvm_maps": []
+   },
+   {
+    "case": "torch_managed",
+    "managed": true,
+    "repeat": 1,
+    "n_uvm_maps": 2,
+    "maps": [
+     "206800000-206a00000 /dev/nvidia-uvm",
+     "780ada000000-780ade000000 /dev/nvidia-uvm"
+    ],
+    "children_n_uvm_maps": []
+   },
+   {
+    "case": "plain_torch",
+    "managed": false,
+    "repeat": 2,
+    "n_uvm_maps": 1,
+    "maps": [
+     "206800000-206a00000 /dev/nvidia-uvm"
+    ],
+    "children_n_uvm_maps": []
+   },
+   {
+    "case": "pinned_loader",
+    "managed": false,
+    "repeat": 2,
+    "n_uvm_maps": 1,
+    "maps": [
+     "206800000-206a00000 /dev/nvidia-uvm"
+    ],
+    "children_n_uvm_maps": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "case": "driver_api_plain",
+    "managed": false,
+    "repeat": 2,
+    "n_uvm_maps": 1,
+    "maps": [
+     "206800000-206a00000 /dev/nvidia-uvm"
+    ],
+    "children_n_uvm_maps": []
+   },
+   {
+    "case": "driver_api_managed",
+    "managed": true,
+    "repeat": 2,
+    "n_uvm_maps": 2,
+    "maps": [
+     "206800000-206a00000 /dev/nvidia-uvm",
+     "717ad8000000-717ae8000000 /dev/nvidia-uvm"
+    ],
+    "children_n_uvm_maps": []
+   },
+   {
+    "case": "torch_managed",
+    "managed": true,
+    "repeat": 2,
+    "n_uvm_maps": 2,
+    "maps": [
+     "206800000-206a00000 /dev/nvidia-uvm",
+     "7fc2c4000000-7fc2c8000000 /dev/nvidia-uvm"
+    ],
+    "children_n_uvm_maps": []
+   }
+  ]
+ }
+}

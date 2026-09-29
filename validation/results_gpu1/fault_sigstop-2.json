@@ -1,0 +1,64 @@
+{
+ "test": "sigstop",
+ "driver": {
+  "gpu": "NVIDIA GeForce RTX 4090, 595.84, 24564 MiB",
+  "cuInit": "OK",
+  "host": "gpu1"
+ },
+ "wall_s": 88.5,
+ "result": {
+  "A_lock_while_stopped_5s_timeout": {
+   "call": "lock",
+   "result": "controller timed out after 30s",
+   "wall_s": 30.033
+  },
+  "A_state_while_stopped": {
+   "call": "state",
+   "result": "controller timed out after 10s",
+   "wall_s": 10.012
+  },
+  "A_state": "controller timed out after 10s",
+  "A_state_after_cont": "running",
+  "A_finish": {
+   "rc": 0,
+   "end": "END final=0x1.f2c710093e421p+18 ballast_ok=True ballast=093281091e940c297a21bef3bb6a6b72d9766b31"
+  },
+  "B_pause": {
+   "lock": [
+    "OK",
+    0.0003
+   ],
+   "checkpoint": [
+    "OK",
+    0.754
+   ],
+   "state": "checkpointed"
+  },
+  "B_restore_while_stopped": {
+   "call": "restore",
+   "result": "controller timed out after 30s",
+   "wall_s": 30.033
+  },
+  "B_state_while_stopped": {
+   "call": "state",
+   "result": "controller timed out after 10s",
+   "wall_s": 10.014
+  },
+  "B_state_after_cont": "checkpointed",
+  "B_resume_after_cont": {
+   "restore": [
+    "OK",
+    0.4939
+   ],
+   "unlock": [
+    "OK",
+    0.0011
+   ],
+   "state": "running"
+  },
+  "B_finish": {
+   "rc": 0,
+   "end": "END final=0x1.e6188049f2108p+15 ballast_ok=True ballast=093281091e940c297a21bef3bb6a6b72d9766b31"
+  }
+ }
+}
