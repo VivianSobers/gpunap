@@ -18,9 +18,9 @@ process with anything I found. Two matter most:
   job can never be restored and has to be killed. This is NVIDIA issue #44, open since January 2026.
   It happened 7 times out of 7, on both drivers.
 - A paused job that calls `torch.cuda.synchronize()` or a stream synchronize crashes with a
-  segfault inside the driver. Every such run on disk crashed: 12 of 12 through PyTorch across both
-  drivers, and 6 of 6 in a process that uses only the driver API (`cuCtxSynchronize` and
-  `cuStreamSynchronize`, driver 580). I found no NVIDIA issue for it.
+  segfault inside the driver. Every such run on disk crashed: 18 of 18 through PyTorch across both
+  drivers, and 12 of 12 in a process that uses only the driver API (`cuCtxSynchronize` and
+  `cuStreamSynchronize`, 6 on each driver). I found no NVIDIA issue for it.
 
 Both have workarounds that passed small tests: claim the memory before restoring, and make every
 synchronize start with a tiny kernel launch. Neither closes the gap completely. gpunap can be built,
@@ -60,8 +60,8 @@ started CUDA. Runs affected by these bugs were thrown away and repeated.
 
 A fourth bug turned up later. `faults.py` wrote each test's result to a fixed file name, so a rerun
 replaced the earlier file, and that lost the first synchronize runs on driver 580. The scripts now
-keep every file (`resultfile.py`). The 580 synchronize counts below come from a rerun on 29 September
-with `repro_sync.py`.
+keep every file (`resultfile.py`). Both drivers were rerun on 29 September with `repro_sync.py`, and
+the synchronize counts below include those runs.
 
 ## What worked
 
@@ -88,7 +88,7 @@ with `repro_sync.py`.
 | Condition | What happened | Count | Detectable from outside? |
 | --- | --- | --- | --- |
 | Restore with too little free GPU memory | Restore returns out-of-memory. Every later restore returns `OPERATING_SYSTEM`, even with plenty of memory free, after 10 s and after 30 s. The failed attempt also keeps the memory it managed to grab (1.8 GB and 4.2 GB in two runs) until the job is killed. NVIDIA issue #44 | 4/4 on 595, 3/3 on 580 | Not needed: prevent it by claiming memory first (rule 1 below) |
-| `torch.cuda.synchronize()` or a stream synchronize while paused | Segfault inside `libcuda`. A process with no PyTorch crashes the same way on `cuCtxSynchronize` and `cuStreamSynchronize` (`repro_sync.py`). If the job is only locked and not checkpointed, the same calls return at once without waiting, so the lock never covered them. Event synchronize, copies, kernel launches and allocations wait correctly | 595: device sync 3/3 and stream sync 3/3 through PyTorch. 580: 3/3 and 3/3 through PyTorch, 3/3 and 3/3 through the driver API. The driver API has not been run on 595 yet | No |
+| `torch.cuda.synchronize()` or a stream synchronize while paused | Segfault inside `libcuda`. A process with no PyTorch crashes the same way on `cuCtxSynchronize` and `cuStreamSynchronize` (`repro_sync.py`). If the job is only locked and not checkpointed, the same calls return at once without waiting, so the lock never covered them. Event synchronize, copies, kernel launches and allocations wait correctly | 595: device sync 6/6 and stream sync 6/6 through PyTorch, 3/3 and 3/3 through the driver API. 580: 3/3 and 3/3 through PyTorch, 3/3 and 3/3 through the driver API | No |
 | Managed (unified) memory | Checkpoint returns `NOT_SUPPORTED`. On 595 the job's CUDA context is dead afterwards: every later call fails, and a bitsandbytes `PagedAdamW32bit` job crashed on its next cuBLAS call. On 580 the job survived the refused pause | 2/2 lost on 595; 1/1 survived on 580 | Yes, heuristically: the normal CUDA processes checked (4 kinds) had at most one `/dev/nvidia-uvm` mapping; the two managed-memory jobs had 2 and 5 |
 | NCCL process group on one GPU (what torchrun and Accelerate set up) | On 595 the checkpoint fails after 1.4 s and the job aborts ("unspecified launch failure" in the NCCL watchdog), also with `NCCL_CUMEM_ENABLE=0` and with PyTorch 2.13. On 580 it pauses cleanly with the same PyTorch 2.13 build | 4/4 lost on 595; 2/2 fine on 580 | Yes for PyTorch: threads named `pt_nccl_watchdg` and `pt_nccl_heartbt` |
 | CUDA memory shared between processes (a CUDA tensor passed to a child with `torch.multiprocessing`) | On 595 the checkpoint hangs for 32 to 35 s and fails; the child died and the parent segfaulted. On 580 the child's checkpoint succeeded but its restore returned `INVALID_VALUE` and it stayed stuck. NVIDIA lists this as unsupported before driver 610 | 1/1 on each driver | No signal found |
@@ -177,9 +177,9 @@ chose it.
    allocates inside that gap still wins the race.
 2. **Start jobs through gpunap and guard synchronize.** For PyTorch, patch
    `torch.cuda.synchronize` and `Stream.synchronize` so that each first launches a one-element
-   kernel, which waits while the job is paused. Tested 4 times (3 on gpu1, 1 on gpu2), then 6 more
-   times on gpu2 with `repro_sync.py` (3 through PyTorch, 3 through the driver API): no crash, and
-   the synchronize ran after the resume. Native code that calls synchronize directly is not covered.
+   kernel, which waits while the job is paused. Tested 4 times (3 on gpu1, 1 on gpu2), then 12 more
+   times with `repro_sync.py`, 6 on each machine (half through PyTorch, half through the driver
+   API): no crash, and the synchronize ran after the resume. Native code that calls synchronize directly is not covered.
 3. **Refuse to pause** when the process is stopped (`T`), has more than one `/dev/nvidia-uvm`
    mapping, has PyTorch NCCL threads on a driver where that crashes, has less cgroup headroom than
    its GPU memory plus a margin, or when the machine's available memory is short by the same

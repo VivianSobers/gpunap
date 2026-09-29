@@ -27,7 +27,7 @@ In every run, each step's loss and the final weights matched an uninterrupted ru
 Pausing an arbitrary job is unsafe. Seven conditions killed a job, crashed it, or left it stuck:
 
 - Restoring while other processes hold too much GPU memory fails, and after that the job can never be restored (NVIDIA issue #44). This happened in 4 of 4 runs on driver 595 and 3 of 3 on driver 580.
-- Calling `torch.cuda.synchronize()` or a stream synchronize while the job is paused segfaults inside `libcuda`. A process that uses only the driver API crashes the same way on `cuCtxSynchronize` and `cuStreamSynchronize`, which puts the fault in the driver. `validation/repro_sync.py` reproduces it.
+- Calling `torch.cuda.synchronize()` or a stream synchronize while the job is paused segfaults inside `libcuda`. A process that uses only the driver API crashes the same way on `cuCtxSynchronize` and `cuStreamSynchronize`, which puts the fault in the driver. All 30 synchronize runs on disk crashed, on both drivers. `validation/repro_sync.py` reproduces it.
 - Checkpointing a job that uses managed (unified) memory is refused, and on driver 595 the job's CUDA context is dead afterwards.
 - A single-GPU NCCL process group, as torchrun and Accelerate set up, makes the job abort on driver 595. It pauses cleanly on 580.
 - CUDA memory shared between processes breaks the checkpoint or the restore on both drivers.
@@ -40,7 +40,6 @@ Google's llm-d-rl-time-slicing project already has a node agent that swaps GPU m
 
 ## Caveats in the recorded results
 
-- Every synchronize run on disk crashed. On driver 595 that is 3 of 3 device and 3 of 3 stream synchronize runs, all through PyTorch. On driver 580 it is 3 of 3 of each through PyTorch and 3 of 3 of each through the driver API. The driver-API reproduction has not run on 595 yet.
 - Several runs labelled with 20 pauses completed fewer, because the job finished before the later pause points. The 388 total counts only cycles that completed.
 
 ## Layout
