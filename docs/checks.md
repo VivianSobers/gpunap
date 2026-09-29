@@ -39,7 +39,7 @@ each cycle.
 
 `errors` makes calls in the wrong state (restore a running process, checkpoint twice, unlock twice
 and so on), calls on a PID that does not exist and on a process without CUDA. Each must fail with an
-error and leave the process as it was, and a second process running alongside must be unaffected.
+error and leave the process as it was, and the process without CUDA must survive the calls.
 
 `sync_first_call` starts a process that sleeps and then makes exactly one CUDA call, and checkpoints
 it so that the call lands while it is checkpointed. The calls are `cuCtxSynchronize` and
@@ -53,9 +53,10 @@ memory, and counts its `/dev/nvidia-uvm` mappings, the outside signal FINDINGS f
 memory. FINDINGS: the checkpoint is refused; on 595 the process is broken afterwards, on 580 it
 carries on.
 
-`sigstop` stops a process with SIGSTOP and then tries a lock with a 5 s timeout, a state query and a
-restore, each through a worker that is killed at its time limit. It then sends SIGCONT and checks
-that the process recovers. FINDINGS: all three calls hang while the process is stopped.
+`sigstop` stops a running process with SIGSTOP and tries a lock with a 5 s timeout and a state
+query. It then checkpoints a second process, stops it, and tries a restore and a state query. Each
+call goes through a worker that is killed at its time limit (15 s, or 10 s for a state query).
+Afterwards it sends SIGCONT, brings both processes back and checks their data. FINDINGS: all three calls hang while the process is stopped.
 
 `exit_while_paused` checkpoints a process that is about to exit without making another CUDA call.
 FINDINGS: it exits with code 0, so a vanished PID after a pause is normal.
