@@ -1,0 +1,2240 @@
+{
+ "gpunap": "0.1.0",
+ "header": {
+  "label": "gpu2",
+  "token": "gpunap-68f557c59e26",
+  "full": false,
+  "started": 1790704277.2503877,
+  "checks": [
+   "api",
+   "roundtrip",
+   "errors",
+   "sync_first_call",
+   "managed_memory",
+   "sigstop",
+   "exit_while_paused",
+   "child_context",
+   "cgroup",
+   "nccl_single_gpu",
+   "ipc_shared_memory",
+   "restore_oom",
+   "size_sweep",
+   "controller_death",
+   "correctness"
+  ],
+  "system": {
+   "gpu": "NVIDIA GeForce RTX 4090",
+   "gpu_count": 1,
+   "driver": "580.178.04",
+   "cuda_driver_api_version": 13000,
+   "kernel_module": "proprietary",
+   "gpu_memory_mb": {
+    "used": 598,
+    "free": 23475,
+    "total": 24564
+   },
+   "pcie_idle": {
+    "pcie.link.gen.current": 1,
+    "pcie.link.gen.max": 4,
+    "pcie.link.width.current": 16,
+    "pcie.link.width.max": 16
+   },
+   "kernel_release": "6.8.0-138-generic",
+   "memory_mb": {
+    "MemTotal": 128498,
+    "MemAvailable": 103434,
+    "SwapTotal": 0
+   },
+   "python": "3.10.12",
+   "packages": {
+    "torch": "2.14.0",
+    "nvidia-nccl-cu12": null,
+    "nvidia-nccl-cu13": "2.30.7"
+   }
+  },
+  "available": [
+   "libcuda",
+   "systemd-run",
+   "torch"
+  ],
+  "other_gpu_processes": {
+   "count": 0,
+   "mb": 0
+  },
+  "idle_other_mb_allowed": 1024,
+  "gpu_memory_used_mb_before": 598,
+  "reconciled": [],
+  "ended": 1790704687.3703094,
+  "gpu_memory_used_mb_after": 662,
+  "other_gpu_processes_after": {
+   "count": 0,
+   "mb": 0
+  }
+ },
+ "partial": false,
+ "counts": {
+  "ok": 7,
+  "hazard": 4,
+  "skipped": 4,
+  "invalid": 0,
+  "error": 0
+ },
+ "results": [
+  {
+   "name": "api",
+   "verdict": "ok",
+   "summary": "all 5 checkpoint functions present, driver 580.178.04, proprietary kernel module",
+   "data": {
+    "functions": [
+     "cuCheckpointProcessLock",
+     "cuCheckpointProcessCheckpoint",
+     "cuCheckpointProcessRestore",
+     "cuCheckpointProcessUnlock",
+     "cuCheckpointProcessGetState"
+    ],
+    "missing": [],
+    "cuInit": "OK",
+    "cuda_driver_api_version": 13000,
+    "driver": "580.178.04",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "kernel_module": "proprietary"
+   },
+   "seconds": 0.04
+  },
+  {
+   "name": "roundtrip",
+   "verdict": "ok",
+   "summary": "3 cycles on 256 MB, data intact; checkpoint 0.70-0.72 s, restore 0.47-0.50 s",
+   "data": {
+    "mb": 256,
+    "cycles": [
+     {
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704278.069023,
+         "end": 1790704278.0917473,
+         "seconds": 0.0227
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704278.0918362,
+         "end": 1790704278.7952454,
+         "seconds": 0.7034
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704278.069023,
+       "end": 1790704278.7952454,
+       "hung": false,
+       "wall_s": 0.882
+      },
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704279.4439576,
+         "end": 1790704279.9391017,
+         "seconds": 0.4951
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704279.9391837,
+         "end": 1790704279.9416072,
+         "seconds": 0.0024
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704279.4439576,
+       "end": 1790704279.9416072,
+       "hung": false,
+       "wall_s": 0.645
+      },
+      "verify": "ok"
+     },
+     {
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704280.0917048,
+         "end": 1790704280.1140094,
+         "seconds": 0.0223
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704280.1140563,
+         "end": 1790704280.8160415,
+         "seconds": 0.702
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704280.0917048,
+       "end": 1790704280.8160415,
+       "hung": false,
+       "wall_s": 0.87
+      },
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704281.4678817,
+         "end": 1790704281.9445593,
+         "seconds": 0.4767
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704281.9446247,
+         "end": 1790704281.9471722,
+         "seconds": 0.0025
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704281.4678817,
+       "end": 1790704281.9471722,
+       "hung": false,
+       "wall_s": 0.629
+      },
+      "verify": "ok"
+     },
+     {
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704282.1013906,
+         "end": 1790704282.123282,
+         "seconds": 0.0219
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704282.123344,
+         "end": 1790704282.842076,
+         "seconds": 0.7187
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704282.1013906,
+       "end": 1790704282.842076,
+       "hung": false,
+       "wall_s": 0.89
+      },
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704283.4890234,
+         "end": 1790704283.9544995,
+         "seconds": 0.4655
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704283.9545765,
+         "end": 1790704283.956842,
+         "seconds": 0.0023
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704283.4890234,
+       "end": 1790704283.956842,
+       "hung": false,
+       "wall_s": 0.614
+      },
+      "verify": "ok"
+     }
+    ],
+    "target_rc": 0
+   },
+   "seconds": 6.49
+  },
+  {
+   "name": "errors",
+   "verdict": "ok",
+   "summary": "wrong-state, missing-PID and no-CUDA calls all failed without effect: CUDA_ERROR_ILLEGAL_STATE, CUDA_ERROR_NOT_INITIALIZED, CUDA_ERROR_OPERATING_SYSTEM",
+   "data": {
+    "sequence": [
+     {
+      "op": "checkpoint",
+      "should_work": false,
+      "result": "CUDA_ERROR_ILLEGAL_STATE"
+     },
+     {
+      "op": "restore",
+      "should_work": false,
+      "result": "CUDA_ERROR_ILLEGAL_STATE"
+     },
+     {
+      "op": "unlock",
+      "should_work": false,
+      "result": "CUDA_ERROR_ILLEGAL_STATE"
+     },
+     {
+      "op": "lock",
+      "should_work": true,
+      "result": "OK"
+     },
+     {
+      "op": "lock",
+      "should_work": false,
+      "result": "CUDA_ERROR_ILLEGAL_STATE"
+     },
+     {
+      "op": "checkpoint",
+      "should_work": true,
+      "result": "OK"
+     },
+     {
+      "op": "checkpoint",
+      "should_work": false,
+      "result": "CUDA_ERROR_ILLEGAL_STATE"
+     },
+     {
+      "op": "unlock",
+      "should_work": false,
+      "result": "CUDA_ERROR_ILLEGAL_STATE"
+     },
+     {
+      "op": "restore",
+      "should_work": true,
+      "result": "OK"
+     },
+     {
+      "op": "unlock",
+      "should_work": true,
+      "result": "OK"
+     }
+    ],
+    "others": {
+     "missing_pid_state": "CUDA_ERROR_OPERATING_SYSTEM",
+     "missing_pid_lock": "CUDA_ERROR_OPERATING_SYSTEM",
+     "no_cuda_state": "CUDA_ERROR_NOT_INITIALIZED",
+     "no_cuda_lock": "CUDA_ERROR_NOT_INITIALIZED",
+     "no_cuda_checkpoint": "CUDA_ERROR_NOT_INITIALIZED"
+    },
+    "final_state": "running",
+    "verify": "ok",
+    "target_rc": 0,
+    "missing_pid": 4194303,
+    "cleanup": [
+     {
+      "pid": 1150171,
+      "kind": "no_cuda",
+      "sigcont": null,
+      "state": "CUDA_ERROR_NOT_INITIALIZED",
+      "steps": [
+       "sigkill"
+      ],
+      "calls": [],
+      "sigkill": null
+     }
+    ]
+   },
+   "seconds": 4.07
+  },
+  {
+   "name": "sync_first_call",
+   "verdict": "hazard",
+   "summary": "driver ctx_sync: crash: SIGSEGV 2/2; driver event_sync: waited for resume 2/2; driver guarded_ctx_sync: waited for resume 2/2; driver memcpy: waited for resume 2/2; driver stream_sync: crash: SIGSEGV 2/2; torch ctx_sync: crash: SIGSEGV 2/2; torch event_sync: waited for resume 2/2; torch guarded_ctx_sync: waited for resume 2/2; torch memcpy: waited for resume 2/2; torch stream_sync: crash: SIGSEGV 2/2",
+   "data": {
+    "repeats": 2,
+    "apis": [
+     "driver",
+     "torch"
+    ],
+    "notes": [],
+    "sleep_s": 3.0,
+    "pause_at_s": 0.5,
+    "runs": [
+     {
+      "api": "driver",
+      "op": "ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704289.5602,
+         "end": 1790704289.5826635,
+         "seconds": 0.0225
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704289.5827284,
+         "end": 1790704290.0696526,
+         "seconds": 0.4869
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704289.5602,
+       "end": 1790704290.0696526,
+       "hung": false,
+       "wall_s": 0.653
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "READY 1150286",
+       "CALL 1790704291.9420"
+      ],
+      "call_after_checkpoint_s": 1.872,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "driver",
+      "op": "stream_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704294.4702768,
+         "end": 1790704294.4929886,
+         "seconds": 0.0227
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704294.4930356,
+         "end": 1790704295.0055132,
+         "seconds": 0.5125
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704294.4702768,
+       "end": 1790704295.0055132,
+       "hung": false,
+       "wall_s": 0.691
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "READY 1150659",
+       "CALL 1790704296.8400"
+      ],
+      "call_after_checkpoint_s": 1.834,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "driver",
+      "op": "event_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704299.3043342,
+         "end": 1790704299.3293965,
+         "seconds": 0.0251
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704299.329448,
+         "end": 1790704299.8430407,
+         "seconds": 0.5136
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704299.3043342,
+       "end": 1790704299.8430407,
+       "hung": false,
+       "wall_s": 0.688
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704305.9929848,
+         "end": 1790704306.4336107,
+         "seconds": 0.4406
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704306.4336624,
+         "end": 1790704306.4490545,
+         "seconds": 0.0154
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704305.9929848,
+       "end": 1790704306.4490545,
+       "hung": false,
+       "wall_s": 0.605
+      },
+      "rc": 0,
+      "output": [
+       "READY 1150941",
+       "CALL 1790704301.6790",
+       "DONE 1790704306.4492 rc=0"
+      ],
+      "call_after_checkpoint_s": 1.836,
+      "label": "waited for resume"
+     },
+     {
+      "api": "driver",
+      "op": "memcpy",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704307.4754157,
+         "end": 1790704307.4982915,
+         "seconds": 0.0229
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704307.4983397,
+         "end": 1790704308.0292385,
+         "seconds": 0.5309
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704307.4754157,
+       "end": 1790704308.0292385,
+       "hung": false,
+       "wall_s": 0.704
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704314.1801362,
+         "end": 1790704314.610509,
+         "seconds": 0.4304
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704314.6105762,
+         "end": 1790704314.6261756,
+         "seconds": 0.0156
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704314.1801362,
+       "end": 1790704314.6261756,
+       "hung": false,
+       "wall_s": 0.596
+      },
+      "rc": 0,
+      "output": [
+       "READY 1151213",
+       "CALL 1790704309.8524",
+       "DONE 1790704314.6265 rc=0"
+      ],
+      "call_after_checkpoint_s": 1.823,
+      "label": "waited for resume"
+     },
+     {
+      "api": "driver",
+      "op": "guarded_ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704315.637709,
+         "end": 1790704315.6604524,
+         "seconds": 0.0227
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704315.6604977,
+         "end": 1790704316.2530289,
+         "seconds": 0.5925
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704315.637709,
+       "end": 1790704316.2530289,
+       "hung": false,
+       "wall_s": 0.764
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704322.3977275,
+         "end": 1790704322.8265224,
+         "seconds": 0.4288
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704322.8265877,
+         "end": 1790704322.8425336,
+         "seconds": 0.0159
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704322.3977275,
+       "end": 1790704322.8425336,
+       "hung": false,
+       "wall_s": 0.59
+      },
+      "rc": 0,
+      "output": [
+       "READY 1151473",
+       "CALL 1790704318.0157",
+       "DONE 1790704322.8425 rc=0"
+      ],
+      "call_after_checkpoint_s": 1.763,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704327.8721893,
+         "end": 1790704327.8953624,
+         "seconds": 0.0232
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704327.8954158,
+         "end": 1790704328.4676924,
+         "seconds": 0.5723
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704327.8721893,
+       "end": 1790704328.4676924,
+       "hung": false,
+       "wall_s": 0.743
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "READY 1151597",
+       "CALL 1790704330.2497"
+      ],
+      "call_after_checkpoint_s": 1.782,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "torch",
+      "op": "stream_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704336.5881531,
+         "end": 1790704336.6111462,
+         "seconds": 0.023
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704336.6112056,
+         "end": 1790704337.1701512,
+         "seconds": 0.5589
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704336.5881531,
+       "end": 1790704337.1701512,
+       "hung": false,
+       "wall_s": 0.726
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "READY 1152050",
+       "CALL 1790704338.9698"
+      ],
+      "call_after_checkpoint_s": 1.8,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "torch",
+      "op": "event_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704345.294785,
+         "end": 1790704345.3177745,
+         "seconds": 0.023
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704345.317854,
+         "end": 1790704345.8781872,
+         "seconds": 0.5603
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704345.294785,
+       "end": 1790704345.8781872,
+       "hung": false,
+       "wall_s": 0.729
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704352.0261953,
+         "end": 1790704352.4383945,
+         "seconds": 0.4122
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704352.4384787,
+         "end": 1790704352.4446692,
+         "seconds": 0.0062
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704352.0261953,
+       "end": 1790704352.4446692,
+       "hung": false,
+       "wall_s": 0.569
+      },
+      "rc": 0,
+      "output": [
+       "READY 1152377",
+       "CALL 1790704347.6749",
+       "DONE 1790704352.4449 rc=0"
+      ],
+      "call_after_checkpoint_s": 1.797,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "memcpy",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704357.546516,
+         "end": 1790704357.569469,
+         "seconds": 0.023
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704357.5695186,
+         "end": 1790704358.1339047,
+         "seconds": 0.5644
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704357.546516,
+       "end": 1790704358.1339047,
+       "hung": false,
+       "wall_s": 0.734
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704364.2852354,
+         "end": 1790704364.7544928,
+         "seconds": 0.4693
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704364.7545593,
+         "end": 1790704364.769831,
+         "seconds": 0.0153
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704364.2852354,
+       "end": 1790704364.769831,
+       "hung": false,
+       "wall_s": 0.636
+      },
+      "rc": 0,
+      "output": [
+       "READY 1152834",
+       "CALL 1790704359.9279",
+       "DONE 1790704364.7796 rc=0"
+      ],
+      "call_after_checkpoint_s": 1.794,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "guarded_ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704369.7626872,
+         "end": 1790704369.7857199,
+         "seconds": 0.023
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704369.7857654,
+         "end": 1790704370.3543298,
+         "seconds": 0.5686
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704369.7626872,
+       "end": 1790704370.3543298,
+       "hung": false,
+       "wall_s": 0.738
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704376.5004134,
+         "end": 1790704376.950616,
+         "seconds": 0.4502
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704376.9506712,
+         "end": 1790704376.9659991,
+         "seconds": 0.0153
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704376.5004134,
+       "end": 1790704376.9659991,
+       "hung": false,
+       "wall_s": 0.611
+      },
+      "rc": 0,
+      "output": [
+       "READY 1153483",
+       "CALL 1790704372.1431",
+       "DONE 1790704377.0011 rc=0"
+      ],
+      "call_after_checkpoint_s": 1.789,
+      "label": "waited for resume"
+     },
+     {
+      "api": "driver",
+      "op": "ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704378.1292958,
+         "end": 1790704378.1517053,
+         "seconds": 0.0224
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704378.1517386,
+         "end": 1790704378.6881576,
+         "seconds": 0.5364
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704378.1292958,
+       "end": 1790704378.6881576,
+       "hung": false,
+       "wall_s": 0.712
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "READY 1153735",
+       "CALL 1790704380.5069"
+      ],
+      "call_after_checkpoint_s": 1.819,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "driver",
+      "op": "stream_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704382.8744688,
+         "end": 1790704382.8983378,
+         "seconds": 0.0239
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704382.8983917,
+         "end": 1790704383.4101596,
+         "seconds": 0.5118
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704382.8744688,
+       "end": 1790704383.4101596,
+       "hung": false,
+       "wall_s": 0.686
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "READY 1153930",
+       "CALL 1790704385.2510"
+      ],
+      "call_after_checkpoint_s": 1.841,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "driver",
+      "op": "event_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704387.629272,
+         "end": 1790704387.6524196,
+         "seconds": 0.0231
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704387.652474,
+         "end": 1790704388.1758893,
+         "seconds": 0.5234
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704387.629272,
+       "end": 1790704388.1758893,
+       "hung": false,
+       "wall_s": 0.693
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704394.32688,
+         "end": 1790704394.7474906,
+         "seconds": 0.4206
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704394.7475514,
+         "end": 1790704394.7631948,
+         "seconds": 0.0156
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704394.32688,
+       "end": 1790704394.7631948,
+       "hung": false,
+       "wall_s": 0.585
+      },
+      "rc": 0,
+      "output": [
+       "READY 1154193",
+       "CALL 1790704390.0099",
+       "DONE 1790704394.7635 rc=0"
+      ],
+      "call_after_checkpoint_s": 1.834,
+      "label": "waited for resume"
+     },
+     {
+      "api": "driver",
+      "op": "memcpy",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704395.7744272,
+         "end": 1790704395.797146,
+         "seconds": 0.0227
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704395.7972,
+         "end": 1790704396.322681,
+         "seconds": 0.5255
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704395.7744272,
+       "end": 1790704396.322681,
+       "hung": false,
+       "wall_s": 0.697
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704402.4752998,
+         "end": 1790704402.917023,
+         "seconds": 0.4417
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704402.9170878,
+         "end": 1790704402.9284377,
+         "seconds": 0.0113
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704402.4752998,
+       "end": 1790704402.9284377,
+       "hung": false,
+       "wall_s": 0.605
+      },
+      "rc": 0,
+      "output": [
+       "READY 1154476",
+       "CALL 1790704398.1518",
+       "DONE 1790704402.9288 rc=0"
+      ],
+      "call_after_checkpoint_s": 1.829,
+      "label": "waited for resume"
+     },
+     {
+      "api": "driver",
+      "op": "guarded_ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704403.9712563,
+         "end": 1790704403.9935572,
+         "seconds": 0.0223
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704403.9936185,
+         "end": 1790704404.5207102,
+         "seconds": 0.5271
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704403.9712563,
+       "end": 1790704404.5207102,
+       "hung": false,
+       "wall_s": 0.699
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704410.6784523,
+         "end": 1790704411.0972521,
+         "seconds": 0.4188
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704411.0973349,
+         "end": 1790704411.10885,
+         "seconds": 0.0115
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704410.6784523,
+       "end": 1790704411.10885,
+       "hung": false,
+       "wall_s": 0.589
+      },
+      "rc": 0,
+      "output": [
+       "READY 1154714",
+       "CALL 1790704406.3510",
+       "DONE 1790704411.1089 rc=0"
+      ],
+      "call_after_checkpoint_s": 1.83,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704416.1013966,
+         "end": 1790704416.1245053,
+         "seconds": 0.0231
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704416.1245532,
+         "end": 1790704416.7041402,
+         "seconds": 0.5796
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704416.1013966,
+       "end": 1790704416.7041402,
+       "hung": false,
+       "wall_s": 0.758
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "READY 1155047",
+       "CALL 1790704418.4749"
+      ],
+      "call_after_checkpoint_s": 1.771,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "torch",
+      "op": "stream_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704424.8634195,
+         "end": 1790704424.8861291,
+         "seconds": 0.0227
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704424.886185,
+         "end": 1790704425.498532,
+         "seconds": 0.6123
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704424.8634195,
+       "end": 1790704425.498532,
+       "hung": false,
+       "wall_s": 0.783
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "READY 1155409",
+       "CALL 1790704427.2416"
+      ],
+      "call_after_checkpoint_s": 1.743,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "torch",
+      "op": "event_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704433.5479896,
+         "end": 1790704433.5706255,
+         "seconds": 0.0226
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704433.570681,
+         "end": 1790704434.1356354,
+         "seconds": 0.565
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704433.5479896,
+       "end": 1790704434.1356354,
+       "hung": false,
+       "wall_s": 0.734
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704440.2818763,
+         "end": 1790704440.7501135,
+         "seconds": 0.4682
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704440.750181,
+         "end": 1790704440.766228,
+         "seconds": 0.016
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704440.2818763,
+       "end": 1790704440.766228,
+       "hung": false,
+       "wall_s": 0.63
+      },
+      "rc": 0,
+      "output": [
+       "READY 1155823",
+       "CALL 1790704435.9262",
+       "DONE 1790704440.7663 rc=0"
+      ],
+      "call_after_checkpoint_s": 1.791,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "memcpy",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704445.9235146,
+         "end": 1790704445.946711,
+         "seconds": 0.0232
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704445.9467587,
+         "end": 1790704446.5068703,
+         "seconds": 0.5601
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704445.9235146,
+       "end": 1790704446.5068703,
+       "hung": false,
+       "wall_s": 0.731
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704452.6502903,
+         "end": 1790704453.067429,
+         "seconds": 0.4171
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704453.0674956,
+         "end": 1790704453.0729597,
+         "seconds": 0.0055
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704452.6502903,
+       "end": 1790704453.0729597,
+       "hung": false,
+       "wall_s": 0.565
+      },
+      "rc": 0,
+      "output": [
+       "READY 1156073",
+       "CALL 1790704448.3008",
+       "DONE 1790704453.0806 rc=0"
+      ],
+      "call_after_checkpoint_s": 1.794,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "guarded_ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704458.2599242,
+         "end": 1790704458.283535,
+         "seconds": 0.0236
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704458.283584,
+         "end": 1790704458.8439474,
+         "seconds": 0.5604
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704458.2599242,
+       "end": 1790704458.8439474,
+       "hung": false,
+       "wall_s": 0.741
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704464.9900746,
+         "end": 1790704465.4371722,
+         "seconds": 0.4471
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704465.437228,
+         "end": 1790704465.44288,
+         "seconds": 0.0057
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704464.9900746,
+       "end": 1790704465.44288,
+       "hung": false,
+       "wall_s": 0.599
+      },
+      "rc": 0,
+      "output": [
+       "READY 1156690",
+       "CALL 1790704460.6278",
+       "DONE 1790704465.4776 rc=0"
+      ],
+      "call_after_checkpoint_s": 1.784,
+      "label": "waited for resume"
+     }
+    ]
+   },
+   "seconds": 177.12
+  },
+  {
+   "name": "managed_memory",
+   "verdict": "ok",
+   "summary": "pause refused (CUDA_ERROR_NOT_SUPPORTED); the process kept running with its data intact; /dev/nvidia-uvm mappings: 1 without managed memory, 2 with",
+   "data": {
+    "pause": {
+     "op": "pause",
+     "calls": [
+      {
+       "op": "lock",
+       "result": "OK",
+       "code": 0,
+       "start": 1790704467.0925431,
+       "end": 1790704467.114531,
+       "seconds": 0.022
+      },
+      {
+       "op": "checkpoint",
+       "result": "CUDA_ERROR_NOT_SUPPORTED",
+       "code": 801,
+       "start": 1790704467.1145692,
+       "end": 1790704467.6058652,
+       "seconds": 0.4913
+      },
+      {
+       "op": "unlock",
+       "result": "OK",
+       "code": 0,
+       "start": 1790704467.6060016,
+       "end": 1790704467.6064625,
+       "seconds": 0.0005
+      }
+     ],
+     "result": "CUDA_ERROR_NOT_SUPPORTED",
+     "code": 801,
+     "start": 1790704467.0925431,
+     "end": 1790704467.6064625,
+     "hung": false,
+     "wall_s": 0.67
+    },
+    "resume": null,
+    "verify": "ok",
+    "target_rc": 0,
+    "mb": 128,
+    "managed_mb": 64,
+    "uvm_maps_plain": 1,
+    "uvm_maps_managed": 2,
+    "uvm_signal_separates": true
+   },
+   "seconds": 3.02
+  },
+  {
+   "name": "sigstop",
+   "verdict": "hazard",
+   "summary": "hung while the process was stopped: lock (running), state (running), restore (checkpointed), state (checkpointed); recovered after SIGCONT with data intact",
+   "data": {
+    "stopped_running": {
+     "calls": {
+      "lock": {
+       "result": "hung",
+       "hung": true,
+       "limit_s": 15.0,
+       "wall_s": 15.011,
+       "stderr": "",
+       "op": "lock"
+      },
+      "state": {
+       "result": "hung",
+       "hung": true,
+       "limit_s": 10.0,
+       "wall_s": 10.017,
+       "stderr": "",
+       "op": "state"
+      }
+     },
+     "state_after_cont": "running",
+     "verify": "ok",
+     "rc": 0
+    },
+    "stopped_checkpointed": {
+     "calls": {
+      "restore": {
+       "result": "hung",
+       "hung": true,
+       "limit_s": 15.0,
+       "wall_s": 15.023,
+       "stderr": "",
+       "op": "restore"
+      },
+      "state": {
+       "result": "hung",
+       "hung": true,
+       "limit_s": 10.0,
+       "wall_s": 10.018,
+       "stderr": "",
+       "op": "state"
+      }
+     },
+     "pause": {
+      "op": "pause",
+      "calls": [
+       {
+        "op": "lock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790704496.8590088,
+        "end": 1790704496.8808,
+        "seconds": 0.0218
+       },
+       {
+        "op": "checkpoint",
+        "result": "OK",
+        "code": 0,
+        "start": 1790704496.8808734,
+        "end": 1790704497.4541261,
+        "seconds": 0.5733
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790704496.8590088,
+      "end": 1790704497.4541261,
+      "hung": false,
+      "wall_s": 0.741
+     },
+     "state_after_cont": "checkpointed",
+     "resume": {
+      "op": "resume",
+      "calls": [
+       {
+        "op": "restore",
+        "result": "OK",
+        "code": 0,
+        "start": 1790704524.8157892,
+        "end": 1790704525.243165,
+        "seconds": 0.4274
+       },
+       {
+        "op": "unlock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790704525.243237,
+        "end": 1790704525.2484818,
+        "seconds": 0.0052
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790704524.8157892,
+      "end": 1790704525.2484818,
+      "hung": false,
+      "wall_s": 0.582
+     },
+     "verify": "ok",
+     "rc": 0
+    },
+    "limits_s": {
+     "lock": 15.0,
+     "state": 10.0,
+     "restore": 15.0
+    },
+    "lock_timeout_ms": 5000
+   },
+   "seconds": 56.55
+  },
+  {
+   "name": "exit_while_paused",
+   "verdict": "ok",
+   "summary": "exited with code 0 while checkpointed",
+   "data": {
+    "pause": {
+     "op": "pause",
+     "calls": [
+      {
+       "op": "lock",
+       "result": "OK",
+       "code": 0,
+       "start": 1790704526.4305718,
+       "end": 1790704526.453377,
+       "seconds": 0.0228
+      },
+      {
+       "op": "checkpoint",
+       "result": "OK",
+       "code": 0,
+       "start": 1790704526.4534252,
+       "end": 1790704526.9655848,
+       "seconds": 0.5122
+      }
+     ],
+     "result": "OK",
+     "code": 0,
+     "start": 1790704526.4305718,
+     "end": 1790704526.9655848,
+     "hung": false,
+     "wall_s": 0.685
+    },
+    "resume": null,
+    "exited_while_paused": true,
+    "target_rc": 0,
+    "output": [
+     "READY 1159222",
+     "EXITING 1790704528.8041"
+    ]
+   },
+   "seconds": 3.43
+  },
+  {
+   "name": "child_context",
+   "verdict": "ok",
+   "summary": "pausing the parent left the child running; pausing each process separately worked, data intact",
+   "data": {
+    "steps": {
+     "pause parent": {
+      "op": "pause",
+      "calls": [
+       {
+        "op": "lock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790704529.7380729,
+        "end": 1790704529.7613015,
+        "seconds": 0.0232
+       },
+       {
+        "op": "checkpoint",
+        "result": "OK",
+        "code": 0,
+        "start": 1790704529.7613509,
+        "end": 1790704530.3356414,
+        "seconds": 0.5743
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790704529.7380729,
+      "end": 1790704530.3356414,
+      "hung": false,
+      "wall_s": 0.749
+     },
+     "pause child": {
+      "op": "pause",
+      "calls": [
+       {
+        "op": "lock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790704530.7222874,
+        "end": 1790704530.7448819,
+        "seconds": 0.0226
+       },
+       {
+        "op": "checkpoint",
+        "result": "OK",
+        "code": 0,
+        "start": 1790704530.7449334,
+        "end": 1790704531.3809836,
+        "seconds": 0.6361
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790704530.7222874,
+      "end": 1790704531.3809836,
+      "hung": false,
+      "wall_s": 0.809
+     },
+     "resume child": {
+      "op": "resume",
+      "calls": [
+       {
+        "op": "restore",
+        "result": "OK",
+        "code": 0,
+        "start": 1790704531.5272644,
+        "end": 1790704531.9400089,
+        "seconds": 0.4127
+       },
+       {
+        "op": "unlock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790704531.9400961,
+        "end": 1790704531.950627,
+        "seconds": 0.0105
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790704531.5272644,
+      "end": 1790704531.950627,
+      "hung": false,
+      "wall_s": 0.572
+     },
+     "resume parent": {
+      "op": "resume",
+      "calls": [
+       {
+        "op": "restore",
+        "result": "OK",
+        "code": 0,
+        "start": 1790704532.1031067,
+        "end": 1790704532.4719641,
+        "seconds": 0.3689
+       },
+       {
+        "op": "unlock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790704532.472031,
+        "end": 1790704532.4792404,
+        "seconds": 0.0072
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790704532.1031067,
+      "end": 1790704532.4792404,
+      "hung": false,
+      "wall_s": 0.528
+     }
+    },
+    "child_state_after_parent_pause": "running",
+    "gpu_mb_after_parent_pause": {
+     "parent": 0,
+     "child": 514
+    },
+    "verify": "ok",
+    "target_rc": 0
+   },
+   "seconds": 3.77
+  },
+  {
+   "name": "cgroup",
+   "verdict": "hazard",
+   "summary": "killed during the checkpoint with a 362 MB cgroup limit: exit -9 (SIGKILL)",
+   "data": {
+    "probe_rss_mb": 106,
+    "gpu_mb": 512,
+    "memory_max_mb": 362,
+    "cgroup": {
+     "scope": "run-rce219486955a4e8d99ca7f1f03bb19a3.scope",
+     "max_bytes": 379584512,
+     "limit_on_own_cgroup": true,
+     "current_bytes": 28479488
+    },
+    "pause": {
+     "op": "pause",
+     "calls": [
+      {
+       "op": "lock",
+       "result": "OK",
+       "code": 0,
+       "start": 1790704533.743937,
+       "end": 1790704533.7664435,
+       "seconds": 0.0225
+      },
+      {
+       "op": "checkpoint",
+       "result": "CUDA_ERROR_OPERATING_SYSTEM",
+       "code": 304,
+       "start": 1790704533.7664814,
+       "end": 1790704534.037653,
+       "seconds": 0.2712
+      },
+      {
+       "op": "unlock",
+       "result": "CUDA_ERROR_OPERATING_SYSTEM",
+       "code": 304,
+       "start": 1790704534.0377858,
+       "end": 1790704534.0379608,
+       "seconds": 0.0002
+      }
+     ],
+     "result": "CUDA_ERROR_OPERATING_SYSTEM",
+     "code": 304,
+     "start": 1790704533.743937,
+     "end": 1790704534.0379608,
+     "hung": false,
+     "wall_s": 0.438
+    },
+    "resume": null,
+    "alive_after_pause": false,
+    "verify": "not checked",
+    "target_rc": -9
+   },
+   "seconds": 2.2
+  },
+  {
+   "name": "nccl_single_gpu",
+   "verdict": "ok",
+   "summary": "3 pause and resume cycles, collectives kept working; NCCL threads seen: pt_nccl_heartbt, pt_nccl_watchdg",
+   "data": {
+    "cycles": [
+     {
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704539.9632046,
+         "end": 1790704539.9854443,
+         "seconds": 0.0222
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704539.9855032,
+         "end": 1790704541.0979602,
+         "seconds": 1.1125
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704539.9632046,
+       "end": 1790704541.0979602,
+       "hung": false,
+       "wall_s": 1.287
+      },
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704544.252974,
+         "end": 1790704544.963587,
+         "seconds": 0.7106
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704544.9636486,
+         "end": 1790704544.9660306,
+         "seconds": 0.0024
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704544.252974,
+       "end": 1790704544.9660306,
+       "hung": false,
+       "wall_s": 0.864
+      },
+      "verify": "ok"
+     },
+     {
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704545.312334,
+         "end": 1790704545.3340325,
+         "seconds": 0.0217
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704545.3340867,
+         "end": 1790704546.324393,
+         "seconds": 0.9903
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704545.312334,
+       "end": 1790704546.324393,
+       "hung": false,
+       "wall_s": 1.156
+      },
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704549.4722588,
+         "end": 1790704550.1559954,
+         "seconds": 0.6837
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704550.1560686,
+         "end": 1790704550.1591194,
+         "seconds": 0.0031
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704549.4722588,
+       "end": 1790704550.1591194,
+       "hung": false,
+       "wall_s": 0.833
+      },
+      "verify": "ok"
+     },
+     {
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704550.5125284,
+         "end": 1790704550.5347238,
+         "seconds": 0.0222
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704550.5347815,
+         "end": 1790704551.5610278,
+         "seconds": 1.0262
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704550.5125284,
+       "end": 1790704551.5610278,
+       "hung": false,
+       "wall_s": 1.198
+      },
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704554.710585,
+         "end": 1790704555.392018,
+         "seconds": 0.6814
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790704555.3920846,
+         "end": 1790704555.395183,
+         "seconds": 0.0031
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790704554.710585,
+       "end": 1790704555.395183,
+       "hung": false,
+       "wall_s": 0.831
+      },
+      "verify": "ok"
+     }
+    ],
+    "target_rc": 0,
+    "threads": [
+     "cuda-EvtHandlr",
+     "cuda00001800007",
+     "pt_nccl_heartbt",
+     "pt_nccl_watchdg",
+     "pt_tcpstore_uv",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python",
+     "python"
+    ],
+    "nccl_threads": [
+     "pt_nccl_heartbt",
+     "pt_nccl_watchdg"
+    ],
+    "output": [
+     "READY 1159727",
+     "VERIFIED ok",
+     "VERIFIED ok",
+     "VERIFIED ok"
+    ]
+   },
+   "seconds": 21.44
+  },
+  {
+   "name": "ipc_shared_memory",
+   "verdict": "hazard",
+   "summary": "resume child returned CUDA_ERROR_INVALID_VALUE",
+   "data": {
+    "steps": {
+     "pause child": {
+      "op": "pause",
+      "calls": [
+       {
+        "op": "lock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790704564.9321978,
+        "end": 1790704564.9545698,
+        "seconds": 0.0224
+       },
+       {
+        "op": "checkpoint",
+        "result": "OK",
+        "code": 0,
+        "start": 1790704564.9545994,
+        "end": 1790704565.5273862,
+        "seconds": 0.5728
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790704564.9321978,
+      "end": 1790704565.5273862,
+      "hung": false,
+      "wall_s": 0.743
+     },
+     "resume child": {
+      "op": "resume",
+      "calls": [
+       {
+        "op": "restore",
+        "result": "CUDA_ERROR_INVALID_VALUE",
+        "code": 1,
+        "start": 1790704566.6783152,
+        "end": 1790704566.7153232,
+        "seconds": 0.037
+       }
+      ],
+      "result": "CUDA_ERROR_INVALID_VALUE",
+      "code": 1,
+      "start": 1790704566.6783152,
+      "end": 1790704566.7153232,
+      "hung": false,
+      "wall_s": 0.187
+     }
+    },
+    "verify": "bad child: no reply",
+    "target_rc": null,
+    "child_alive_at_end": true,
+    "output": [
+     "CHILD 1160625",
+     "READY 1160543",
+     "VERIFIED bad child: no reply"
+    ],
+    "cleanup": [
+     {
+      "pid": 1160625,
+      "kind": "ipc_child",
+      "sigcont": null,
+      "state": "checkpointed",
+      "steps": [
+       "sigkill"
+      ],
+      "calls": [],
+      "sigkill": null
+     },
+     {
+      "pid": 1160543,
+      "kind": "torch_ipc",
+      "sigcont": null,
+      "state": "running",
+      "steps": [
+       "sigkill"
+      ],
+      "calls": [],
+      "sigkill": null
+     }
+    ]
+   },
+   "seconds": 130.12
+  },
+  {
+   "name": "restore_oom",
+   "verdict": "skipped",
+   "summary": "needs --full",
+   "data": {},
+   "seconds": 0.0
+  },
+  {
+   "name": "size_sweep",
+   "verdict": "skipped",
+   "summary": "needs --full",
+   "data": {},
+   "seconds": 0.0
+  },
+  {
+   "name": "controller_death",
+   "verdict": "skipped",
+   "summary": "needs --full",
+   "data": {},
+   "seconds": 0.0
+  },
+  {
+   "name": "correctness",
+   "verdict": "skipped",
+   "summary": "needs --full",
+   "data": {},
+   "seconds": 0.0
+  }
+ ]
+}
