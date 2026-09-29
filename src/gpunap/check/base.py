@@ -85,6 +85,10 @@ class Session:
             self.popen.stdin.flush()
             return True
         except (BrokenPipeError, ValueError, OSError):
+            try:
+                self.popen.stdin.close()
+            except (BrokenPipeError, ValueError, OSError):
+                pass
             return False
 
     def request(self, cmd: str, reply: str, timeout: float) -> Optional[str]:
