@@ -3,3 +3,7 @@ __pycache__/
 validation/logs/
 .remember/
 .pytest_cache/
+build/
+dist/
+*.egg-info/
+results/check/tmp/
