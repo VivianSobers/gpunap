@@ -1,9 +1,11 @@
 """Verdicts, check results, the run report, and file naming that never overwrites."""
 from __future__ import annotations
 
+import getpass
 import json
 import os
 import re
+import socket
 import time
 from dataclasses import asdict, dataclass, field
 from typing import Dict, List
@@ -62,9 +64,31 @@ def default_name(label: str, when: float) -> str:
     return f"gpunap-check-{safe}-{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime(when))}.json"
 
 
+def _identity() -> Dict[str, str]:
+    try:
+        user = getpass.getuser()
+    except Exception:
+        user = ""
+    return {"home": os.path.expanduser("~"), "user": user, "host": socket.gethostname(), "uid": str(os.getuid())}
+
+
+def redact(text: str, ident: Dict[str, str]) -> str:
+    """Replace the home directory, user name, host name and UID in text. Results are meant to be shared."""
+    if ident.get("home") and ident["home"] != "/":
+        text = text.replace(ident["home"], "~")
+    if ident.get("uid"):
+        text = re.sub(rf"user-{ident['uid']}\b", "user-UID", text)
+        text = re.sub(rf"user@{ident['uid']}\b", "user@UID", text)
+    for key, repl in (("host", "HOST"), ("user", "USER")):
+        if len(ident.get(key) or "") >= 3:
+            text = re.sub(rf"\b{re.escape(ident[key])}\b", repl, text)
+    return text
+
+
 def write(report: Report, out_dir: str, label: str, when: float) -> str:
     os.makedirs(out_dir, exist_ok=True)
     path = claim(os.path.join(out_dir, default_name(label, when)))
+    text = redact(json.dumps(report.to_dict(), indent=1, default=str), _identity())
     with open(path, "w") as f:
-        json.dump(report.to_dict(), f, indent=1, default=str)
+        f.write(text)
     return path

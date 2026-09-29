@@ -37,3 +37,13 @@ def test_report_counts_and_round_trips(tmp_path):
     d = json.load(open(path))
     assert d["counts"] == {"ok": 1, "hazard": 1, "skipped": 0, "invalid": 0, "error": 0}
     assert d["results"][1]["verdict"] == "hazard" and d["partial"] is False and d["gpunap"] == "0.1.0"
+
+
+def test_write_redacts_home_user_host_and_uid(tmp_path, monkeypatch):
+    monkeypatch.setattr(r, "_identity", lambda: {"home": "/home/alice", "user": "alice", "host": "lab-box-7", "uid": "1001"})
+    rep = r.Report(header={"label": "gpu1"}, results=[r.CheckResult("x", r.OK, "ran on lab-box-7", {
+        "trace": 'File "/home/alice/src/gpunap/x.py", line 3', "who": "alice ran it",
+        "cg": "/user.slice/user-1001.slice/user@1001.service/app.slice", "n": 1001})])
+    text = open(r.write(rep, str(tmp_path), "gpu1", 0.0)).read()
+    assert "alice" not in text and "lab-box-7" not in text and "user-1001" not in text and "user@1001" not in text
+    assert "~/src/gpunap/x.py" in text and "HOST" in text and '"n": 1001' in text
