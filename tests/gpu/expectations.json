@@ -1,0 +1,20 @@
+{
+ "about": "Expected verdict of each check per driver branch, with the FINDINGS evidence behind it (validation/FINDINGS.md; result files under validation/results_gpu1 for 595 and validation/results_gpu2 for 580).",
+ "checks": {
+  "api": {"595": "ok", "580": "ok", "evidence": "every FINDINGS run used the five checkpoint functions on both drivers"},
+  "roundtrip": {"595": "ok", "580": "ok", "evidence": "What worked: 50 cycles on a 2 GB job (fault_leak.json, both)"},
+  "errors": {"595": "ok", "580": "ok", "evidence": "What worked: calls in the wrong state, wrong PIDs (fault_errors.json, both)"},
+  "sync_first_call": {"595": "hazard", "580": "hazard", "evidence": "What breaks the job: a synchronize as the first CUDA call after the checkpoint (fault_repro_sync.json, fault_tail_ops_*, both)"},
+  "managed_memory": {"595": "hazard", "580": "ok", "evidence": "What breaks the job: managed memory, 2/2 lost on 595, 1/1 survived on 580 (fault_uvm.json)"},
+  "sigstop": {"595": "hazard", "580": "hazard", "evidence": "What breaks the job: job stopped with SIGSTOP (fault_sigstop-2.json on 595, fault_sigstop.json on 580)"},
+  "exit_while_paused": {"595": "ok", "580": "ok", "evidence": "What worked: job that exits while paused, making no further CUDA call (fault_tail_ops_a.json, correctness files)"},
+  "child_context": {"595": "ok", "580": "ok", "evidence": "What worked: job whose child process has its own CUDA context (fault_child_cuda.json, both)"},
+  "cgroup": {"595": "hazard", "580": "hazard", "evidence": "What breaks the job: job in a memory-limited cgroup (fault_cgroup.json, both)"},
+  "nccl_single_gpu": {"595": "hazard", "580": "ok", "evidence": "What breaks the job: NCCL process group on one GPU, 4/4 lost on 595, 2/2 fine on 580 (nccl1_*.json)"},
+  "ipc_shared_memory": {"595": "hazard", "580": "hazard", "evidence": "What breaks the job: CUDA memory shared between processes (fault_ipc.json, both)"},
+  "restore_oom": {"595": "hazard", "580": "hazard", "evidence": "What breaks the job: restore with too little free GPU memory, 4/4 on 595, 3/3 on 580 (fault_short_*, fault_retry_*)"},
+  "size_sweep": {"595": "ok", "580": "ok", "evidence": "What worked: 20 GB job (bench_size.json, gpu1); 16 GB checkpoints on both drivers (fault_ctlkill_restore.json)"},
+  "controller_death": {"595": "ok", "580": "ok", "evidence": "What worked: controller killed during a checkpoint (fault_ctlkill_ckpt.json, 595 only) and during a restore (fault_ctlkill_restore.json, both)"},
+  "correctness": {"595": "ok", "580": "ok", "evidence": "What worked: correctness, 33 runs, 388 cycles, all bit-identical (correctness files, both)"}
+ }
+}
