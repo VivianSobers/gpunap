@@ -5,12 +5,13 @@
     gpunap --version
 
 Exit codes for check: 0 when every check ran to a verdict (hazards included), 1 when gpunap itself
-failed in a check, 2 for a usage error or a refused run, 130 when interrupted.
+failed in a check, 2 for a usage error or a refused run, 130 when interrupted (Ctrl-C or SIGTERM).
 """
 from __future__ import annotations
 
 import argparse
 import json
+import signal
 import sys
 import time
 from typing import List, Optional
@@ -23,6 +24,10 @@ from gpunap.driver import Driver
 
 def _line(r: results.CheckResult) -> str:
     return f"{r.name:<18} {r.verdict:<8} {r.seconds:6.1f} s  {r.summary}"
+
+
+def _interrupt(signum, frame):
+    raise KeyboardInterrupt
 
 
 def cmd_list() -> int:
@@ -48,7 +53,11 @@ def cmd_check(a) -> int:
     when = time.time()
     n = len(checks)
     print(f"gpunap {gpunap.__version__}: {n} check{'' if n == 1 else 's'}{' (--full)' if a.full else ''}", flush=True)
-    report = runner.run(checks, ctx, on_result=lambda r: print(_line(r), flush=True))
+    old = signal.signal(signal.SIGTERM, _interrupt)  # a SIGTERM cleans up like Ctrl-C
+    try:
+        report = runner.run(checks, ctx, on_result=lambda r: print(_line(r), flush=True))
+    finally:
+        signal.signal(signal.SIGTERM, old)
     path = results.write(report, a.out, a.label, when)
     counts = report.to_dict()["counts"]
     print(", ".join(f"{n} {v}" for v, n in counts.items() if n) or "no results")

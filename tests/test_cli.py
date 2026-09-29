@@ -92,3 +92,20 @@ def test_python_dash_m_runs_the_cli():
     p = subprocess.run([sys.executable, "-m", "gpunap", "--version"], capture_output=True, text=True,
                        env=dict(os.environ, PYTHONPATH=src))
     assert p.returncode == 0 and gpunap.__version__ in p.stdout
+
+
+def test_sigterm_during_a_run_is_handled_like_ctrl_c(tmp_path, monkeypatch):
+    import signal
+    seen = {}
+
+    def run(checks, ctx, probe=None, on_result=None):
+        handler = signal.getsignal(signal.SIGTERM)
+        try:
+            handler(signal.SIGTERM, None)
+        except KeyboardInterrupt:
+            seen["interrupt"] = True
+        return results.Report({})
+    before = signal.getsignal(signal.SIGTERM)
+    monkeypatch.setattr(runner, "run", run)
+    cli.main(["check", "--only", "api", "--out", str(tmp_path)])
+    assert seen == {"interrupt": True} and signal.getsignal(signal.SIGTERM) is before
