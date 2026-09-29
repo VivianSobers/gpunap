@@ -27,7 +27,7 @@ In every run, each step's loss and the final weights matched an uninterrupted ru
 Pausing an arbitrary job is unsafe. Seven conditions killed a job, crashed it, or left it stuck:
 
 - Restoring while other processes hold too much GPU memory fails, and after that the job can never be restored (NVIDIA issue #44). This happened in 4 of 4 runs on driver 595 and 3 of 3 on driver 580.
-- Calling `torch.cuda.synchronize()` or a stream synchronize while the job is paused segfaults inside `libcuda`.
+- Calling `torch.cuda.synchronize()` or a stream synchronize while the job is paused segfaults inside `libcuda`. A process that uses only the driver API crashes the same way on `cuCtxSynchronize` and `cuStreamSynchronize`, which puts the fault in the driver. `validation/repro_sync.py` reproduces it.
 - Checkpointing a job that uses managed (unified) memory is refused, and on driver 595 the job's CUDA context is dead afterwards.
 - A single-GPU NCCL process group, as torchrun and Accelerate set up, makes the job abort on driver 595. It pauses cleanly on 580.
 - CUDA memory shared between processes breaks the checkpoint or the restore on both drivers.
@@ -40,7 +40,7 @@ Google's llm-d-rl-time-slicing project already has a node agent that swaps GPU m
 
 ## Caveats in the recorded results
 
-- The synchronize crash is on disk for driver 595 only: 3 of 3 device synchronize runs and 3 of 3 stream synchronize runs. FINDINGS.md also reports runs on 580, but those result files were overwritten by a later test and are not in this repo.
+- Every synchronize run on disk crashed. On driver 595 that is 3 of 3 device and 3 of 3 stream synchronize runs, all through PyTorch. On driver 580 it is 3 of 3 of each through PyTorch and 3 of 3 of each through the driver API. The driver-API reproduction has not run on 595 yet.
 - Several runs labelled with 20 pauses completed fewer, because the job finished before the later pause points. The 388 total counts only cycles that completed.
 
 ## Layout
@@ -54,6 +54,8 @@ Google's llm-d-rl-time-slicing project already has a node agent that swaps GPU m
 | `validation/run_case.py`, `matrix.sh`, `summarize.py` | Correctness cases: two reference runs, then a run paused at random steps. |
 | `validation/faults.py` | Fault-injection and edge-case tests, one function each. |
 | `validation/bench_size.py`, `bw.py` | Pause and resume time against memory size, and raw copy bandwidth. |
+| `validation/repro_sync.py` | Standalone reproduction of the synchronize crash, through the driver API and through PyTorch. |
+| `validation/resultfile.py`, `test_*.py` | A helper that keeps earlier result files from being overwritten, and unit tests that run without a GPU. |
 | `validation/results_gpu1/`, `results_gpu2/` | Raw JSON results. Each file records the driver, GPU and full test configuration. |
 
 ## Running the tests
@@ -68,6 +70,8 @@ python3 faults.py errors short_far reserve sigstop cgroup uvm ipc tail_ops
 bash matrix.sh                                     # correctness cases, three lanes in parallel
 python3 run_case.py --kind amp_tf --pauses 20      # one correctness case
 python3 summarize.py                               # table of all correctness results
+python3 repro_sync.py --label mybox                # synchronize while checkpointed, 30 runs
+python3 -m pytest -q test_*.py                     # unit tests, no GPU needed
 ```
 
-New results go to `validation/results/` and logs to `validation/logs/`.
+New results go to `validation/results/` and logs to `validation/logs/`. A rerun never replaces an earlier file; it writes `name-2.json` next to it.
