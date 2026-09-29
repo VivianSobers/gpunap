@@ -4,7 +4,7 @@ from __future__ import annotations
 import time
 from typing import List, Optional
 
-from gpunap import nvsmi, results, sysinfo
+from gpunap import nvsmi, results
 from gpunap.check import base
 from gpunap.driver import FUNCS, Driver
 
