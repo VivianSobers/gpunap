@@ -1,0 +1,112 @@
+{
+ "label": "gpu2",
+ "gpu": "NVIDIA GeForce RTX 4090",
+ "driver": "580.178.04",
+ "torch": "2.14.0+cu130",
+ "seed": 0,
+ "config": {
+  "load_s": 6.0,
+  "copy_mb": 1024,
+  "pinned": true
+ },
+ "idle": {
+  "pcie.link.gen.current": 1,
+  "pcie.link.gen.max": 4,
+  "pcie.link.gen.gpumax": 4,
+  "pcie.link.gen.hostmax": 5,
+  "pcie.link.width.current": 16,
+  "pcie.link.width.max": 16
+ },
+ "under_load": [
+  {
+   "pcie.link.gen.current": 4,
+   "pcie.link.gen.max": 4,
+   "pcie.link.gen.gpumax": 4,
+   "pcie.link.gen.hostmax": 5,
+   "pcie.link.width.current": 16,
+   "pcie.link.width.max": 16
+  },
+  {
+   "pcie.link.gen.current": 4,
+   "pcie.link.gen.max": 4,
+   "pcie.link.gen.gpumax": 4,
+   "pcie.link.gen.hostmax": 5,
+   "pcie.link.width.current": 16,
+   "pcie.link.width.max": 16
+  },
+  {
+   "pcie.link.gen.current": 4,
+   "pcie.link.gen.max": 4,
+   "pcie.link.gen.gpumax": 4,
+   "pcie.link.gen.hostmax": 5,
+   "pcie.link.width.current": 16,
+   "pcie.link.width.max": 16
+  },
+  {
+   "pcie.link.gen.current": 4,
+   "pcie.link.gen.max": 4,
+   "pcie.link.gen.gpumax": 4,
+   "pcie.link.gen.hostmax": 5,
+   "pcie.link.width.current": 16,
+   "pcie.link.width.max": 16
+  },
+  {
+   "pcie.link.gen.current": 4,
+   "pcie.link.gen.max": 4,
+   "pcie.link.gen.gpumax": 4,
+   "pcie.link.gen.hostmax": 5,
+   "pcie.link.width.current": 16,
+   "pcie.link.width.max": 16
+  },
+  {
+   "pcie.link.gen.current": 4,
+   "pcie.link.gen.max": 4,
+   "pcie.link.gen.gpumax": 4,
+   "pcie.link.gen.hostmax": 5,
+   "pcie.link.width.current": 16,
+   "pcie.link.width.max": 16
+  },
+  {
+   "pcie.link.gen.current": 4,
+   "pcie.link.gen.max": 4,
+   "pcie.link.gen.gpumax": 4,
+   "pcie.link.gen.hostmax": 5,
+   "pcie.link.width.current": 16,
+   "pcie.link.width.max": 16
+  },
+  {
+   "pcie.link.gen.current": 4,
+   "pcie.link.gen.max": 4,
+   "pcie.link.gen.gpumax": 4,
+   "pcie.link.gen.hostmax": 5,
+   "pcie.link.width.current": 16,
+   "pcie.link.width.max": 16
+  },
+  {
+   "pcie.link.gen.current": 4,
+   "pcie.link.gen.max": 4,
+   "pcie.link.gen.gpumax": 4,
+   "pcie.link.gen.hostmax": 5,
+   "pcie.link.width.current": 16,
+   "pcie.link.width.max": 16
+  },
+  {
+   "pcie.link.gen.current": 4,
+   "pcie.link.gen.max": 4,
+   "pcie.link.gen.gpumax": 4,
+   "pcie.link.gen.hostmax": 5,
+   "pcie.link.width.current": 16,
+   "pcie.link.width.max": 16
+  },
+  {
+   "pcie.link.gen.current": 4,
+   "pcie.link.gen.max": 4,
+   "pcie.link.gen.gpumax": 4,
+   "pcie.link.gen.hostmax": 5,
+   "pcie.link.width.current": 16,
+   "pcie.link.width.max": 16
+  }
+ ],
+ "h2d_pinned_GBps_median": 15.15,
+ "n_copies": 100
+}
