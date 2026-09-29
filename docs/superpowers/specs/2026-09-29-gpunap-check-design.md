@@ -107,8 +107,9 @@ command line.
 - A process is signalled only if its PID, start time and command-line token all match a target this
   run started. Checks run one at a time.
 - Every driver call that can hang runs through `worker.py` with a time limit.
-- Cleanup runs after every check, including one that raised: for each live target, query its state
-  (with a time limit), resume a checkpointed target or unlock a locked one, send SIGCONT, send SIGKILL.
+- Cleanup runs after every check, including one that raised: for each live target, send SIGCONT,
+  query its state (with a time limit), unlock a locked one, send SIGKILL. A checkpointed target is
+  killed without a restore, which frees its memory and needs no free GPU memory.
 - Ctrl-C runs the same cleanup, writes the results gathered so far marked partial, and exits 130.
 - Each run records its targets in `~/.cache/gpunap/runs/<token>.json`. The next run cleans up
   targets left behind by a runner that was killed.
