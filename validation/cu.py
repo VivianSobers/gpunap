@@ -131,7 +131,7 @@ def tree_cpu_seconds(pid):
 def driver_info():
     out = subprocess.run(["nvidia-smi", "--query-gpu=name,driver_version,memory.total",
                           "--format=csv,noheader"], capture_output=True, text=True).stdout.strip()
-    return {"gpu": out, "cuInit": err(_INIT_RC), "host": os.uname().nodename}
+    return {"gpu": out, "cuInit": err(_INIT_RC), "host": os.environ.get("GPUNAP_LABEL", "unlabelled")}  # never the real hostname
 
 
 if __name__ == "__main__":
