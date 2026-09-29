@@ -1,0 +1,944 @@
+{
+ "label": "gpu1",
+ "gpu": "NVIDIA GeForce RTX 4090",
+ "driver": "595.84",
+ "cuda_driver_api_version": 13020,
+ "gpu_mb_used_before": 14361,
+ "gpu_mb_free_before": 9713,
+ "co_tenant_apps": 5,
+ "co_tenant_mb": 13966,
+ "python": "3.10.12",
+ "torch": "2.8.0",
+ "seed": 0,
+ "config": {
+  "repeats": 3,
+  "apis": "driver,torch",
+  "ops": "ctx_sync,stream_sync,event_sync,memcpy,guarded_ctx_sync",
+  "sleep_s": 3.0,
+  "pause_at_s": 0.5,
+  "wait_s": 10.0,
+  "after_resume_s": 30.0
+ },
+ "started": 1790665065.4,
+ "runs": [
+  {
+   "api": "driver",
+   "op": "ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665066.0686,
+    "end": 1790665066.0715
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665066.0715,
+    "end": 1790665067.3519
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "READY",
+    "CALL 1790665068.5691"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 0
+  },
+  {
+   "api": "driver",
+   "op": "stream_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665069.4351,
+    "end": 1790665069.4385
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665069.4385,
+    "end": 1790665069.9373
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "READY",
+    "CALL 1790665071.9413"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 0
+  },
+  {
+   "api": "driver",
+   "op": "event_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665072.9181,
+    "end": 1790665072.9201
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665072.9201,
+    "end": 1790665073.4223
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790665083.4236,
+    "end": 1790665083.9768
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790665083.9769,
+    "end": 1790665083.9861
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790665075.4204",
+    "DONE 1790665083.9892 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 0
+  },
+  {
+   "api": "driver",
+   "op": "memcpy",
+   "lock": {
+    "result": "OK",
+    "start": 1790665084.9331,
+    "end": 1790665084.9366
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665084.9367,
+    "end": 1790665085.499
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790665095.5023,
+    "end": 1790665095.7451
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790665095.7451,
+    "end": 1790665095.7606
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790665087.4351",
+    "DONE 1790665095.7608 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 0
+  },
+  {
+   "api": "driver",
+   "op": "guarded_ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665096.7304,
+    "end": 1790665096.7314
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665096.7315,
+    "end": 1790665097.0342
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790665107.0346,
+    "end": 1790665107.6441
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790665107.6441,
+    "end": 1790665107.6739
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790665099.2351",
+    "DONE 1790665107.6790 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 0
+  },
+  {
+   "api": "torch",
+   "op": "ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665109.4911,
+    "end": 1790665109.4926
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665109.4926,
+    "end": 1790665109.76
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+    "  import pynvml  # type: ignore[import]",
+    "READY",
+    "CALL 1790665111.9971"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 0
+  },
+  {
+   "api": "torch",
+   "op": "stream_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665115.3611,
+    "end": 1790665115.3646
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665115.3646,
+    "end": 1790665115.609
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+    "  import pynvml  # type: ignore[import]",
+    "READY",
+    "CALL 1790665117.8631"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 0
+  },
+  {
+   "api": "torch",
+   "op": "event_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665121.6371,
+    "end": 1790665121.6379
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665121.6379,
+    "end": 1790665121.9215
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790665131.9221,
+    "end": 1790665132.7354
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790665132.7354,
+    "end": 1790665132.7841
+   },
+   "child_rc": 0,
+   "output": [
+    "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+    "  import pynvml  # type: ignore[import]",
+    "READY",
+    "CALL 1790665124.1421",
+    "DONE 1790665132.7812 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 0
+  },
+  {
+   "api": "torch",
+   "op": "memcpy",
+   "lock": {
+    "result": "OK",
+    "start": 1790665136.5051,
+    "end": 1790665136.5067
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665136.5067,
+    "end": 1790665136.7264
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790665146.7268,
+    "end": 1790665146.9634
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790665146.9634,
+    "end": 1790665147.0052
+   },
+   "child_rc": 0,
+   "output": [
+    "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+    "  import pynvml  # type: ignore[import]",
+    "READY",
+    "CALL 1790665139.0121",
+    "DONE 1790665147.0085 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 0
+  },
+  {
+   "api": "torch",
+   "op": "guarded_ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665149.6147,
+    "end": 1790665149.6157
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665149.6157,
+    "end": 1790665149.8687
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790665159.8691,
+    "end": 1790665160.1003
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790665160.1003,
+    "end": 1790665160.1079
+   },
+   "child_rc": 0,
+   "output": [
+    "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+    "  import pynvml  # type: ignore[import]",
+    "READY",
+    "CALL 1790665152.1171",
+    "DONE 1790665160.1316 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 0
+  },
+  {
+   "api": "driver",
+   "op": "ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665161.0118,
+    "end": 1790665161.0123
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665161.0123,
+    "end": 1790665161.7493
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "READY",
+    "CALL 1790665163.5144"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 1
+  },
+  {
+   "api": "driver",
+   "op": "stream_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665164.3368,
+    "end": 1790665164.3377
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665164.3377,
+    "end": 1790665164.604
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "READY",
+    "CALL 1790665166.8393"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 1
+  },
+  {
+   "api": "driver",
+   "op": "event_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665167.6998,
+    "end": 1790665167.7006
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665167.7006,
+    "end": 1790665168.1384
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790665178.1423,
+    "end": 1790665178.4613
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790665178.4613,
+    "end": 1790665178.4739
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790665170.2021",
+    "DONE 1790665178.4740 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 1
+  },
+  {
+   "api": "driver",
+   "op": "memcpy",
+   "lock": {
+    "result": "OK",
+    "start": 1790665179.3857,
+    "end": 1790665179.3867
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665179.3867,
+    "end": 1790665179.745
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790665189.7454,
+    "end": 1790665190.1056
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790665190.1056,
+    "end": 1790665190.1115
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790665181.8881",
+    "DONE 1790665190.1213 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 1
+  },
+  {
+   "api": "driver",
+   "op": "guarded_ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665191.1453,
+    "end": 1790665191.1459
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665191.146,
+    "end": 1790665191.4281
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790665201.4332,
+    "end": 1790665201.7817
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790665201.7817,
+    "end": 1790665201.7892
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790665193.6501",
+    "DONE 1790665201.7907 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 1
+  },
+  {
+   "api": "torch",
+   "op": "ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665204.3501,
+    "end": 1790665204.3514
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665204.3514,
+    "end": 1790665204.6053
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+    "  import pynvml  # type: ignore[import]",
+    "READY",
+    "CALL 1790665206.8521"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 1
+  },
+  {
+   "api": "torch",
+   "op": "stream_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665208.8851,
+    "end": 1790665208.8886
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665208.8886,
+    "end": 1790665209.4824
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+    "  import pynvml  # type: ignore[import]",
+    "READY",
+    "CALL 1790665211.3861"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 1
+  },
+  {
+   "api": "torch",
+   "op": "event_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665213.9979,
+    "end": 1790665213.999
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665213.999,
+    "end": 1790665214.2353
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790665224.2401,
+    "end": 1790665224.4254
+   },
+   "unlock": {
+    "result": "CUDA_ERROR_OPERATING_SYSTEM",
+    "start": 1790665224.4254,
+    "end": 1790665224.4919
+   },
+   "child_rc": 0,
+   "output": [
+    "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+    "  import pynvml  # type: ignore[import]",
+    "READY",
+    "CALL 1790665216.5031",
+    "DONE 1790665224.4322 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 1
+  },
+  {
+   "api": "torch",
+   "op": "memcpy",
+   "lock": {
+    "result": "OK",
+    "start": 1790665227.3608,
+    "end": 1790665227.3619
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665227.3619,
+    "end": 1790665227.6655
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790665237.6659,
+    "end": 1790665237.8586
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790665237.8586,
+    "end": 1790665237.8658
+   },
+   "child_rc": 0,
+   "output": [
+    "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+    "  import pynvml  # type: ignore[import]",
+    "READY",
+    "CALL 1790665229.8641",
+    "DONE 1790665237.8677 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 1
+  },
+  {
+   "api": "torch",
+   "op": "guarded_ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665239.7891,
+    "end": 1790665239.7956
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665239.7956,
+    "end": 1790665240.1448
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790665250.1452,
+    "end": 1790665250.5847
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790665250.5847,
+    "end": 1790665250.5939
+   },
+   "child_rc": 0,
+   "output": [
+    "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+    "  import pynvml  # type: ignore[import]",
+    "READY",
+    "CALL 1790665242.2891",
+    "DONE 1790665250.6141 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 1
+  },
+  {
+   "api": "driver",
+   "op": "ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665251.4021,
+    "end": 1790665251.4047
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665251.4048,
+    "end": 1790665251.9532
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "READY",
+    "CALL 1790665253.8991"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 2
+  },
+  {
+   "api": "driver",
+   "op": "stream_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665254.7521,
+    "end": 1790665254.7527
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665254.7527,
+    "end": 1790665255.0128
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "READY",
+    "CALL 1790665257.2541"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 2
+  },
+  {
+   "api": "driver",
+   "op": "event_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665258.1967,
+    "end": 1790665258.203
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665258.203,
+    "end": 1790665258.6529
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790665268.6531,
+    "end": 1790665268.8858
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790665268.8858,
+    "end": 1790665268.8934
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790665260.6981",
+    "DONE 1790665268.8936 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 2
+  },
+  {
+   "api": "driver",
+   "op": "memcpy",
+   "lock": {
+    "result": "OK",
+    "start": 1790665269.6809,
+    "end": 1790665269.682
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665269.682,
+    "end": 1790665269.9444
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790665279.9447,
+    "end": 1790665280.2211
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790665280.2211,
+    "end": 1790665280.2362
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790665272.1831",
+    "DONE 1790665280.2363 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 2
+  },
+  {
+   "api": "driver",
+   "op": "guarded_ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665281.0342,
+    "end": 1790665281.0353
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665281.0353,
+    "end": 1790665281.3032
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790665291.3034,
+    "end": 1790665291.5715
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790665291.5715,
+    "end": 1790665291.578
+   },
+   "child_rc": 0,
+   "output": [
+    "READY",
+    "CALL 1790665283.5361",
+    "DONE 1790665291.5832 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 2
+  },
+  {
+   "api": "torch",
+   "op": "ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665295.2318,
+    "end": 1790665295.233
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665295.2331,
+    "end": 1790665295.4914
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+    "  import pynvml  # type: ignore[import]",
+    "READY",
+    "CALL 1790665297.7341"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 2
+  },
+  {
+   "api": "torch",
+   "op": "stream_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665300.7584,
+    "end": 1790665300.7598
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665300.7598,
+    "end": 1790665300.9788
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": true,
+   "child_rc": -11,
+   "output": [
+    "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+    "  import pynvml  # type: ignore[import]",
+    "READY",
+    "CALL 1790665303.2605"
+   ],
+   "verdict": "crash: SIGSEGV",
+   "repeat": 2
+  },
+  {
+   "api": "torch",
+   "op": "event_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665307.3561,
+    "end": 1790665307.3595
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665307.3595,
+    "end": 1790665307.8745
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790665317.8748,
+    "end": 1790665318.0749
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790665318.0749,
+    "end": 1790665318.0807
+   },
+   "child_rc": 0,
+   "output": [
+    "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+    "  import pynvml  # type: ignore[import]",
+    "READY",
+    "CALL 1790665309.8521",
+    "DONE 1790665318.0808 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 2
+  },
+  {
+   "api": "torch",
+   "op": "memcpy",
+   "lock": {
+    "result": "OK",
+    "start": 1790665320.0711,
+    "end": 1790665320.072
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665320.072,
+    "end": 1790665320.3328
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790665330.3332,
+    "end": 1790665330.5307
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790665330.5307,
+    "end": 1790665330.5424
+   },
+   "child_rc": 0,
+   "output": [
+    "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+    "  import pynvml  # type: ignore[import]",
+    "READY",
+    "CALL 1790665322.5751",
+    "DONE 1790665330.5444 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 2
+  },
+  {
+   "api": "torch",
+   "op": "guarded_ctx_sync",
+   "lock": {
+    "result": "OK",
+    "start": 1790665332.4051,
+    "end": 1790665332.4062
+   },
+   "checkpoint": {
+    "result": "OK",
+    "start": 1790665332.4062,
+    "end": 1790665332.6918
+   },
+   "state_after_pause": "checkpointed",
+   "exited_while_paused": false,
+   "restore": {
+    "result": "OK",
+    "start": 1790665342.6921,
+    "end": 1790665342.9093
+   },
+   "unlock": {
+    "result": "OK",
+    "start": 1790665342.9094,
+    "end": 1790665342.9201
+   },
+   "child_rc": 0,
+   "output": [
+    "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+    "  import pynvml  # type: ignore[import]",
+    "READY",
+    "CALL 1790665334.9071",
+    "DONE 1790665342.9375 rc=0"
+   ],
+   "verdict": "waited for resume",
+   "repeat": 2
+  }
+ ],
+ "finished": 1790665343.2
+}
