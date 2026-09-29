@@ -41,7 +41,7 @@ Google's llm-d-rl-time-slicing project already has a node agent that swaps GPU m
 ## Caveats in the recorded results
 
 - Several runs labelled with 20 pauses completed fewer, because the job finished before the later pause points. The 388 total counts only cycles that completed.
-- Some results rest on one machine or a single run, and the managed-memory and NCCL detection signals were measured mostly on gpu1. FINDINGS.md says which.
+- Some results rest on one machine or a single run. FINDINGS.md says which.
 
 ## Layout
 
