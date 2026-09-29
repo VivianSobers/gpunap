@@ -1,0 +1,5768 @@
+{
+ "gpunap": "0.1.0",
+ "header": {
+  "label": "gpu1",
+  "token": "gpunap-9fad5b773191",
+  "full": true,
+  "started": 1790702812.3885748,
+  "checks": [
+   "api",
+   "roundtrip",
+   "errors",
+   "sync_first_call",
+   "managed_memory",
+   "sigstop",
+   "exit_while_paused",
+   "child_context",
+   "cgroup",
+   "nccl_single_gpu",
+   "ipc_shared_memory",
+   "restore_oom",
+   "size_sweep",
+   "controller_death",
+   "correctness"
+  ],
+  "system": {
+   "gpu": "NVIDIA GeForce RTX 4090",
+   "gpu_count": 1,
+   "driver": "595.84",
+   "cuda_driver_api_version": 13020,
+   "kernel_module": "proprietary",
+   "gpu_memory_mb": {
+    "used": 718,
+    "free": 23357,
+    "total": 24564
+   },
+   "pcie_idle": {
+    "pcie.link.gen.current": 1,
+    "pcie.link.gen.max": 4,
+    "pcie.link.width.current": 16,
+    "pcie.link.width.max": 16
+   },
+   "kernel_release": "6.8.0-138-generic",
+   "memory_mb": {
+    "MemTotal": 128498,
+    "MemAvailable": 118093,
+    "SwapTotal": 0
+   },
+   "python": "3.10.12",
+   "packages": {
+    "torch": "2.8.0",
+    "nvidia-nccl-cu12": "2.27.3",
+    "nvidia-nccl-cu13": null
+   }
+  },
+  "available": [
+   "libcuda",
+   "systemd-run",
+   "torch"
+  ],
+  "other_gpu_processes": {
+   "count": 1,
+   "mb": 392
+  },
+  "idle_other_mb_allowed": 1024,
+  "gpu_memory_used_mb_before": 698,
+  "reconciled": [],
+  "ended": 1790703305.738503,
+  "gpu_memory_used_mb_after": 762,
+  "other_gpu_processes_after": {
+   "count": 1,
+   "mb": 392
+  }
+ },
+ "partial": false,
+ "counts": {
+  "ok": 8,
+  "hazard": 7,
+  "skipped": 0,
+  "invalid": 0,
+  "error": 0
+ },
+ "results": [
+  {
+   "name": "api",
+   "verdict": "ok",
+   "summary": "all 5 checkpoint functions present, driver 595.84, proprietary kernel module",
+   "data": {
+    "functions": [
+     "cuCheckpointProcessLock",
+     "cuCheckpointProcessCheckpoint",
+     "cuCheckpointProcessRestore",
+     "cuCheckpointProcessUnlock",
+     "cuCheckpointProcessGetState"
+    ],
+    "missing": [],
+    "cuInit": "OK",
+    "cuda_driver_api_version": 13020,
+    "driver": "595.84",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "kernel_module": "proprietary"
+   },
+   "seconds": 0.01
+  },
+  {
+   "name": "roundtrip",
+   "verdict": "ok",
+   "summary": "3 cycles on 256 MB, data intact; checkpoint 0.21-0.22 s, restore 0.18-0.18 s",
+   "data": {
+    "mb": 256,
+    "cycles": [
+     {
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702812.6610684,
+         "end": 1790702812.6697147,
+         "seconds": 0.0086
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702812.6697204,
+         "end": 1790702812.8899255,
+         "seconds": 0.2202
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702812.6610684,
+       "end": 1790702812.8899255,
+       "hung": false,
+       "wall_s": 0.26
+      },
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702813.4219007,
+         "end": 1790702813.6027243,
+         "seconds": 0.1808
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702813.602745,
+         "end": 1790702813.603765,
+         "seconds": 0.001
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702813.4219007,
+       "end": 1790702813.603765,
+       "hung": false,
+       "wall_s": 0.214
+      },
+      "verify": "ok"
+     },
+     {
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702813.6376336,
+         "end": 1790702813.645488,
+         "seconds": 0.0079
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702813.6454964,
+         "end": 1790702813.8529053,
+         "seconds": 0.2074
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702813.6376336,
+       "end": 1790702813.8529053,
+       "hung": false,
+       "wall_s": 0.248
+      },
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702814.387042,
+         "end": 1790702814.5624368,
+         "seconds": 0.1754
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702814.5624568,
+         "end": 1790702814.56364,
+         "seconds": 0.0012
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702814.387042,
+       "end": 1790702814.56364,
+       "hung": false,
+       "wall_s": 0.21
+      },
+      "verify": "ok"
+     },
+     {
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702814.5972557,
+         "end": 1790702814.60494,
+         "seconds": 0.0077
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702814.6049457,
+         "end": 1790702814.82219,
+         "seconds": 0.2172
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702814.5972557,
+       "end": 1790702814.82219,
+       "hung": false,
+       "wall_s": 0.258
+      },
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702815.3536456,
+         "end": 1790702815.5328982,
+         "seconds": 0.1793
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702815.532914,
+         "end": 1790702815.5338454,
+         "seconds": 0.0009
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702815.3536456,
+       "end": 1790702815.5338454,
+       "hung": false,
+       "wall_s": 0.21
+      },
+      "verify": "ok"
+     }
+    ],
+    "target_rc": 0
+   },
+   "seconds": 3.08
+  },
+  {
+   "name": "errors",
+   "verdict": "ok",
+   "summary": "wrong-state, missing-PID and no-CUDA calls all failed without effect: CUDA_ERROR_ILLEGAL_STATE, CUDA_ERROR_NOT_INITIALIZED, CUDA_ERROR_OPERATING_SYSTEM",
+   "data": {
+    "sequence": [
+     {
+      "op": "checkpoint",
+      "should_work": false,
+      "result": "CUDA_ERROR_ILLEGAL_STATE"
+     },
+     {
+      "op": "restore",
+      "should_work": false,
+      "result": "CUDA_ERROR_ILLEGAL_STATE"
+     },
+     {
+      "op": "unlock",
+      "should_work": false,
+      "result": "CUDA_ERROR_ILLEGAL_STATE"
+     },
+     {
+      "op": "lock",
+      "should_work": true,
+      "result": "OK"
+     },
+     {
+      "op": "lock",
+      "should_work": false,
+      "result": "CUDA_ERROR_ILLEGAL_STATE"
+     },
+     {
+      "op": "checkpoint",
+      "should_work": true,
+      "result": "OK"
+     },
+     {
+      "op": "checkpoint",
+      "should_work": false,
+      "result": "CUDA_ERROR_ILLEGAL_STATE"
+     },
+     {
+      "op": "unlock",
+      "should_work": false,
+      "result": "CUDA_ERROR_ILLEGAL_STATE"
+     },
+     {
+      "op": "restore",
+      "should_work": true,
+      "result": "OK"
+     },
+     {
+      "op": "unlock",
+      "should_work": true,
+      "result": "OK"
+     }
+    ],
+    "others": {
+     "missing_pid_state": "CUDA_ERROR_OPERATING_SYSTEM",
+     "missing_pid_lock": "CUDA_ERROR_OPERATING_SYSTEM",
+     "no_cuda_state": "CUDA_ERROR_NOT_INITIALIZED",
+     "no_cuda_lock": "CUDA_ERROR_NOT_INITIALIZED",
+     "no_cuda_checkpoint": "CUDA_ERROR_NOT_INITIALIZED"
+    },
+    "final_state": "running",
+    "verify": "ok",
+    "target_rc": 0,
+    "missing_pid": 4194303,
+    "cleanup": [
+     {
+      "pid": 3163366,
+      "kind": "no_cuda",
+      "sigcont": null,
+      "state": "CUDA_ERROR_NOT_INITIALIZED",
+      "steps": [
+       "sigkill"
+      ],
+      "calls": [],
+      "sigkill": null
+     }
+    ]
+   },
+   "seconds": 1.09
+  },
+  {
+   "name": "sync_first_call",
+   "verdict": "hazard",
+   "summary": "driver ctx_sync: crash: SIGSEGV 3/3; driver event_sync: waited for resume 3/3; driver guarded_ctx_sync: waited for resume 3/3; driver memcpy: waited for resume 3/3; driver stream_sync: crash: SIGSEGV 3/3; torch ctx_sync: crash: SIGSEGV 3/3; torch event_sync: waited for resume 3/3; torch guarded_ctx_sync: waited for resume 3/3; torch memcpy: waited for resume 3/3; torch stream_sync: crash: SIGSEGV 3/3",
+   "data": {
+    "repeats": 3,
+    "apis": [
+     "driver",
+     "torch"
+    ],
+    "notes": [],
+    "sleep_s": 3.0,
+    "pause_at_s": 0.5,
+    "runs": [
+     {
+      "api": "driver",
+      "op": "ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702817.4215562,
+         "end": 1790702817.430038,
+         "seconds": 0.0085
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702817.430044,
+         "end": 1790702817.5922482,
+         "seconds": 0.1622
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702817.4215562,
+       "end": 1790702817.5922482,
+       "hung": false,
+       "wall_s": 0.205
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "READY 3163414",
+       "CALL 1790702819.8978"
+      ],
+      "call_after_checkpoint_s": 2.306,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "driver",
+      "op": "stream_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702821.6608968,
+         "end": 1790702821.6695635,
+         "seconds": 0.0087
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702821.6695693,
+         "end": 1790702821.8396494,
+         "seconds": 0.1701
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702821.6608968,
+       "end": 1790702821.8396494,
+       "hung": false,
+       "wall_s": 0.214
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "READY 3163609",
+       "CALL 1790702824.1361"
+      ],
+      "call_after_checkpoint_s": 2.296,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "driver",
+      "op": "event_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702825.8532164,
+         "end": 1790702825.8617933,
+         "seconds": 0.0086
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702825.8618004,
+         "end": 1790702826.0290713,
+         "seconds": 0.1673
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702825.8532164,
+       "end": 1790702826.0290713,
+       "hung": false,
+       "wall_s": 0.212
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702832.0602283,
+         "end": 1790702832.339599,
+         "seconds": 0.2794
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702832.33962,
+         "end": 1790702832.3611689,
+         "seconds": 0.0215
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702832.0602283,
+       "end": 1790702832.3611689,
+       "hung": false,
+       "wall_s": 0.335
+      },
+      "rc": 0,
+      "output": [
+       "READY 3163734",
+       "CALL 1790702828.3241",
+       "DONE 1790702832.3613 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.295,
+      "label": "waited for resume"
+     },
+     {
+      "api": "driver",
+      "op": "memcpy",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702833.0210657,
+         "end": 1790702833.0295122,
+         "seconds": 0.0084
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702833.0295234,
+         "end": 1790702833.196308,
+         "seconds": 0.1668
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702833.0210657,
+       "end": 1790702833.196308,
+       "hung": false,
+       "wall_s": 0.208
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702839.2275767,
+         "end": 1790702839.504752,
+         "seconds": 0.2772
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702839.504771,
+         "end": 1790702839.5165184,
+         "seconds": 0.0117
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702839.2275767,
+       "end": 1790702839.5165184,
+       "hung": false,
+       "wall_s": 0.326
+      },
+      "rc": 0,
+      "output": [
+       "READY 3163900",
+       "CALL 1790702835.4982",
+       "DONE 1790702839.5166 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.302,
+      "label": "waited for resume"
+     },
+     {
+      "api": "driver",
+      "op": "guarded_ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702840.1831093,
+         "end": 1790702840.1917384,
+         "seconds": 0.0086
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702840.1917431,
+         "end": 1790702840.3614984,
+         "seconds": 0.1698
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702840.1831093,
+       "end": 1790702840.3614984,
+       "hung": false,
+       "wall_s": 0.212
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702846.3931615,
+         "end": 1790702846.6695802,
+         "seconds": 0.2764
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702846.6696007,
+         "end": 1790702846.68612,
+         "seconds": 0.0165
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702846.3931615,
+       "end": 1790702846.68612,
+       "hung": false,
+       "wall_s": 0.324
+      },
+      "rc": 0,
+      "output": [
+       "READY 3164164",
+       "CALL 1790702842.6602",
+       "DONE 1790702846.6861 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.299,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702848.134353,
+         "end": 1790702848.1427855,
+         "seconds": 0.0084
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702848.1427915,
+         "end": 1790702848.3231006,
+         "seconds": 0.1803
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702848.134353,
+       "end": 1790702848.3231006,
+       "hung": false,
+       "wall_s": 0.22
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3164341",
+       "CALL 1790702850.6131"
+      ],
+      "call_after_checkpoint_s": 2.29,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "torch",
+      "op": "stream_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702853.1176374,
+         "end": 1790702853.1267982,
+         "seconds": 0.0092
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702853.1268055,
+         "end": 1790702853.3104477,
+         "seconds": 0.1836
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702853.1176374,
+       "end": 1790702853.3104477,
+       "hung": false,
+       "wall_s": 0.226
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3164549",
+       "CALL 1790702855.5955"
+      ],
+      "call_after_checkpoint_s": 2.285,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "torch",
+      "op": "event_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702858.1264403,
+         "end": 1790702858.1350274,
+         "seconds": 0.0086
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702858.1350346,
+         "end": 1790702858.319834,
+         "seconds": 0.1848
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702858.1264403,
+       "end": 1790702858.319834,
+       "hung": false,
+       "wall_s": 0.23
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702864.3528833,
+         "end": 1790702864.6412213,
+         "seconds": 0.2883
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702864.6412482,
+         "end": 1790702864.6473286,
+         "seconds": 0.0061
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702864.3528833,
+       "end": 1790702864.6473286,
+       "hung": false,
+       "wall_s": 0.326
+      },
+      "rc": 0,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3164725",
+       "CALL 1790702860.6011",
+       "DONE 1790702864.6474 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.281,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "memcpy",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702866.0887485,
+         "end": 1790702866.096827,
+         "seconds": 0.0081
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702866.0968325,
+         "end": 1790702866.2839723,
+         "seconds": 0.1871
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702866.0887485,
+       "end": 1790702866.2839723,
+       "hung": false,
+       "wall_s": 0.227
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702872.3224595,
+         "end": 1790702872.6230354,
+         "seconds": 0.3006
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702872.623057,
+         "end": 1790702872.6406915,
+         "seconds": 0.0176
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702872.3224595,
+       "end": 1790702872.6406915,
+       "hung": false,
+       "wall_s": 0.357
+      },
+      "rc": 0,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3165027",
+       "CALL 1790702868.5675",
+       "DONE 1790702872.6422 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.284,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "guarded_ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702874.0856287,
+         "end": 1790702874.0937333,
+         "seconds": 0.0081
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702874.0937388,
+         "end": 1790702874.2754867,
+         "seconds": 0.1817
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702874.0856287,
+       "end": 1790702874.2754867,
+       "hung": false,
+       "wall_s": 0.229
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702880.311425,
+         "end": 1790702880.6133244,
+         "seconds": 0.3019
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702880.613344,
+         "end": 1790702880.6250002,
+         "seconds": 0.0117
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702880.311425,
+       "end": 1790702880.6250002,
+       "hung": false,
+       "wall_s": 0.35
+      },
+      "rc": 0,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3165241",
+       "CALL 1790702876.5581",
+       "DONE 1790702880.6305 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.283,
+      "label": "waited for resume"
+     },
+     {
+      "api": "driver",
+      "op": "ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702881.3207846,
+         "end": 1790702881.3293312,
+         "seconds": 0.0085
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702881.3293364,
+         "end": 1790702881.5002737,
+         "seconds": 0.1709
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702881.3207846,
+       "end": 1790702881.5002737,
+       "hung": false,
+       "wall_s": 0.213
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "READY 3165631",
+       "CALL 1790702883.7983"
+      ],
+      "call_after_checkpoint_s": 2.298,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "driver",
+      "op": "stream_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702885.5108223,
+         "end": 1790702885.5188336,
+         "seconds": 0.008
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702885.5188415,
+         "end": 1790702885.6896708,
+         "seconds": 0.1708
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702885.5108223,
+       "end": 1790702885.6896708,
+       "hung": false,
+       "wall_s": 0.209
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "READY 3165711",
+       "CALL 1790702887.9891"
+      ],
+      "call_after_checkpoint_s": 2.299,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "driver",
+      "op": "event_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702889.7105205,
+         "end": 1790702889.7190135,
+         "seconds": 0.0085
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702889.7190187,
+         "end": 1790702889.8884518,
+         "seconds": 0.1694
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702889.7105205,
+       "end": 1790702889.8884518,
+       "hung": false,
+       "wall_s": 0.219
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702895.9220533,
+         "end": 1790702896.198032,
+         "seconds": 0.276
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702896.1980524,
+         "end": 1790702896.2201338,
+         "seconds": 0.0221
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702895.9220533,
+       "end": 1790702896.2201338,
+       "hung": false,
+       "wall_s": 0.331
+      },
+      "rc": 0,
+      "output": [
+       "READY 3165840",
+       "CALL 1790702892.1801",
+       "DONE 1790702896.2202 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.292,
+      "label": "waited for resume"
+     },
+     {
+      "api": "driver",
+      "op": "memcpy",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702896.916054,
+         "end": 1790702896.9241993,
+         "seconds": 0.0081
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702896.9242077,
+         "end": 1790702897.0952315,
+         "seconds": 0.171
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702896.916054,
+       "end": 1790702897.0952315,
+       "hung": false,
+       "wall_s": 0.211
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702903.12707,
+         "end": 1790702903.4035747,
+         "seconds": 0.2765
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702903.4035943,
+         "end": 1790702903.420358,
+         "seconds": 0.0168
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702903.12707,
+       "end": 1790702903.420358,
+       "hung": false,
+       "wall_s": 0.325
+      },
+      "rc": 0,
+      "output": [
+       "READY 3166017",
+       "CALL 1790702899.3947",
+       "DONE 1790702903.4205 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.299,
+      "label": "waited for resume"
+     },
+     {
+      "api": "driver",
+      "op": "guarded_ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702904.0831707,
+         "end": 1790702904.092081,
+         "seconds": 0.0089
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702904.092091,
+         "end": 1790702904.2575347,
+         "seconds": 0.1654
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702904.0831707,
+       "end": 1790702904.2575347,
+       "hung": false,
+       "wall_s": 0.207
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702910.2882705,
+         "end": 1790702910.5675182,
+         "seconds": 0.2792
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702910.5675538,
+         "end": 1790702910.5886104,
+         "seconds": 0.0211
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702910.2882705,
+       "end": 1790702910.5886104,
+       "hung": false,
+       "wall_s": 0.333
+      },
+      "rc": 0,
+      "output": [
+       "READY 3166265",
+       "CALL 1790702906.5591",
+       "DONE 1790702910.5887 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.302,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702912.0397701,
+         "end": 1790702912.0482056,
+         "seconds": 0.0084
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702912.0482144,
+         "end": 1790702912.2321784,
+         "seconds": 0.184
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702912.0397701,
+       "end": 1790702912.2321784,
+       "hung": false,
+       "wall_s": 0.231
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3166479",
+       "CALL 1790702914.5122"
+      ],
+      "call_after_checkpoint_s": 2.28,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "torch",
+      "op": "stream_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702916.9962056,
+         "end": 1790702917.0047562,
+         "seconds": 0.0086
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702917.004767,
+         "end": 1790702917.1924696,
+         "seconds": 0.1877
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702916.9962056,
+       "end": 1790702917.1924696,
+       "hung": false,
+       "wall_s": 0.228
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3166648",
+       "CALL 1790702919.4746"
+      ],
+      "call_after_checkpoint_s": 2.282,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "torch",
+      "op": "event_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702922.0177052,
+         "end": 1790702922.0261915,
+         "seconds": 0.0085
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702922.0261962,
+         "end": 1790702922.2097514,
+         "seconds": 0.1836
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702922.0177052,
+       "end": 1790702922.2097514,
+       "hung": false,
+       "wall_s": 0.223
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702928.2395697,
+         "end": 1790702928.5389504,
+         "seconds": 0.2994
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702928.538969,
+         "end": 1790702928.5523262,
+         "seconds": 0.0134
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702928.2395697,
+       "end": 1790702928.5523262,
+       "hung": false,
+       "wall_s": 0.345
+      },
+      "rc": 0,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3166823",
+       "CALL 1790702924.4952",
+       "DONE 1790702928.5523 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.285,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "memcpy",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702930.0067008,
+         "end": 1790702930.0149975,
+         "seconds": 0.0083
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702930.0150018,
+         "end": 1790702930.1988826,
+         "seconds": 0.1839
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702930.0067008,
+       "end": 1790702930.1988826,
+       "hung": false,
+       "wall_s": 0.235
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702936.2333357,
+         "end": 1790702936.539295,
+         "seconds": 0.306
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702936.5393155,
+         "end": 1790702936.5560217,
+         "seconds": 0.0167
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702936.2333357,
+       "end": 1790702936.5560217,
+       "hung": false,
+       "wall_s": 0.358
+      },
+      "rc": 0,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3167136",
+       "CALL 1790702932.4744",
+       "DONE 1790702936.5574 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.276,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "guarded_ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702938.022998,
+         "end": 1790702938.0314736,
+         "seconds": 0.0085
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702938.031481,
+         "end": 1790702938.2146955,
+         "seconds": 0.1832
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702938.022998,
+       "end": 1790702938.2146955,
+       "hung": false,
+       "wall_s": 0.244
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702944.2462113,
+         "end": 1790702944.550616,
+         "seconds": 0.3044
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702944.5506353,
+         "end": 1790702944.5652575,
+         "seconds": 0.0146
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702944.2462113,
+       "end": 1790702944.5652575,
+       "hung": false,
+       "wall_s": 0.355
+      },
+      "rc": 0,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3167391",
+       "CALL 1790702940.4801",
+       "DONE 1790702944.5711 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.265,
+      "label": "waited for resume"
+     },
+     {
+      "api": "driver",
+      "op": "ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702945.2690642,
+         "end": 1790702945.2776763,
+         "seconds": 0.0086
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702945.2776842,
+         "end": 1790702945.4482658,
+         "seconds": 0.1706
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702945.2690642,
+       "end": 1790702945.4482658,
+       "hung": false,
+       "wall_s": 0.211
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "READY 3167657",
+       "CALL 1790702947.7483"
+      ],
+      "call_after_checkpoint_s": 2.3,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "driver",
+      "op": "stream_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702949.521259,
+         "end": 1790702949.5302048,
+         "seconds": 0.0089
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702949.5302134,
+         "end": 1790702949.695633,
+         "seconds": 0.1654
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702949.521259,
+       "end": 1790702949.695633,
+       "hung": false,
+       "wall_s": 0.207
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "READY 3167882",
+       "CALL 1790702951.9989"
+      ],
+      "call_after_checkpoint_s": 2.303,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "driver",
+      "op": "event_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702953.792598,
+         "end": 1790702953.8008583,
+         "seconds": 0.0083
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702953.800867,
+         "end": 1790702953.970433,
+         "seconds": 0.1696
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702953.792598,
+       "end": 1790702953.970433,
+       "hung": false,
+       "wall_s": 0.213
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702960.015725,
+         "end": 1790702960.2979376,
+         "seconds": 0.2822
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702960.2979572,
+         "end": 1790702960.3179643,
+         "seconds": 0.02
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702960.015725,
+       "end": 1790702960.3179643,
+       "hung": false,
+       "wall_s": 0.347
+      },
+      "rc": 0,
+      "output": [
+       "READY 3167943",
+       "CALL 1790702956.2687",
+       "DONE 1790702960.3182 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.298,
+      "label": "waited for resume"
+     },
+     {
+      "api": "driver",
+      "op": "memcpy",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702961.0191054,
+         "end": 1790702961.027855,
+         "seconds": 0.0087
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702961.027862,
+         "end": 1790702961.197707,
+         "seconds": 0.1698
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702961.0191054,
+       "end": 1790702961.197707,
+       "hung": false,
+       "wall_s": 0.213
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702967.2292209,
+         "end": 1790702967.5098345,
+         "seconds": 0.2806
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702967.5098555,
+         "end": 1790702967.5205512,
+         "seconds": 0.0107
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702967.2292209,
+       "end": 1790702967.5205512,
+       "hung": false,
+       "wall_s": 0.323
+      },
+      "rc": 0,
+      "output": [
+       "READY 3168167",
+       "CALL 1790702963.4938",
+       "DONE 1790702967.5206 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.296,
+      "label": "waited for resume"
+     },
+     {
+      "api": "driver",
+      "op": "guarded_ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702968.228794,
+         "end": 1790702968.2369199,
+         "seconds": 0.0081
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702968.2369273,
+         "end": 1790702968.4079154,
+         "seconds": 0.171
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702968.228794,
+       "end": 1790702968.4079154,
+       "hung": false,
+       "wall_s": 0.217
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702974.439046,
+         "end": 1790702974.7155714,
+         "seconds": 0.2765
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702974.715588,
+         "end": 1790702974.738496,
+         "seconds": 0.0229
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702974.439046,
+       "end": 1790702974.738496,
+       "hung": false,
+       "wall_s": 0.33
+      },
+      "rc": 0,
+      "output": [
+       "READY 3168331",
+       "CALL 1790702970.7018",
+       "DONE 1790702974.7386 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.294,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702976.1537828,
+         "end": 1790702976.1622338,
+         "seconds": 0.0085
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702976.162239,
+         "end": 1790702976.3381147,
+         "seconds": 0.1759
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702976.1537828,
+       "end": 1790702976.3381147,
+       "hung": false,
+       "wall_s": 0.224
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3168620",
+       "CALL 1790702978.6251"
+      ],
+      "call_after_checkpoint_s": 2.287,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "torch",
+      "op": "stream_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702981.138173,
+         "end": 1790702981.1467443,
+         "seconds": 0.0086
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702981.14675,
+         "end": 1790702981.3308315,
+         "seconds": 0.1841
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702981.138173,
+       "end": 1790702981.3308315,
+       "hung": false,
+       "wall_s": 0.225
+      },
+      "exited_while_paused": true,
+      "rc": -11,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3168811",
+       "CALL 1790702983.6161"
+      ],
+      "call_after_checkpoint_s": 2.285,
+      "label": "crash: SIGSEGV"
+     },
+     {
+      "api": "torch",
+      "op": "event_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702986.0758789,
+         "end": 1790702986.0844924,
+         "seconds": 0.0086
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702986.0845,
+         "end": 1790702986.2684667,
+         "seconds": 0.184
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702986.0758789,
+       "end": 1790702986.2684667,
+       "hung": false,
+       "wall_s": 0.222
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702992.2983608,
+         "end": 1790702992.5935159,
+         "seconds": 0.2952
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702992.593541,
+         "end": 1790702992.6054595,
+         "seconds": 0.0119
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702992.2983608,
+       "end": 1790702992.6054595,
+       "hung": false,
+       "wall_s": 0.338
+      },
+      "rc": 0,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3168981",
+       "CALL 1790702988.5532",
+       "DONE 1790702992.6054 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.285,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "memcpy",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702994.0276868,
+         "end": 1790702994.0361314,
+         "seconds": 0.0084
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790702994.0361402,
+         "end": 1790702994.2121315,
+         "seconds": 0.176
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790702994.0276868,
+       "end": 1790702994.2121315,
+       "hung": false,
+       "wall_s": 0.218
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790703000.2460892,
+         "end": 1790703000.5455184,
+         "seconds": 0.2994
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790703000.54554,
+         "end": 1790703000.5702932,
+         "seconds": 0.0248
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790703000.2460892,
+       "end": 1790703000.5702932,
+       "hung": false,
+       "wall_s": 0.359
+      },
+      "rc": 0,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3169295",
+       "CALL 1790702996.5043",
+       "DONE 1790703000.5721 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.292,
+      "label": "waited for resume"
+     },
+     {
+      "api": "torch",
+      "op": "guarded_ctx_sync",
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790703001.9882224,
+         "end": 1790703001.9968817,
+         "seconds": 0.0087
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790703001.9968874,
+         "end": 1790703002.1826296,
+         "seconds": 0.1857
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790703001.9882224,
+       "end": 1790703002.1826296,
+       "hung": false,
+       "wall_s": 0.229
+      },
+      "exited_while_paused": false,
+      "resume": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790703008.2137651,
+         "end": 1790703008.5152988,
+         "seconds": 0.3015
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790703008.5153193,
+         "end": 1790703008.5260687,
+         "seconds": 0.0107
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790703008.2137651,
+       "end": 1790703008.5260687,
+       "hung": false,
+       "wall_s": 0.344
+      },
+      "rc": 0,
+      "output": [
+       "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+       "  import pynvml  # type: ignore[import]",
+       "READY 3169508",
+       "CALL 1790703004.4631",
+       "DONE 1790703008.5316 rc=0"
+      ],
+      "call_after_checkpoint_s": 2.28,
+      "label": "waited for resume"
+     }
+    ]
+   },
+   "seconds": 191.8
+  },
+  {
+   "name": "managed_memory",
+   "verdict": "hazard",
+   "summary": "pause refused (CUDA_ERROR_NOT_SUPPORTED); afterwards data check bad cuMemcpyDtoH rc=719 at offset 0; cuMemcpyDtoH rc=719 at offset 0, exit 0; /dev/nvidia-uvm mappings: 1 without managed memory, 2 with",
+   "data": {
+    "pause": {
+     "op": "pause",
+     "calls": [
+      {
+       "op": "lock",
+       "result": "OK",
+       "code": 0,
+       "start": 1790703009.4157062,
+       "end": 1790703009.4240088,
+       "seconds": 0.0083
+      },
+      {
+       "op": "checkpoint",
+       "result": "CUDA_ERROR_NOT_SUPPORTED",
+       "code": 801,
+       "start": 1790703009.4240184,
+       "end": 1790703009.566781,
+       "seconds": 0.1428
+      },
+      {
+       "op": "unlock",
+       "result": "OK",
+       "code": 0,
+       "start": 1790703009.5668287,
+       "end": 1790703009.8900468,
+       "seconds": 0.3232
+      }
+     ],
+     "result": "CUDA_ERROR_NOT_SUPPORTED",
+     "code": 801,
+     "start": 1790703009.4157062,
+     "end": 1790703009.8900468,
+     "hung": false,
+     "wall_s": 0.505
+    },
+    "resume": null,
+    "verify": "bad cuMemcpyDtoH rc=719 at offset 0; cuMemcpyDtoH rc=719 at offset 0",
+    "target_rc": 0,
+    "mb": 128,
+    "managed_mb": 64,
+    "uvm_maps_plain": 1,
+    "uvm_maps_managed": 2,
+    "uvm_signal_separates": true
+   },
+   "seconds": 2.33
+  },
+  {
+   "name": "sigstop",
+   "verdict": "hazard",
+   "summary": "hung while the process was stopped: lock (running), state (running), restore (checkpointed), state (checkpointed); recovered after SIGCONT with data intact",
+   "data": {
+    "stopped_running": {
+     "calls": {
+      "lock": {
+       "result": "hung",
+       "hung": true,
+       "limit_s": 15.0,
+       "wall_s": 15.017,
+       "stderr": "",
+       "op": "lock"
+      },
+      "state": {
+       "result": "hung",
+       "hung": true,
+       "limit_s": 10.0,
+       "wall_s": 10.013,
+       "stderr": "",
+       "op": "state"
+      }
+     },
+     "state_after_cont": "running",
+     "verify": "ok",
+     "rc": 0
+    },
+    "stopped_checkpointed": {
+     "calls": {
+      "restore": {
+       "result": "hung",
+       "hung": true,
+       "limit_s": 15.0,
+       "wall_s": 15.018,
+       "stderr": "",
+       "op": "restore"
+      },
+      "state": {
+       "result": "hung",
+       "hung": true,
+       "limit_s": 10.0,
+       "wall_s": 10.014,
+       "stderr": "",
+       "op": "state"
+      }
+     },
+     "pause": {
+      "op": "pause",
+      "calls": [
+       {
+        "op": "lock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790703038.3635387,
+        "end": 1790703038.3721278,
+        "seconds": 0.0086
+       },
+       {
+        "op": "checkpoint",
+        "result": "OK",
+        "code": 0,
+        "start": 1790703038.372133,
+        "end": 1790703038.557831,
+        "seconds": 0.1857
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790703038.3635387,
+      "end": 1790703038.557831,
+      "hung": false,
+      "wall_s": 0.229
+     },
+     "state_after_cont": "checkpointed",
+     "resume": {
+      "op": "resume",
+      "calls": [
+       {
+        "op": "restore",
+        "result": "OK",
+        "code": 0,
+        "start": 1790703065.6740448,
+        "end": 1790703065.965051,
+        "seconds": 0.291
+       },
+       {
+        "op": "unlock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790703065.965072,
+        "end": 1790703065.976234,
+        "seconds": 0.0112
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790703065.6740448,
+      "end": 1790703065.976234,
+      "hung": false,
+      "wall_s": 0.333
+     },
+     "verify": "ok",
+     "rc": 0
+    },
+    "limits_s": {
+     "lock": 15.0,
+     "state": 10.0,
+     "restore": 15.0
+    },
+    "lock_timeout_ms": 5000
+   },
+   "seconds": 55.05
+  },
+  {
+   "name": "exit_while_paused",
+   "verdict": "ok",
+   "summary": "exited with code 0 while checkpointed",
+   "data": {
+    "pause": {
+     "op": "pause",
+     "calls": [
+      {
+       "op": "lock",
+       "result": "OK",
+       "code": 0,
+       "start": 1790703066.704995,
+       "end": 1790703066.7172303,
+       "seconds": 0.0122
+      },
+      {
+       "op": "checkpoint",
+       "result": "OK",
+       "code": 0,
+       "start": 1790703066.7172384,
+       "end": 1790703066.891062,
+       "seconds": 0.1738
+      }
+     ],
+     "result": "OK",
+     "code": 0,
+     "start": 1790703066.704995,
+     "end": 1790703066.891062,
+     "hung": false,
+     "wall_s": 0.22
+    },
+    "resume": null,
+    "exited_while_paused": true,
+    "target_rc": 0,
+    "output": [
+     "READY 3171494",
+     "EXITING 1790703069.1818"
+    ]
+   },
+   "seconds": 3.14
+  },
+  {
+   "name": "child_context",
+   "verdict": "ok",
+   "summary": "pausing the parent left the child running; pausing each process separately worked, data intact",
+   "data": {
+    "steps": {
+     "pause parent": {
+      "op": "pause",
+      "calls": [
+       {
+        "op": "lock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790703069.4870405,
+        "end": 1790703069.4953983,
+        "seconds": 0.0084
+       },
+       {
+        "op": "checkpoint",
+        "result": "OK",
+        "code": 0,
+        "start": 1790703069.4954035,
+        "end": 1790703069.6838083,
+        "seconds": 0.1884
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790703069.4870405,
+      "end": 1790703069.6838083,
+      "hung": false,
+      "wall_s": 0.229
+     },
+     "pause child": {
+      "op": "pause",
+      "calls": [
+       {
+        "op": "lock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790703069.773632,
+        "end": 1790703069.78155,
+        "seconds": 0.0079
+       },
+       {
+        "op": "checkpoint",
+        "result": "OK",
+        "code": 0,
+        "start": 1790703069.7815545,
+        "end": 1790703069.9685328,
+        "seconds": 0.187
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790703069.773632,
+      "end": 1790703069.9685328,
+      "hung": false,
+      "wall_s": 0.226
+     },
+     "resume child": {
+      "op": "resume",
+      "calls": [
+       {
+        "op": "restore",
+        "result": "OK",
+        "code": 0,
+        "start": 1790703069.9994006,
+        "end": 1790703070.1502082,
+        "seconds": 0.1508
+       },
+       {
+        "op": "unlock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790703070.1502252,
+        "end": 1790703070.1512146,
+        "seconds": 0.001
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790703069.9994006,
+      "end": 1790703070.1512146,
+      "hung": false,
+      "wall_s": 0.183
+     },
+     "resume parent": {
+      "op": "resume",
+      "calls": [
+       {
+        "op": "restore",
+        "result": "OK",
+        "code": 0,
+        "start": 1790703070.18342,
+        "end": 1790703070.3477015,
+        "seconds": 0.1643
+       },
+       {
+        "op": "unlock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790703070.3477194,
+        "end": 1790703070.3497753,
+        "seconds": 0.0021
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790703070.18342,
+      "end": 1790703070.3497753,
+      "hung": false,
+      "wall_s": 0.196
+     }
+    },
+    "child_state_after_parent_pause": "running",
+    "gpu_mb_after_parent_pause": {
+     "parent": 0,
+     "child": 514
+    },
+    "verify": "ok",
+    "target_rc": 0
+   },
+   "seconds": 1.22
+  },
+  {
+   "name": "cgroup",
+   "verdict": "hazard",
+   "summary": "killed during the checkpoint with a 363 MB cgroup limit: exit -9 (SIGKILL)",
+   "data": {
+    "probe_rss_mb": 107,
+    "gpu_mb": 512,
+    "memory_max_mb": 363,
+    "cgroup": {
+     "scope": "run-r0ccb53f90a5c439398f6b25c76a726aa.scope",
+     "max_bytes": 380633088,
+     "limit_on_own_cgroup": true,
+     "current_bytes": 30093312
+    },
+    "pause": {
+     "op": "pause",
+     "calls": [
+      {
+       "op": "lock",
+       "result": "OK",
+       "code": 0,
+       "start": 1790703070.7871675,
+       "end": 1790703070.7949011,
+       "seconds": 0.0077
+      },
+      {
+       "op": "checkpoint",
+       "result": "CUDA_ERROR_OPERATING_SYSTEM",
+       "code": 304,
+       "start": 1790703070.7949069,
+       "end": 1790703070.873863,
+       "seconds": 0.079
+      },
+      {
+       "op": "unlock",
+       "result": "CUDA_ERROR_OPERATING_SYSTEM",
+       "code": 304,
+       "start": 1790703070.8739033,
+       "end": 1790703070.8739338,
+       "seconds": 0.0
+      }
+     ],
+     "result": "CUDA_ERROR_OPERATING_SYSTEM",
+     "code": 304,
+     "start": 1790703070.7871675,
+     "end": 1790703070.8739338,
+     "hung": false,
+     "wall_s": 0.137
+    },
+    "resume": null,
+    "alive_after_pause": false,
+    "verify": "not checked",
+    "target_rc": -9
+   },
+   "seconds": 1.4
+  },
+  {
+   "name": "nccl_single_gpu",
+   "verdict": "hazard",
+   "summary": "the job exited -6 (SIGABRT) after the checkpoint returned CUDA_ERROR_OPERATING_SYSTEM; NCCL threads seen: pt_nccl_heartbt, pt_nccl_watchdg",
+   "data": {
+    "cycles": [
+     {
+      "pause": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790703072.917806,
+         "end": 1790703072.9257355,
+         "seconds": 0.0079
+        },
+        {
+         "op": "checkpoint",
+         "result": "CUDA_ERROR_OPERATING_SYSTEM",
+         "code": 304,
+         "start": 1790703072.9257405,
+         "end": 1790703074.335347,
+         "seconds": 1.4096
+        },
+        {
+         "op": "unlock",
+         "result": "CUDA_ERROR_NOT_INITIALIZED",
+         "code": 3,
+         "start": 1790703074.3353848,
+         "end": 1790703074.3354151,
+         "seconds": 0.0
+        }
+       ],
+       "result": "CUDA_ERROR_OPERATING_SYSTEM",
+       "code": 304,
+       "start": 1790703072.917806,
+       "end": 1790703074.3354151,
+       "hung": false,
+       "wall_s": 1.447
+      },
+      "resume": null,
+      "verify": "no reply"
+     }
+    ],
+    "target_rc": -6,
+    "threads": [
+     "cuda-EvtHandlr",
+     "cuda00001800007",
+     "pt_nccl_heartbt",
+     "pt_nccl_watchdg",
+     "pt_tcpstore_uv",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3",
+     "python3"
+    ],
+    "nccl_threads": [
+     "pt_nccl_heartbt",
+     "pt_nccl_watchdg"
+    ],
+    "output": [
+     "frame #6: <unknown function> + 0xdc253 (0x7f358b6dc253 in /lib/x86_64-linux-gnu/libstdc++.so.6)",
+     "frame #7: <unknown function> + 0x94a83 (0x7f3606694a83 in /lib/x86_64-linux-gnu/libc.so.6)",
+     "frame #8: <unknown function> + 0x1268e0 (0x7f36067268e0 in /lib/x86_64-linux-gnu/libc.so.6)",
+     "",
+     "Exception raised from run at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:2074 (most recent call first):",
+     "frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x80 (0x7f35fe57eeb0 in /usr/local/lib/python3.10/dist-packages/torch/lib/libc10.so)",
+     "frame #1: <unknown function> + 0xe1c1a1 (0x7f35a821c1a1 in /usr/local/lib/python3.10/dist-packages/torch/lib/libtorch_cuda.so)",
+     "frame #2: <unknown function> + 0x9468e6 (0x7f35a7d468e6 in /usr/local/lib/python3.10/dist-packages/torch/lib/libtorch_cuda.so)",
+     "frame #3: <unknown function> + 0xdc253 (0x7f358b6dc253 in /lib/x86_64-linux-gnu/libstdc++.so.6)",
+     "frame #4: <unknown function> + 0x94a83 (0x7f3606694a83 in /lib/x86_64-linux-gnu/libc.so.6)",
+     "frame #5: <unknown function> + 0x1268e0 (0x7f36067268e0 in /lib/x86_64-linux-gnu/libc.so.6)",
+     ""
+    ]
+   },
+   "seconds": 5.41
+  },
+  {
+   "name": "ipc_shared_memory",
+   "verdict": "hazard",
+   "summary": "pause child returned CUDA_ERROR_OPERATING_SYSTEM; data check no reply, exit -11",
+   "data": {
+    "steps": {
+     "pause child": {
+      "op": "pause",
+      "calls": [
+       {
+        "op": "lock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790703079.0509899,
+        "end": 1790703079.059579,
+        "seconds": 0.0086
+       },
+       {
+        "op": "checkpoint",
+        "result": "CUDA_ERROR_OPERATING_SYSTEM",
+        "code": 304,
+        "start": 1790703079.0595868,
+        "end": 1790703080.2666266,
+        "seconds": 1.207
+       },
+       {
+        "op": "unlock",
+        "result": "CUDA_ERROR_NOT_INITIALIZED",
+        "code": 3,
+        "start": 1790703080.2666712,
+        "end": 1790703080.266711,
+        "seconds": 0.0
+       }
+      ],
+      "result": "CUDA_ERROR_OPERATING_SYSTEM",
+      "code": 304,
+      "start": 1790703079.0509899,
+      "end": 1790703080.266711,
+      "hung": false,
+      "wall_s": 1.271
+     },
+     "resume child": null,
+     "pause parent": {
+      "op": "pause",
+      "calls": [
+       {
+        "op": "lock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790703081.3224337,
+        "end": 1790703081.330847,
+        "seconds": 0.0084
+       },
+       {
+        "op": "checkpoint",
+        "result": "CUDA_ERROR_OPERATING_SYSTEM",
+        "code": 304,
+        "start": 1790703081.3308542,
+        "end": 1790703082.686892,
+        "seconds": 1.356
+       },
+       {
+        "op": "unlock",
+        "result": "CUDA_ERROR_NOT_INITIALIZED",
+        "code": 3,
+        "start": 1790703082.686927,
+        "end": 1790703082.6869605,
+        "seconds": 0.0
+       }
+      ],
+      "result": "CUDA_ERROR_OPERATING_SYSTEM",
+      "code": 304,
+      "start": 1790703081.3224337,
+      "end": 1790703082.6869605,
+      "hung": false,
+      "wall_s": 1.398
+     },
+     "resume parent": null
+    },
+    "verify": "no reply",
+    "target_rc": -11,
+    "child_alive_at_end": false,
+    "output": [
+     "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+     "  import pynvml  # type: ignore[import]",
+     "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py:63: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.",
+     "  import pynvml  # type: ignore[import]",
+     "CHILD 3172012",
+     "READY 3171928",
+     "/usr/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown",
+     "  warnings.warn('resource_tracker: There appear to be %d '"
+    ]
+   },
+   "seconds": 6.31
+  },
+  {
+   "name": "restore_oom",
+   "verdict": "hazard",
+   "summary": "restore returned CUDA_ERROR_OUT_OF_MEMORY; later restores returned CUDA_ERROR_OPERATING_SYSTEM: unrestorable; workaround worked",
+   "data": {
+    "oom": {
+     "job_gpu_mb": 1410,
+     "pause": {
+      "op": "pause",
+      "calls": [
+       {
+        "op": "lock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790703083.894863,
+        "end": 1790703083.9028575,
+        "seconds": 0.008
+       },
+       {
+        "op": "checkpoint",
+        "result": "OK",
+        "code": 0,
+        "start": 1790703083.902863,
+        "end": 1790703084.3264062,
+        "seconds": 0.4235
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790703083.894863,
+      "end": 1790703084.3264062,
+      "hung": false,
+      "wall_s": 0.47
+     },
+     "hog_mb": 22249,
+     "free_with_hog_mb": 672,
+     "first_restore": {
+      "op": "restore",
+      "result": "CUDA_ERROR_OUT_OF_MEMORY",
+      "code": 2,
+      "start": 1790703084.5204442,
+      "end": 1790703084.5386844,
+      "seconds": 0.0182,
+      "hung": false,
+      "wall_s": 0.051
+     },
+     "attempts": [
+      {
+       "op": "restore",
+       "result": "CUDA_ERROR_OPERATING_SYSTEM",
+       "code": 304,
+       "start": 1790703086.6759279,
+       "end": 1790703086.6850235,
+       "seconds": 0.0091,
+       "hung": false,
+       "wall_s": 0.041
+      },
+      {
+       "op": "restore",
+       "result": "CUDA_ERROR_OPERATING_SYSTEM",
+       "code": 304,
+       "start": 1790703096.7672138,
+       "end": 1790703096.7763262,
+       "seconds": 0.0091,
+       "hung": false,
+       "wall_s": 0.038
+      }
+     ],
+     "recovered": false
+    },
+    "workaround": {
+     "placeholder_mb": 1666,
+     "pause": {
+      "op": "pause",
+      "calls": [
+       {
+        "op": "lock",
+        "result": "OK",
+        "code": 0,
+        "start": 1790703097.0729694,
+        "end": 1790703097.0837202,
+        "seconds": 0.0108
+       },
+       {
+        "op": "checkpoint",
+        "result": "OK",
+        "code": 0,
+        "start": 1790703097.0837276,
+        "end": 1790703097.5093362,
+        "seconds": 0.4256
+       }
+      ],
+      "result": "OK",
+      "code": 0,
+      "start": 1790703097.0729694,
+      "end": 1790703097.5093362,
+      "hung": false,
+      "wall_s": 0.469
+     },
+     "placeholder_alloc": "OK",
+     "free_with_hog_mb": 308,
+     "result": "OK",
+     "free_to_restore_ms": 0.825,
+     "calls": [
+      {
+       "op": "restore",
+       "result": "OK",
+       "code": 0,
+       "start": 1790703097.7879245,
+       "end": 1790703098.0956407,
+       "seconds": 0.3077
+      },
+      {
+       "op": "unlock",
+       "result": "OK",
+       "code": 0,
+       "start": 1790703098.095667,
+       "end": 1790703098.0984316,
+       "seconds": 0.0028
+      }
+     ],
+     "verify": "ok"
+    },
+    "cleanup": [
+     {
+      "pid": 3172593,
+      "kind": "hold",
+      "sigcont": null,
+      "state": "running",
+      "steps": [
+       "sigkill"
+      ],
+      "calls": [],
+      "sigkill": null
+     }
+    ]
+   },
+   "seconds": 14.46
+  },
+  {
+   "name": "size_sweep",
+   "verdict": "ok",
+   "summary": "data intact at every size; 0.5 GB: checkpoint 0.28 s, restore 0.22 s; 1 GB: checkpoint 0.41 s, restore 0.29 s; 2 GB: checkpoint 0.68 s, restore 0.45 s; 4 GB: checkpoint 1.19 s, restore 0.78 s; 8 GB: checkpoint 2.25 s, restore 1.38 s; 16 GB: checkpoint 4.30 s, restore 2.54 s; 20 GB: checkpoint 5.28 s, restore 3.13 s",
+   "data": {
+    "cycles": 3,
+    "gpu_margin_mb": 2560,
+    "host_margin_mb": 2048,
+    "sizes": [
+     {
+      "mb": 512,
+      "cycles": [
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703099.520969,
+           "end": 1790703099.528968,
+           "seconds": 0.008
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703099.5289743,
+           "end": 1790703099.8138604,
+           "seconds": 0.2849
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703099.520969,
+         "end": 1790703099.8138604,
+         "hung": false,
+         "wall_s": 0.327
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703100.3461196,
+           "end": 1790703100.5639062,
+           "seconds": 0.2178
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703100.5639267,
+           "end": 1790703100.5649707,
+           "seconds": 0.001
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703100.3461196,
+         "end": 1790703100.5649707,
+         "hung": false,
+         "wall_s": 0.25
+        },
+        "verify": "ok"
+       },
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703100.599696,
+           "end": 1790703100.6076505,
+           "seconds": 0.008
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703100.6076565,
+           "end": 1790703100.8900478,
+           "seconds": 0.2824
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703100.599696,
+         "end": 1790703100.8900478,
+         "hung": false,
+         "wall_s": 0.324
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703101.423322,
+           "end": 1790703101.6344976,
+           "seconds": 0.2112
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703101.6345189,
+           "end": 1790703101.6355646,
+           "seconds": 0.001
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703101.423322,
+         "end": 1790703101.6355646,
+         "hung": false,
+         "wall_s": 0.245
+        },
+        "verify": "ok"
+       },
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703101.6708474,
+           "end": 1790703101.6786964,
+           "seconds": 0.0078
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703101.6787019,
+           "end": 1790703101.9648778,
+           "seconds": 0.2862
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703101.6708474,
+         "end": 1790703101.9648778,
+         "hung": false,
+         "wall_s": 0.328
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703102.4983728,
+           "end": 1790703102.7174466,
+           "seconds": 0.2191
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703102.7174623,
+           "end": 1790703102.7183502,
+           "seconds": 0.0009
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703102.4983728,
+         "end": 1790703102.7183502,
+         "hung": false,
+         "wall_s": 0.252
+        },
+        "verify": "ok"
+       }
+      ],
+      "rc": 0,
+      "checkpoint_s": 0.2849,
+      "restore_s": 0.2178,
+      "checkpoint_gb_s": 1.76,
+      "restore_gb_s": 2.3
+     },
+     {
+      "mb": 1024,
+      "cycles": [
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703103.9305184,
+           "end": 1790703103.938692,
+           "seconds": 0.0082
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703103.938697,
+           "end": 1790703104.3694677,
+           "seconds": 0.4308
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703103.9305184,
+         "end": 1790703104.3694677,
+         "hung": false,
+         "wall_s": 0.47
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703104.906628,
+           "end": 1790703105.2069087,
+           "seconds": 0.3003
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703105.2069302,
+           "end": 1790703105.2079196,
+           "seconds": 0.001
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703104.906628,
+         "end": 1790703105.2079196,
+         "hung": false,
+         "wall_s": 0.337
+        },
+        "verify": "ok"
+       },
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703105.2499695,
+           "end": 1790703105.2576413,
+           "seconds": 0.0077
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703105.2576463,
+           "end": 1790703105.670477,
+           "seconds": 0.4128
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703105.2499695,
+         "end": 1790703105.670477,
+         "hung": false,
+         "wall_s": 0.46
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703106.2018483,
+           "end": 1790703106.4956303,
+           "seconds": 0.2938
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703106.4956498,
+           "end": 1790703106.4965508,
+           "seconds": 0.0009
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703106.2018483,
+         "end": 1790703106.4965508,
+         "hung": false,
+         "wall_s": 0.323
+        },
+        "verify": "ok"
+       },
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703106.5326326,
+           "end": 1790703106.5404897,
+           "seconds": 0.0079
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703106.5404968,
+           "end": 1790703106.9478428,
+           "seconds": 0.4073
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703106.5326326,
+         "end": 1790703106.9478428,
+         "hung": false,
+         "wall_s": 0.451
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703107.4806464,
+           "end": 1790703107.7734494,
+           "seconds": 0.2928
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703107.773471,
+           "end": 1790703107.7743568,
+           "seconds": 0.0009
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703107.4806464,
+         "end": 1790703107.7743568,
+         "hung": false,
+         "wall_s": 0.325
+        },
+        "verify": "ok"
+       }
+      ],
+      "rc": 0,
+      "checkpoint_s": 0.4128,
+      "restore_s": 0.2938,
+      "checkpoint_gb_s": 2.42,
+      "restore_gb_s": 3.4
+     },
+     {
+      "mb": 2048,
+      "cycles": [
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703108.9857192,
+           "end": 1790703108.9939117,
+           "seconds": 0.0082
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703108.9939172,
+           "end": 1790703109.6793413,
+           "seconds": 0.6854
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703108.9857192,
+         "end": 1790703109.6793413,
+         "hung": false,
+         "wall_s": 0.724
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703110.2104871,
+           "end": 1790703110.6582613,
+           "seconds": 0.4478
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703110.658277,
+           "end": 1790703110.6591578,
+           "seconds": 0.0009
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703110.2104871,
+         "end": 1790703110.6591578,
+         "hung": false,
+         "wall_s": 0.481
+        },
+        "verify": "ok"
+       },
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703110.7077837,
+           "end": 1790703110.715308,
+           "seconds": 0.0075
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703110.7153134,
+           "end": 1790703111.3971896,
+           "seconds": 0.6819
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703110.7077837,
+         "end": 1790703111.3971896,
+         "hung": false,
+         "wall_s": 0.734
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703111.9336717,
+           "end": 1790703112.3851318,
+           "seconds": 0.4515
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703112.385153,
+           "end": 1790703112.3861237,
+           "seconds": 0.001
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703111.9336717,
+         "end": 1790703112.3861237,
+         "hung": false,
+         "wall_s": 0.486
+        },
+        "verify": "ok"
+       },
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703112.4227424,
+           "end": 1790703112.430422,
+           "seconds": 0.0077
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703112.4304276,
+           "end": 1790703113.1052444,
+           "seconds": 0.6748
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703112.4227424,
+         "end": 1790703113.1052444,
+         "hung": false,
+         "wall_s": 0.716
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703113.6371,
+           "end": 1790703114.0899506,
+           "seconds": 0.4529
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703114.08997,
+           "end": 1790703114.090908,
+           "seconds": 0.0009
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703113.6371,
+         "end": 1790703114.090908,
+         "hung": false,
+         "wall_s": 0.482
+        },
+        "verify": "ok"
+       }
+      ],
+      "rc": 0,
+      "checkpoint_s": 0.6819,
+      "restore_s": 0.4515,
+      "checkpoint_gb_s": 2.93,
+      "restore_gb_s": 4.43
+     },
+     {
+      "mb": 4096,
+      "cycles": [
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703115.3010924,
+           "end": 1790703115.3085835,
+           "seconds": 0.0075
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703115.3085892,
+           "end": 1790703116.5024974,
+           "seconds": 1.1939
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703115.3010924,
+         "end": 1790703116.5024974,
+         "hung": false,
+         "wall_s": 1.232
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703117.0354657,
+           "end": 1790703117.8249905,
+           "seconds": 0.7895
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703117.825009,
+           "end": 1790703117.8262453,
+           "seconds": 0.0012
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703117.0354657,
+         "end": 1790703117.8262453,
+         "hung": false,
+         "wall_s": 0.823
+        },
+        "verify": "ok"
+       },
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703117.8756642,
+           "end": 1790703117.8839266,
+           "seconds": 0.0083
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703117.8839343,
+           "end": 1790703119.0698025,
+           "seconds": 1.1859
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703117.8756642,
+         "end": 1790703119.0698025,
+         "hung": false,
+         "wall_s": 1.232
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703119.6016996,
+           "end": 1790703120.3771853,
+           "seconds": 0.7755
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703120.3772101,
+           "end": 1790703120.3783062,
+           "seconds": 0.0011
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703119.6016996,
+         "end": 1790703120.3783062,
+         "hung": false,
+         "wall_s": 0.806
+        },
+        "verify": "ok"
+       },
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703120.4198833,
+           "end": 1790703120.4278905,
+           "seconds": 0.008
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703120.4278955,
+           "end": 1790703121.6238809,
+           "seconds": 1.196
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703120.4198833,
+         "end": 1790703121.6238809,
+         "hung": false,
+         "wall_s": 1.236
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703122.160123,
+           "end": 1790703122.9382334,
+           "seconds": 0.7781
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703122.9382658,
+           "end": 1790703122.9394999,
+           "seconds": 0.0012
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703122.160123,
+         "end": 1790703122.9394999,
+         "hung": false,
+         "wall_s": 0.815
+        },
+        "verify": "ok"
+       }
+      ],
+      "rc": 0,
+      "checkpoint_s": 1.1939,
+      "restore_s": 0.7781,
+      "checkpoint_gb_s": 3.35,
+      "restore_gb_s": 5.14
+     },
+     {
+      "mb": 8192,
+      "cycles": [
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703124.1763096,
+           "end": 1790703124.1843016,
+           "seconds": 0.008
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703124.1843064,
+           "end": 1790703126.4110956,
+           "seconds": 2.2268
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703124.1763096,
+         "end": 1790703126.4110956,
+         "hung": false,
+         "wall_s": 2.269
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703126.947858,
+           "end": 1790703128.3275657,
+           "seconds": 1.3797
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703128.3275902,
+           "end": 1790703128.3287063,
+           "seconds": 0.0011
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703126.947858,
+         "end": 1790703128.3287063,
+         "hung": false,
+         "wall_s": 1.418
+        },
+        "verify": "ok"
+       },
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703128.3849654,
+           "end": 1790703128.3929532,
+           "seconds": 0.008
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703128.3929589,
+           "end": 1790703130.6619477,
+           "seconds": 2.269
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703128.3849654,
+         "end": 1790703130.6619477,
+         "hung": false,
+         "wall_s": 2.314
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703131.1941383,
+           "end": 1790703132.5778234,
+           "seconds": 1.3837
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703132.577845,
+           "end": 1790703132.5788925,
+           "seconds": 0.001
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703131.1941383,
+         "end": 1790703132.5788925,
+         "hung": false,
+         "wall_s": 1.415
+        },
+        "verify": "ok"
+       },
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703132.6317554,
+           "end": 1790703132.6398106,
+           "seconds": 0.0081
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703132.6398184,
+           "end": 1790703134.8944957,
+           "seconds": 2.2547
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703132.6317554,
+         "end": 1790703134.8944957,
+         "hung": false,
+         "wall_s": 2.296
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703135.4259303,
+           "end": 1790703136.8219714,
+           "seconds": 1.396
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703136.8220072,
+           "end": 1790703136.8232982,
+           "seconds": 0.0013
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703135.4259303,
+         "end": 1790703136.8232982,
+         "hung": false,
+         "wall_s": 1.427
+        },
+        "verify": "ok"
+       }
+      ],
+      "rc": 0,
+      "checkpoint_s": 2.2547,
+      "restore_s": 1.3837,
+      "checkpoint_gb_s": 3.55,
+      "restore_gb_s": 5.78
+     },
+     {
+      "mb": 16384,
+      "cycles": [
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703138.0641215,
+           "end": 1790703138.072202,
+           "seconds": 0.0081
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703138.0722072,
+           "end": 1790703142.3807194,
+           "seconds": 4.3085
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703138.0641215,
+         "end": 1790703142.3807194,
+         "hung": false,
+         "wall_s": 4.349
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703142.915829,
+           "end": 1790703145.454251,
+           "seconds": 2.5384
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703145.4542725,
+           "end": 1790703145.4553666,
+           "seconds": 0.0011
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703142.915829,
+         "end": 1790703145.4553666,
+         "hung": false,
+         "wall_s": 2.574
+        },
+        "verify": "ok"
+       },
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703145.5276346,
+           "end": 1790703145.535597,
+           "seconds": 0.008
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703145.5356047,
+           "end": 1790703149.8390203,
+           "seconds": 4.3034
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703145.5276346,
+         "end": 1790703149.8390203,
+         "hung": false,
+         "wall_s": 4.343
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703150.3725803,
+           "end": 1790703152.9070468,
+           "seconds": 2.5345
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703152.9070735,
+           "end": 1790703152.9080331,
+           "seconds": 0.001
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703150.3725803,
+         "end": 1790703152.9080331,
+         "hung": false,
+         "wall_s": 2.571
+        },
+        "verify": "ok"
+       },
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703152.9783754,
+           "end": 1790703152.9864743,
+           "seconds": 0.0081
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703152.9864793,
+           "end": 1790703157.2304807,
+           "seconds": 4.244
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703152.9783754,
+         "end": 1790703157.2304807,
+         "hung": false,
+         "wall_s": 4.281
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703157.7625806,
+           "end": 1790703160.3381472,
+           "seconds": 2.5756
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703160.3381689,
+           "end": 1790703160.3393037,
+           "seconds": 0.0011
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703157.7625806,
+         "end": 1790703160.3393037,
+         "hung": false,
+         "wall_s": 2.609
+        },
+        "verify": "ok"
+       }
+      ],
+      "rc": 0,
+      "checkpoint_s": 4.3034,
+      "restore_s": 2.5384,
+      "checkpoint_gb_s": 3.72,
+      "restore_gb_s": 6.3
+     },
+     {
+      "mb": 20480,
+      "cycles": [
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703161.61721,
+           "end": 1790703161.625255,
+           "seconds": 0.008
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703161.62526,
+           "end": 1790703166.8917832,
+           "seconds": 5.2665
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703161.61721,
+         "end": 1790703166.8917832,
+         "hung": false,
+         "wall_s": 5.307
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703167.4233427,
+           "end": 1790703170.5328307,
+           "seconds": 3.1095
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703170.5328667,
+           "end": 1790703170.5337946,
+           "seconds": 0.0009
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703167.4233427,
+         "end": 1790703170.5337946,
+         "hung": false,
+         "wall_s": 3.143
+        },
+        "verify": "ok"
+       },
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703170.6171076,
+           "end": 1790703170.6253521,
+           "seconds": 0.0082
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703170.6253607,
+           "end": 1790703175.910908,
+           "seconds": 5.2855
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703170.6171076,
+         "end": 1790703175.910908,
+         "hung": false,
+         "wall_s": 5.327
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703176.446953,
+           "end": 1790703179.5722413,
+           "seconds": 3.1253
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703179.5722663,
+           "end": 1790703179.573194,
+           "seconds": 0.0009
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703176.446953,
+         "end": 1790703179.573194,
+         "hung": false,
+         "wall_s": 3.16
+        },
+        "verify": "ok"
+       },
+       {
+        "pause": {
+         "op": "pause",
+         "calls": [
+          {
+           "op": "lock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703179.6531103,
+           "end": 1790703179.6609042,
+           "seconds": 0.0078
+          },
+          {
+           "op": "checkpoint",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703179.6609097,
+           "end": 1790703184.9405193,
+           "seconds": 5.2796
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703179.6531103,
+         "end": 1790703184.9405193,
+         "hung": false,
+         "wall_s": 5.319
+        },
+        "resume": {
+         "op": "resume",
+         "calls": [
+          {
+           "op": "restore",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703185.4749517,
+           "end": 1790703188.612101,
+           "seconds": 3.1371
+          },
+          {
+           "op": "unlock",
+           "result": "OK",
+           "code": 0,
+           "start": 1790703188.6121206,
+           "end": 1790703188.6134992,
+           "seconds": 0.0014
+          }
+         ],
+         "result": "OK",
+         "code": 0,
+         "start": 1790703185.4749517,
+         "end": 1790703188.6134992,
+         "hung": false,
+         "wall_s": 3.173
+        },
+        "verify": "ok"
+       }
+      ],
+      "rc": 0,
+      "checkpoint_s": 5.2796,
+      "restore_s": 3.1253,
+      "checkpoint_gb_s": 3.79,
+      "restore_gb_s": 6.4
+     }
+    ]
+   },
+   "seconds": 90.35
+  },
+  {
+   "name": "controller_death",
+   "verdict": "ok",
+   "summary": "checkpoint: the checkpoint completed without the controller; restore: the restore completed, the job stayed locked; a new controller brought the job back with its data intact",
+   "data": {
+    "kill_after_s": 0.25,
+    "phases": [
+     {
+      "phase": "checkpoint",
+      "mb": 16384,
+      "prepare": {
+       "op": "lock",
+       "result": "OK",
+       "code": 0,
+       "start": 1790703189.9426112,
+       "end": 1790703189.950605,
+       "seconds": 0.008,
+       "hung": false,
+       "wall_s": 0.051
+      },
+      "killed_during_call": true,
+      "kill_after_s": 0.25,
+      "worker_output": "",
+      "states": [
+       "checkpointed",
+       "checkpointed",
+       "checkpointed",
+       "checkpointed",
+       "checkpointed",
+       "checkpointed",
+       "checkpointed",
+       "checkpointed",
+       "checkpointed",
+       "checkpointed",
+       "checkpointed",
+       "checkpointed",
+       "checkpointed",
+       "checkpointed",
+       "checkpointed",
+       "checkpointed",
+       "checkpointed",
+       "checkpointed",
+       "checkpointed",
+       "checkpointed"
+      ],
+      "polls": [
+       {
+        "at_s": 0.03,
+        "state": "checkpointed",
+        "seconds": 3.9528
+       },
+       {
+        "at_s": 4.52,
+        "state": "checkpointed",
+        "seconds": 0.0074
+       },
+       {
+        "at_s": 5.07,
+        "state": "checkpointed",
+        "seconds": 0.0074
+       },
+       {
+        "at_s": 5.6,
+        "state": "checkpointed",
+        "seconds": 0.0075
+       },
+       {
+        "at_s": 6.14,
+        "state": "checkpointed",
+        "seconds": 0.0081
+       },
+       {
+        "at_s": 6.68,
+        "state": "checkpointed",
+        "seconds": 0.0083
+       },
+       {
+        "at_s": 7.22,
+        "state": "checkpointed",
+        "seconds": 0.0085
+       },
+       {
+        "at_s": 7.76,
+        "state": "checkpointed",
+        "seconds": 0.0089
+       },
+       {
+        "at_s": 8.31,
+        "state": "checkpointed",
+        "seconds": 0.0102
+       },
+       {
+        "at_s": 8.85,
+        "state": "checkpointed",
+        "seconds": 0.0103
+       },
+       {
+        "at_s": 9.39,
+        "state": "checkpointed",
+        "seconds": 0.0096
+       },
+       {
+        "at_s": 9.94,
+        "state": "checkpointed",
+        "seconds": 0.0098
+       },
+       {
+        "at_s": 10.48,
+        "state": "checkpointed",
+        "seconds": 0.01
+       },
+       {
+        "at_s": 11.02,
+        "state": "checkpointed",
+        "seconds": 0.0093
+       },
+       {
+        "at_s": 11.56,
+        "state": "checkpointed",
+        "seconds": 0.0106
+       },
+       {
+        "at_s": 12.1,
+        "state": "checkpointed",
+        "seconds": 0.0102
+       },
+       {
+        "at_s": 12.64,
+        "state": "checkpointed",
+        "seconds": 0.0096
+       },
+       {
+        "at_s": 13.19,
+        "state": "checkpointed",
+        "seconds": 0.0096
+       },
+       {
+        "at_s": 13.73,
+        "state": "checkpointed",
+        "seconds": 0.01
+       },
+       {
+        "at_s": 14.28,
+        "state": "checkpointed",
+        "seconds": 0.0098
+       }
+      ],
+      "recover": {
+       "op": "resume",
+       "calls": [
+        {
+         "op": "restore",
+         "result": "OK",
+         "code": 0,
+         "start": 1790703205.0536232,
+         "end": 1790703207.5923731,
+         "seconds": 2.5387
+        },
+        {
+         "op": "unlock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790703207.5923934,
+         "end": 1790703207.5933008,
+         "seconds": 0.0009
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790703205.0536232,
+       "end": 1790703207.5933008,
+       "hung": false,
+       "wall_s": 2.571
+      },
+      "verify": "ok",
+      "rc": 0
+     },
+     {
+      "phase": "restore",
+      "mb": 16384,
+      "prepare": {
+       "op": "pause",
+       "calls": [
+        {
+         "op": "lock",
+         "result": "OK",
+         "code": 0,
+         "start": 1790703208.857342,
+         "end": 1790703208.8654625,
+         "seconds": 0.0081
+        },
+        {
+         "op": "checkpoint",
+         "result": "OK",
+         "code": 0,
+         "start": 1790703208.8654706,
+         "end": 1790703213.0878327,
+         "seconds": 4.2224
+        }
+       ],
+       "result": "OK",
+       "code": 0,
+       "start": 1790703208.857342,
+       "end": 1790703213.0878327,
+       "hung": false,
+       "wall_s": 4.26
+      },
+      "killed_during_call": true,
+      "kill_after_s": 0.25,
+      "worker_output": "",
+      "states": [
+       "locked",
+       "locked",
+       "locked",
+       "locked",
+       "locked",
+       "locked",
+       "locked",
+       "locked",
+       "locked",
+       "locked",
+       "locked",
+       "locked",
+       "locked",
+       "locked",
+       "locked",
+       "locked",
+       "locked",
+       "locked",
+       "locked",
+       "locked"
+      ],
+      "polls": [
+       {
+        "at_s": 0.03,
+        "state": "locked",
+        "seconds": 2.4566
+       },
+       {
+        "at_s": 3.02,
+        "state": "locked",
+        "seconds": 0.0079
+       },
+       {
+        "at_s": 3.56,
+        "state": "locked",
+        "seconds": 0.0074
+       },
+       {
+        "at_s": 4.1,
+        "state": "locked",
+        "seconds": 0.0082
+       },
+       {
+        "at_s": 4.64,
+        "state": "locked",
+        "seconds": 0.0077
+       },
+       {
+        "at_s": 5.17,
+        "state": "locked",
+        "seconds": 0.0079
+       },
+       {
+        "at_s": 5.71,
+        "state": "locked",
+        "seconds": 0.0075
+       },
+       {
+        "at_s": 6.25,
+        "state": "locked",
+        "seconds": 0.0081
+       },
+       {
+        "at_s": 6.79,
+        "state": "locked",
+        "seconds": 0.0083
+       },
+       {
+        "at_s": 7.33,
+        "state": "locked",
+        "seconds": 0.008
+       },
+       {
+        "at_s": 7.88,
+        "state": "locked",
+        "seconds": 0.0078
+       },
+       {
+        "at_s": 8.42,
+        "state": "locked",
+        "seconds": 0.0077
+       },
+       {
+        "at_s": 8.96,
+        "state": "locked",
+        "seconds": 0.0081
+       },
+       {
+        "at_s": 9.51,
+        "state": "locked",
+        "seconds": 0.0078
+       },
+       {
+        "at_s": 10.05,
+        "state": "locked",
+        "seconds": 0.0078
+       },
+       {
+        "at_s": 10.59,
+        "state": "locked",
+        "seconds": 0.0078
+       },
+       {
+        "at_s": 11.14,
+        "state": "locked",
+        "seconds": 0.0079
+       },
+       {
+        "at_s": 11.68,
+        "state": "locked",
+        "seconds": 0.0077
+       },
+       {
+        "at_s": 12.22,
+        "state": "locked",
+        "seconds": 0.0076
+       },
+       {
+        "at_s": 12.77,
+        "state": "locked",
+        "seconds": 0.0075
+       }
+      ],
+      "recover": {
+       "op": "unlock",
+       "result": "OK",
+       "code": 0,
+       "start": 1790703226.6861558,
+       "end": 1790703226.6948385,
+       "seconds": 0.0087,
+       "hung": false,
+       "wall_s": 0.039
+      },
+      "verify": "ok",
+      "rc": 0
+     }
+    ]
+   },
+   "seconds": 38.03
+  },
+  {
+   "name": "correctness",
+   "verdict": "ok",
+   "summary": "300 steps and the final weights bit-identical to two unpaused runs across 20 pauses",
+   "data": {
+    "steps": 300,
+    "seed": 0,
+    "step_sleep_s": 0.05,
+    "schedule": [
+     [
+      30,
+      1.176
+     ],
+     [
+      58,
+      1.379
+     ],
+     [
+      60,
+      1.121
+     ],
+     [
+      81,
+      0.867
+     ],
+     [
+      85,
+      0.421
+     ],
+     [
+      121,
+      0.821
+     ],
+     [
+      138,
+      1.033
+     ],
+     [
+      142,
+      1.396
+     ],
+     [
+      154,
+      1.46
+     ],
+     [
+      165,
+      0.872
+     ],
+     [
+      168,
+      1.338
+     ],
+     [
+      193,
+      0.613
+     ],
+     [
+      207,
+      1.266
+     ],
+     [
+      217,
+      0.958
+     ],
+     [
+      225,
+      0.317
+     ],
+     [
+      254,
+      1.164
+     ],
+     [
+      258,
+      0.779
+     ],
+     [
+      268,
+      1.29
+     ],
+     [
+      271,
+      1.102
+     ],
+     [
+      282,
+      0.301
+     ]
+    ],
+    "wait_s": [
+     0.3,
+     1.5
+    ],
+    "references": [
+     {
+      "rc": 0,
+      "end": "12225b850275a9ee08cd2335fda16e2110d4093c",
+      "tail": [
+       "STEP 298 0x1.0898000000000p+0",
+       "STEP 299 0x1.0b154e0000000p+0",
+       "END 12225b850275a9ee08cd2335fda16e2110d4093c"
+      ]
+     },
+     {
+      "rc": 0,
+      "end": "12225b850275a9ee08cd2335fda16e2110d4093c",
+      "tail": [
+       "STEP 298 0x1.0898000000000p+0",
+       "STEP 299 0x1.0b154e0000000p+0",
+       "END 12225b850275a9ee08cd2335fda16e2110d4093c"
+      ]
+     }
+    ],
+    "paused": {
+     "rc": 0,
+     "end": "12225b850275a9ee08cd2335fda16e2110d4093c",
+     "tail": [
+      "STEP 298 0x1.0898000000000p+0",
+      "STEP 299 0x1.0b154e0000000p+0",
+      "END 12225b850275a9ee08cd2335fda16e2110d4093c"
+     ],
+     "pauses": [
+      {
+       "at_step": 30,
+       "wait_s": 1.176,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703263.5012205,
+          "end": 1790703263.5100167,
+          "seconds": 0.0088
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703263.5100272,
+          "end": 1790703263.7339072,
+          "seconds": 0.2239
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703263.5012205,
+        "end": 1790703263.7339072,
+        "hung": false,
+        "wall_s": 0.265
+       },
+       "landed_step": 30,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703264.9436176,
+          "end": 1790703265.1266224,
+          "seconds": 0.183
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703265.1266415,
+          "end": 1790703265.1279478,
+          "seconds": 0.0013
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703264.9436176,
+        "end": 1790703265.1279478,
+        "hung": false,
+        "wall_s": 0.219
+       }
+      },
+      {
+       "at_step": 58,
+       "wait_s": 1.379,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703266.528736,
+          "end": 1790703266.5372827,
+          "seconds": 0.0085
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703266.5372913,
+          "end": 1790703266.7506156,
+          "seconds": 0.2133
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703266.528736,
+        "end": 1790703266.7506156,
+        "hung": false,
+        "wall_s": 0.254
+       },
+       "landed_step": 58,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703268.164311,
+          "end": 1790703268.3452675,
+          "seconds": 0.181
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703268.3452926,
+          "end": 1790703268.3466387,
+          "seconds": 0.0013
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703268.164311,
+        "end": 1790703268.3466387,
+        "hung": false,
+        "wall_s": 0.216
+       }
+      },
+      {
+       "at_step": 60,
+       "wait_s": 1.121,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703268.424099,
+          "end": 1790703268.4326658,
+          "seconds": 0.0086
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703268.4326735,
+          "end": 1790703268.647227,
+          "seconds": 0.2146
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703268.424099,
+        "end": 1790703268.647227,
+        "hung": false,
+        "wall_s": 0.257
+       },
+       "landed_step": 60,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703269.8029833,
+          "end": 1790703269.9941473,
+          "seconds": 0.1912
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703269.994176,
+          "end": 1790703269.9952474,
+          "seconds": 0.0011
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703269.8029833,
+        "end": 1790703269.9952474,
+        "hung": false,
+        "wall_s": 0.226
+       }
+      },
+      {
+       "at_step": 81,
+       "wait_s": 0.867,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703271.044081,
+          "end": 1790703271.0522163,
+          "seconds": 0.0081
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703271.0522225,
+          "end": 1790703271.275261,
+          "seconds": 0.223
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703271.044081,
+        "end": 1790703271.275261,
+        "hung": false,
+        "wall_s": 0.267
+       },
+       "landed_step": 81,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703272.1762156,
+          "end": 1790703272.35964,
+          "seconds": 0.1834
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703272.359661,
+          "end": 1790703272.360862,
+          "seconds": 0.0012
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703272.1762156,
+        "end": 1790703272.360862,
+        "hung": false,
+        "wall_s": 0.217
+       }
+      },
+      {
+       "at_step": 85,
+       "wait_s": 0.421,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703272.5379677,
+          "end": 1790703272.5468967,
+          "seconds": 0.0089
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703272.546904,
+          "end": 1790703272.7606337,
+          "seconds": 0.2137
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703272.5379677,
+        "end": 1790703272.7606337,
+        "hung": false,
+        "wall_s": 0.254
+       },
+       "landed_step": 85,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703273.218093,
+          "end": 1790703273.3978186,
+          "seconds": 0.1797
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703273.3978431,
+          "end": 1790703273.3989892,
+          "seconds": 0.0011
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703273.218093,
+        "end": 1790703273.3989892,
+        "hung": false,
+        "wall_s": 0.217
+       }
+      },
+      {
+       "at_step": 121,
+       "wait_s": 0.821,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703275.2126787,
+          "end": 1790703275.2214887,
+          "seconds": 0.0088
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703275.221509,
+          "end": 1790703275.4432585,
+          "seconds": 0.2217
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703275.2126787,
+        "end": 1790703275.4432585,
+        "hung": false,
+        "wall_s": 0.27
+       },
+       "landed_step": 121,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703276.2997453,
+          "end": 1790703276.4768257,
+          "seconds": 0.1771
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703276.4768596,
+          "end": 1790703276.4779713,
+          "seconds": 0.0011
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703276.2997453,
+        "end": 1790703276.4779713,
+        "hung": false,
+        "wall_s": 0.213
+       }
+      },
+      {
+       "at_step": 138,
+       "wait_s": 1.033,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703277.3166742,
+          "end": 1790703277.3317378,
+          "seconds": 0.0151
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703277.3317456,
+          "end": 1790703277.5431194,
+          "seconds": 0.2114
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703277.3166742,
+        "end": 1790703277.5431194,
+        "hung": false,
+        "wall_s": 0.258
+       },
+       "landed_step": 138,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703278.6075895,
+          "end": 1790703278.7905512,
+          "seconds": 0.183
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703278.790576,
+          "end": 1790703278.7917998,
+          "seconds": 0.0012
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703278.6075895,
+        "end": 1790703278.7917998,
+        "hung": false,
+        "wall_s": 0.216
+       }
+      },
+      {
+       "at_step": 142,
+       "wait_s": 1.396,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703278.9691925,
+          "end": 1790703278.9779105,
+          "seconds": 0.0087
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703278.9779158,
+          "end": 1790703279.2016058,
+          "seconds": 0.2237
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703278.9691925,
+        "end": 1790703279.2016058,
+        "hung": false,
+        "wall_s": 0.264
+       },
+       "landed_step": 142,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703280.6300452,
+          "end": 1790703280.8168852,
+          "seconds": 0.1868
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703280.8169036,
+          "end": 1790703280.8179986,
+          "seconds": 0.0011
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703280.6300452,
+        "end": 1790703280.8179986,
+        "hung": false,
+        "wall_s": 0.22
+       }
+      },
+      {
+       "at_step": 154,
+       "wait_s": 1.46,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703281.403068,
+          "end": 1790703281.41153,
+          "seconds": 0.0085
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703281.4115393,
+          "end": 1790703281.6283298,
+          "seconds": 0.2168
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703281.403068,
+        "end": 1790703281.6283298,
+        "hung": false,
+        "wall_s": 0.256
+       },
+       "landed_step": 154,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703283.1224356,
+          "end": 1790703283.3166523,
+          "seconds": 0.1942
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703283.3166876,
+          "end": 1790703283.3177915,
+          "seconds": 0.0011
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703283.1224356,
+        "end": 1790703283.3177915,
+        "hung": false,
+        "wall_s": 0.229
+       }
+      },
+      {
+       "at_step": 165,
+       "wait_s": 0.872,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703283.853,
+          "end": 1790703283.861747,
+          "seconds": 0.0087
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703283.861754,
+          "end": 1790703284.0746403,
+          "seconds": 0.2129
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703283.853,
+        "end": 1790703284.0746403,
+        "hung": false,
+        "wall_s": 0.254
+       },
+       "landed_step": 165,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703284.9796503,
+          "end": 1790703285.1652646,
+          "seconds": 0.1856
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703285.1653106,
+          "end": 1790703285.1665218,
+          "seconds": 0.0012
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703284.9796503,
+        "end": 1790703285.1665218,
+        "hung": false,
+        "wall_s": 0.219
+       }
+      },
+      {
+       "at_step": 168,
+       "wait_s": 1.338,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703285.2931736,
+          "end": 1790703285.3015094,
+          "seconds": 0.0083
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703285.301516,
+          "end": 1790703285.521955,
+          "seconds": 0.2204
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703285.2931736,
+        "end": 1790703285.521955,
+        "hung": false,
+        "wall_s": 0.261
+       },
+       "landed_step": 168,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703286.892861,
+          "end": 1790703287.0818238,
+          "seconds": 0.189
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703287.0818417,
+          "end": 1790703287.082913,
+          "seconds": 0.0011
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703286.892861,
+        "end": 1790703287.082913,
+        "hung": false,
+        "wall_s": 0.222
+       }
+      },
+      {
+       "at_step": 193,
+       "wait_s": 0.613,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703288.330191,
+          "end": 1790703288.3388124,
+          "seconds": 0.0086
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703288.3388186,
+          "end": 1790703288.562771,
+          "seconds": 0.224
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703288.330191,
+        "end": 1790703288.562771,
+        "hung": false,
+        "wall_s": 0.265
+       },
+       "landed_step": 193,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703289.2081068,
+          "end": 1790703289.3929336,
+          "seconds": 0.1848
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703289.3929515,
+          "end": 1790703289.3944294,
+          "seconds": 0.0015
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703289.2081068,
+        "end": 1790703289.3944294,
+        "hung": false,
+        "wall_s": 0.218
+       }
+      },
+      {
+       "at_step": 207,
+       "wait_s": 1.266,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703290.0814722,
+          "end": 1790703290.090044,
+          "seconds": 0.0086
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703290.0900512,
+          "end": 1790703290.3036487,
+          "seconds": 0.2136
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703290.0814722,
+        "end": 1790703290.3036487,
+        "hung": false,
+        "wall_s": 0.254
+       },
+       "landed_step": 207,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703291.601915,
+          "end": 1790703291.7914972,
+          "seconds": 0.1896
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703291.7915306,
+          "end": 1790703291.792864,
+          "seconds": 0.0013
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703291.601915,
+        "end": 1790703291.792864,
+        "hung": false,
+        "wall_s": 0.223
+       }
+      },
+      {
+       "at_step": 217,
+       "wait_s": 0.958,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703292.276335,
+          "end": 1790703292.2853458,
+          "seconds": 0.009
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703292.285354,
+          "end": 1790703292.5028954,
+          "seconds": 0.2175
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703292.276335,
+        "end": 1790703292.5028954,
+        "hung": false,
+        "wall_s": 0.256
+       },
+       "landed_step": 217,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703293.4913495,
+          "end": 1790703293.6784923,
+          "seconds": 0.1871
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703293.6785195,
+          "end": 1790703293.679737,
+          "seconds": 0.0012
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703293.4913495,
+        "end": 1790703293.679737,
+        "hung": false,
+        "wall_s": 0.22
+       }
+      },
+      {
+       "at_step": 225,
+       "wait_s": 0.317,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703294.0647883,
+          "end": 1790703294.0736852,
+          "seconds": 0.0089
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703294.073693,
+          "end": 1790703294.287851,
+          "seconds": 0.2142
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703294.0647883,
+        "end": 1790703294.287851,
+        "hung": false,
+        "wall_s": 0.257
+       },
+       "landed_step": 225,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703294.638092,
+          "end": 1790703294.8212068,
+          "seconds": 0.1831
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703294.8212276,
+          "end": 1790703294.8226855,
+          "seconds": 0.0015
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703294.638092,
+        "end": 1790703294.8226855,
+        "hung": false,
+        "wall_s": 0.219
+       }
+      },
+      {
+       "at_step": 254,
+       "wait_s": 1.164,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703296.2765052,
+          "end": 1790703296.2850606,
+          "seconds": 0.0086
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703296.2850654,
+          "end": 1790703296.5004365,
+          "seconds": 0.2154
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703296.2765052,
+        "end": 1790703296.5004365,
+        "hung": false,
+        "wall_s": 0.258
+       },
+       "landed_step": 254,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703297.6990402,
+          "end": 1790703297.893549,
+          "seconds": 0.1945
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703297.8935683,
+          "end": 1790703297.894789,
+          "seconds": 0.0012
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703297.6990402,
+        "end": 1790703297.894789,
+        "hung": false,
+        "wall_s": 0.229
+       }
+      },
+      {
+       "at_step": 258,
+       "wait_s": 0.779,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703298.0727904,
+          "end": 1790703298.0816286,
+          "seconds": 0.0088
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703298.0816362,
+          "end": 1790703298.3003314,
+          "seconds": 0.2187
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703298.0727904,
+        "end": 1790703298.3003314,
+        "hung": false,
+        "wall_s": 0.26
+       },
+       "landed_step": 258,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703299.11115,
+          "end": 1790703299.2925727,
+          "seconds": 0.1814
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703299.292604,
+          "end": 1790703299.2936745,
+          "seconds": 0.0011
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703299.11115,
+        "end": 1790703299.2936745,
+        "hung": false,
+        "wall_s": 0.214
+       }
+      },
+      {
+       "at_step": 268,
+       "wait_s": 1.29,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703299.7816045,
+          "end": 1790703299.7898932,
+          "seconds": 0.0083
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703299.7898993,
+          "end": 1790703300.0053825,
+          "seconds": 0.2155
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703299.7816045,
+        "end": 1790703300.0053825,
+        "hung": false,
+        "wall_s": 0.26
+       },
+       "landed_step": 268,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703301.33207,
+          "end": 1790703301.5145633,
+          "seconds": 0.1825
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703301.5145845,
+          "end": 1790703301.5158248,
+          "seconds": 0.0012
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703301.33207,
+        "end": 1790703301.5158248,
+        "hung": false,
+        "wall_s": 0.221
+       }
+      },
+      {
+       "at_step": 271,
+       "wait_s": 1.102,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703301.6534681,
+          "end": 1790703301.6619778,
+          "seconds": 0.0085
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703301.6619825,
+          "end": 1790703301.8877814,
+          "seconds": 0.2258
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703301.6534681,
+        "end": 1790703301.8877814,
+        "hung": false,
+        "wall_s": 0.275
+       },
+       "landed_step": 271,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703303.022087,
+          "end": 1790703303.2056549,
+          "seconds": 0.1836
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703303.2056727,
+          "end": 1790703303.2067647,
+          "seconds": 0.0011
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703303.022087,
+        "end": 1790703303.2067647,
+        "hung": false,
+        "wall_s": 0.218
+       }
+      },
+      {
+       "at_step": 282,
+       "wait_s": 0.301,
+       "pause": {
+        "op": "pause",
+        "calls": [
+         {
+          "op": "lock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703303.7463365,
+          "end": 1790703303.7549155,
+          "seconds": 0.0086
+         },
+         {
+          "op": "checkpoint",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703303.7549212,
+          "end": 1790703303.9844604,
+          "seconds": 0.2295
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703303.7463365,
+        "end": 1790703303.9844604,
+        "hung": false,
+        "wall_s": 0.274
+       },
+       "landed_step": 282,
+       "resume": {
+        "op": "resume",
+        "calls": [
+         {
+          "op": "restore",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703304.3172085,
+          "end": 1790703304.5088742,
+          "seconds": 0.1917
+         },
+         {
+          "op": "unlock",
+          "result": "OK",
+          "code": 0,
+          "start": 1790703304.5088954,
+          "end": 1790703304.509993,
+          "seconds": 0.0011
+         }
+        ],
+        "result": "OK",
+        "code": 0,
+        "start": 1790703304.3172085,
+        "end": 1790703304.509993,
+        "hung": false,
+        "wall_s": 0.225
+       }
+      }
+     ]
+    }
+   },
+   "seconds": 78.9
+  }
+ ]
+}
