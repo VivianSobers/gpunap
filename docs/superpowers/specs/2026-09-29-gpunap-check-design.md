@@ -102,8 +102,9 @@ command line.
 - Pre-flight, per check: free GPU memory must cover the check's budget plus 1 GB, and available host
   memory must cover the largest pause plus 1 GB; otherwise the check is skipped. The number and
   memory of other GPU processes are recorded.
-- `--full` refuses to run while any other process holds GPU memory, and each heavy check looks again
-  before it starts.
+- The heavy `--full` checks are skipped while other processes hold more than 1 GB of GPU memory in
+  total (a desktop session keeps a few hundred MB there for good), and each one looks again before
+  it starts. The report records the other processes' count and memory.
 - A process is signalled only if its PID, start time and command-line token all match a target this
   run started. Checks run one at a time.
 - Every driver call that can hang runs through `worker.py` with a time limit.
