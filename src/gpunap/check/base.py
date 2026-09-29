@@ -128,3 +128,40 @@ def start_target(ctx: Context, kind: str, *args, ready_timeout: float = 120) -> 
 def not_ready_result(name: str, e: NotReady, seconds: float) -> results.CheckResult:
     return results.CheckResult(name, results.INVALID, "a target process never became ready",
                                {"output": e.output, "rc": e.rc}, seconds)
+
+
+# ---------- helpers shared by the checks ----------
+
+def ok(d: Optional[Dict]) -> bool:
+    return bool(d) and not d.get("hung") and d.get("result") == "OK"
+
+
+def pause(ctx: Context, t: Target, limit_s: float = 120, timeout_ms: int = 0) -> Dict:
+    return ctx.call("pause", t.pid, limit_s, timeout_ms)
+
+
+def resume(ctx: Context, t: Target, limit_s: float = 120) -> Dict:
+    d = ctx.call("resume", t.pid, limit_s)
+    if ok(d):
+        t.resumed = True
+    return d
+
+
+def verify(s: Session, timeout: float = 120) -> str:
+    """'ok', 'bad <why>', or 'no reply'."""
+    line = s.request("VERIFY", "VERIFIED", timeout)
+    return "no reply" if line is None else line[len("VERIFIED "):]
+
+
+def finish(s: Session, t: Target, timeout: float = 30):
+    """Ask a target to exit and return its exit code, or None if it had to be left to cleanup."""
+    if t.popen.poll() is None:
+        s.send("EXIT")
+    try:
+        return t.popen.wait(timeout=timeout)
+    except Exception:
+        return None
+
+
+def result(name: str, verdict: str, summary: str, data: Dict, t0: float) -> results.CheckResult:
+    return results.CheckResult(name, verdict, summary, data, time.time() - t0)
