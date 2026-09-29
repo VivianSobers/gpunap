@@ -31,3 +31,16 @@ def test_pause_passes_the_lock_timeout():
     c = FakeCtx({"result": "OK"})
     base.pause(c, Target(pid=9, start_time=1), limit_s=15, timeout_ms=5000)
     assert c.seen == [("pause", 9, 15, 5000)]
+
+
+def test_call_seconds_finds_the_named_call():
+    d = {"calls": [{"op": "lock", "seconds": 0.01}, {"op": "checkpoint", "seconds": 0.5}]}
+    assert base.call_seconds(d, "checkpoint") == 0.5
+    assert base.call_seconds(d, "restore") is None and base.call_seconds({}, "lock") is None
+
+
+def test_cycle_problem_names_the_first_failing_step():
+    good = {"pause": {"result": "OK"}, "resume": {"result": "OK"}, "verify": "ok"}
+    assert base.cycle_problem([good, good]) is None
+    assert base.cycle_problem([good, dict(good, resume={"result": "E"})]) == "cycle 2: resume returned E"
+    assert base.cycle_problem([dict(good, verify="bad x")]) == "cycle 1: data check bad x"

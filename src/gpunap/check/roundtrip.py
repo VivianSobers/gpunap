@@ -11,20 +11,12 @@ MB, CYCLES = 256, 3
 
 
 def verdict(cycles: List[Dict], rc) -> Tuple[str, Optional[str]]:
-    for i, c in enumerate(cycles, 1):
-        if not base.ok(c["pause"]):
-            return results.HAZARD, f"cycle {i}: pause returned {c['pause'].get('result')}"
-        if not base.ok(c["resume"]):
-            return results.HAZARD, f"cycle {i}: resume returned {c['resume'].get('result')}"
-        if c["verify"] != "ok":
-            return results.HAZARD, f"cycle {i}: data check {c['verify']}"
+    problem = base.cycle_problem(cycles)
+    if problem:
+        return results.HAZARD, problem
     if rc != 0:
         return results.HAZARD, f"target exited with {rc}"
     return results.OK, None
-
-
-def _seconds(d: Dict, op: str) -> Optional[float]:
-    return next((c["seconds"] for c in d.get("calls", []) if c["op"] == op), None)
 
 
 def run(ctx: base.Context) -> results.CheckResult:
@@ -46,8 +38,8 @@ def run(ctx: base.Context) -> results.CheckResult:
     v, why = verdict(cycles, rc)
     data = {"mb": MB, "cycles": cycles, "target_rc": rc}
     if v == results.OK:
-        ck = [_seconds(c["pause"], "checkpoint") for c in cycles]
-        rs = [_seconds(c["resume"], "restore") for c in cycles]
+        ck = [base.call_seconds(c["pause"], "checkpoint") for c in cycles]
+        rs = [base.call_seconds(c["resume"], "restore") for c in cycles]
         summary = f"{len(cycles)} cycles on {MB} MB, data intact; checkpoint {min(ck):.2f}-{max(ck):.2f} s, restore {min(rs):.2f}-{max(rs):.2f} s"
     else:
         summary = why

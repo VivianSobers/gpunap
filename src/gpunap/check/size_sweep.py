@@ -36,14 +36,10 @@ def rate(mb: int, seconds: Optional[float]) -> Optional[float]:
     return round(mb / 1024 / seconds, 2) if seconds else None
 
 
-def _seconds(d: Dict, op: str) -> Optional[float]:
-    return next((c["seconds"] for c in d.get("calls", []) if c["op"] == op), None)
-
-
 def timings(mb: int, cycles: List[Dict]) -> Dict:
     """Median checkpoint and restore time over the cycles, and the rates they give."""
-    ck = [x for x in (_seconds(c["pause"], "checkpoint") for c in cycles) if x is not None]
-    rs = [x for x in (_seconds(c["resume"], "restore") for c in cycles) if x is not None]
+    ck = [x for x in (base.call_seconds(c["pause"], "checkpoint") for c in cycles) if x is not None]
+    rs = [x for x in (base.call_seconds(c["resume"], "restore") for c in cycles) if x is not None]
     out: Dict = {"checkpoint_s": statistics.median(ck) if ck else None,
                  "restore_s": statistics.median(rs) if rs else None}
     out["checkpoint_gb_s"] = rate(mb, out["checkpoint_s"])
@@ -52,13 +48,9 @@ def timings(mb: int, cycles: List[Dict]) -> Dict:
 
 
 def _problem(size: Dict) -> Optional[str]:
-    for i, c in enumerate(size["cycles"], 1):
-        if not base.ok(c["pause"]):
-            return f"{gb(size['mb'])} cycle {i}: pause returned {c['pause'].get('result')}"
-        if not base.ok(c["resume"]):
-            return f"{gb(size['mb'])} cycle {i}: resume returned {c['resume'].get('result')}"
-        if c["verify"] != "ok":
-            return f"{gb(size['mb'])} cycle {i}: data check {c['verify']}"
+    problem = base.cycle_problem(size["cycles"])
+    if problem:
+        return f"{gb(size['mb'])} {problem}"
     if size.get("rc") != 0:
         return f"{gb(size['mb'])}: target exited with {size.get('rc')}"
     return None

@@ -165,6 +165,22 @@ def finish(s: Session, t: Target, timeout: float = 30):
         return None
 
 
+def call_seconds(d: Dict, op: str) -> Optional[float]:
+    """How long the named driver call inside a worker result took."""
+    return next((c["seconds"] for c in d.get("calls", []) if c["op"] == op), None)
+
+
+def cycle_problem(cycles: List[Dict]) -> Optional[str]:
+    """The first failed step of pause, resume and verify cycles, or None if all worked."""
+    for i, c in enumerate(cycles, 1):
+        for step in ("pause", "resume"):
+            if not ok(c[step]):
+                return f"cycle {i}: {step} returned {c[step].get('result')}"
+        if c["verify"] != "ok":
+            return f"cycle {i}: data check {c['verify']}"
+    return None
+
+
 def result(name: str, verdict: str, summary: str, data: Dict, t0: float) -> results.CheckResult:
     return results.CheckResult(name, verdict, summary, data, time.time() - t0)
 
