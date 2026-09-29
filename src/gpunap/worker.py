@@ -24,7 +24,7 @@ OPS = ("lock", "checkpoint", "restore", "unlock", "state", "pause", "resume")
 PKG_PARENT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-def _env() -> dict:
+def child_env() -> dict:
     env = dict(os.environ)
     paths = [PKG_PARENT] + [p for p in env.get("PYTHONPATH", "").split(os.pathsep) if p]
     env["PYTHONPATH"] = os.pathsep.join(paths)
@@ -55,7 +55,7 @@ def call(op: str, pid: int, limit_s: float, timeout_ms: int = 0, python: Optiona
     argv = [python or sys.executable, "-m", "gpunap.worker", op, str(pid)]
     if timeout_ms:
         argv += ["--timeout-ms", str(timeout_ms)]
-    d = run_json(argv, limit_s, env=_env())
+    d = run_json(argv, limit_s, env=child_env())
     d.setdefault("op", op)
     return d
 
