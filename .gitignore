@@ -2,3 +2,4 @@ __pycache__/
 *.pyc
 validation/logs/
 .remember/
+.pytest_cache/

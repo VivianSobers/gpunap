@@ -1,9 +1,9 @@
 """Fault-injection and edge-case tests for pause/resume. python faults.py NAME [NAME ...]
-Each test writes results/fault_<NAME>.json. Only processes started here are ever signalled.
+Each test writes results/fault_<NAME>.json (fault_<NAME>-2.json and so on if it exists). Only processes started here are ever signalled.
 """
 import json, os, signal, subprocess, sys, threading, time
 
-import cu
+import cu, resultfile
 
 PY = sys.executable
 os.makedirs("results", exist_ok=True)
@@ -708,5 +708,5 @@ if __name__ == "__main__":
                     pass
             MINE.clear()
         out = {"test": name, "driver": cu.driver_info(), "wall_s": round(time.time() - t0, 1), "result": res}
-        json.dump(out, open(f"results/fault_{name}.json", "w"), indent=1, default=str)
+        json.dump(out, open(resultfile.claim(f"results/fault_{name}.json"), "w"), indent=1, default=str)
         print(json.dumps(out, default=str)[:1500], flush=True)

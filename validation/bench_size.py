@@ -1,11 +1,12 @@
 """Pause/resume time and host-memory effect against GPU memory size. python bench_size.py 0.5 1 2 4 8 16 20"""
 import json, os, subprocess, sys, time
-import cu
+import cu, resultfile
 
 PY = sys.executable
 os.makedirs("results", exist_ok=True)
 os.makedirs("logs", exist_ok=True)
 CYCLES = 3
+OUT = None
 out = {"driver": cu.driver_info(), "cycles": CYCLES, "sizes": {}}
 for gb in map(float, sys.argv[1:]):
     used, free = cu.gpu_used_free()
@@ -45,4 +46,5 @@ for gb in map(float, sys.argv[1:]):
           "| restore_s", [x["resume"]["restore"][1] for x in c], "| memavail drop MB",
           [x["memavail"][0] - x["memavail"][1] for x in c], "| rss paused", c[0]["procmem"][1].get("VmRSS"),
           "lck", c[0]["procmem"][1].get("VmLck"), "| ok", rec["end"], flush=True)
-    json.dump(out, open("results/bench_size.json", "w"), indent=1, default=str)
+    OUT = OUT or resultfile.claim("results/bench_size.json")
+    json.dump(out, open(OUT, "w"), indent=1, default=str)

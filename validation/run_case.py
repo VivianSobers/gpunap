@@ -5,7 +5,7 @@ Writes results/<tag>.json with the full config, per-pause measurements and the v
 """
 import argparse, json, os, random, statistics, subprocess, sys, time
 
-import cu
+import cu, resultfile
 
 p = argparse.ArgumentParser()
 p.add_argument("--kind", required=True)
@@ -67,7 +67,7 @@ for r in ("ref1", "ref2"):
         rc = subprocess.run(cmd(log), env=env, stdout=open(log + ".out", "w"), stderr=subprocess.STDOUT).returncode
         if rc != 0:
             json.dump({"tag": tag, "error": f"{r} exited {rc}", "out": open(log + ".out").read()[-3000:]},
-                      open(f"results/{tag}.json", "w"), indent=1)
+                      open(resultfile.claim(f"results/{tag}.json"), "w"), indent=1)
             sys.exit(f"{r} failed, see {log}.out")
     refs.append(log)
 deterministic = keyed(refs[0]) == keyed(refs[1]) and end_line(refs[0]) == end_line(refs[1])
@@ -138,7 +138,7 @@ res = {
 if not same_rows:
     k1, k2 = keyed(log), keyed(refs[0])
     res["first_diff"] = next(((i, x, y) for i, (x, y) in enumerate(zip(k1, k2)) if x != y), ("len", len(k1), len(k2)))
-json.dump(res, open(f"results/{tag}.json", "w"), indent=1)
+json.dump(res, open(resultfile.claim(f"results/{tag}.json"), "w"), indent=1)
 lat = [e["pause"]["checkpoint"][1] for e in events if "checkpoint" in e.get("pause", {})]
 print(f"{tag}: rc={rc} det_ref={deterministic} rows_same={same_rows} end_same={same_end} pauses_ok={all_ok} "
       f"n={len(events)} ckpt_s_max={max(lat) if lat else None} "
