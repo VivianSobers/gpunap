@@ -3,10 +3,10 @@ from __future__ import annotations
 
 from typing import Dict, List
 
-from gpunap.check import api, roundtrip
+from gpunap.check import api, errors, roundtrip
 from gpunap.check.base import Check
 
-CHECKS: List[Check] = [api.CHECK, roundtrip.CHECK]
+CHECKS: List[Check] = [api.CHECK, roundtrip.CHECK, errors.CHECK]
 
 
 def by_name() -> Dict[str, Check]:
