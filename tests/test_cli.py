@@ -47,16 +47,17 @@ def test_check_writes_a_report_and_prints_each_result(tmp_path, monkeypatch, cap
     rc = cli.main(["check", "--only", "api,roundtrip", "--label", "box", "--out", str(tmp_path)])
     assert rc == 0 and seen == {"names": ["api", "roundtrip"], "full": False, "label": "box"}
     out = capsys.readouterr().out
-    assert "roundtrip" in out and "hazard" in out
+    assert "2 checks" in out and "roundtrip" in out and "hazard" in out
     files = os.listdir(tmp_path)
     assert len(files) == 1 and files[0].startswith("gpunap-check-box-")
     d = json.load(open(tmp_path / files[0]))
     assert d["counts"]["hazard"] == 1
 
 
-def test_an_error_verdict_exits_one(tmp_path, monkeypatch):
+def test_an_error_verdict_exits_one(tmp_path, monkeypatch, capsys):
     monkeypatch.setattr(runner, "run", _fake_run([results.ERROR]))
     assert cli.main(["check", "--only", "api", "--out", str(tmp_path)]) == 1
+    assert ": 1 check\n" in capsys.readouterr().out
 
 
 def test_a_partial_run_exits_130(tmp_path, monkeypatch):

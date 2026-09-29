@@ -46,7 +46,8 @@ def cmd_check(a) -> int:
               "the machine (NVIDIA issue #53). Run without --full.", file=sys.stderr)
         return 2
     when = time.time()
-    print(f"gpunap {gpunap.__version__}: {len(checks)} checks{' (--full)' if a.full else ''}", flush=True)
+    n = len(checks)
+    print(f"gpunap {gpunap.__version__}: {n} check{'' if n == 1 else 's'}{' (--full)' if a.full else ''}", flush=True)
     report = runner.run(checks, ctx, on_result=lambda r: print(_line(r), flush=True))
     path = results.write(report, a.out, a.label, when)
     counts = report.to_dict()["counts"]
