@@ -151,9 +151,8 @@ def verdict(state, ckpt_done, call_t, done_t, done_rc, resume_start, rc):
         return f"crash: {signal.Signals(-rc).name}"
     if done_t is None:
         return f"error: exit {rc}"
-    if resume_start is None or done_t < resume_start:
-        return "returned while checkpointed" + ("" if done_rc == "0" else f" (rc={done_rc})")
-    return "waited for resume"
+    outcome = "returned while checkpointed" if resume_start is None or done_t < resume_start else "waited for resume"
+    return outcome + ("" if done_rc == "0" else f" (rc={done_rc})")
 
 
 def run_one(api, op):

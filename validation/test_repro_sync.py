@@ -46,3 +46,11 @@ def test_stamp_reads_time_and_rc():
     assert stamp(out, "CALL") == (11.25, None)
     assert stamp(out, "DONE") == (20.5, "0")
     assert stamp(out, "MISSING") == (None, None)
+
+
+def test_error_after_resume_is_reported():
+    assert verdict("checkpointed", 10.0, 11.0, 20.5, "999", 20.0, 0) == "waited for resume (rc=999)"
+
+
+def test_data_mismatch_after_resume_is_reported():
+    assert verdict("checkpointed", 10.0, 11.0, 20.5, "data_mismatch", 20.0, 0) == "waited for resume (rc=data_mismatch)"
