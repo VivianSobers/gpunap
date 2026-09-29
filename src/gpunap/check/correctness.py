@@ -58,10 +58,15 @@ def verdict(refs: List[Dict], paused: Dict) -> Tuple[str, str]:
     diff = _same(refs[0], refs[1])
     if diff:
         return results.INVALID, f"the two unpaused runs differ ({diff}): the workload is not deterministic here"
+    exited = None
     for i, p in enumerate(paused["pauses"], 1):
-        for op in ("pause", "resume"):
-            if not base.ok(p[op]):
-                return results.HAZARD, f"pause {i}: {op} returned {p[op].get('result')}"
+        if not base.ok(p["pause"]):
+            return results.HAZARD, f"pause {i}: pause returned {p['pause'].get('result')}"
+        if not base.ok(p["resume"]):
+            if p.get("exited_while_paused") == 0 and i == len(paused["pauses"]):
+                exited = i  # past its last CUDA call: it exits while paused (FINDINGS), no resume needed
+                continue
+            return results.HAZARD, f"pause {i}: resume returned {p['resume'].get('result')}"
     if paused["rc"] != 0:
         return results.HAZARD, f"paused run exited with {paused['rc']} after {len(paused['steps'])} steps"
     diff = _same(refs[0], paused)
@@ -69,8 +74,9 @@ def verdict(refs: List[Dict], paused: Dict) -> Tuple[str, str]:
         return results.HAZARD, f"paused run differs: {diff}"
     if not paused["pauses"]:
         return results.INVALID, "no pause landed during the run"
+    tail = f"; the job finished its work and exited normally during pause {exited}" if exited else ""
     return results.OK, (f"{len(paused['steps'])} steps and the final weights bit-identical to two unpaused runs "
-                        f"across {len(paused['pauses'])} pauses")
+                        f"across {len(paused['pauses'])} pauses{tail}")
 
 
 def _collect(s: base.Session, t, limit_s: float) -> Dict:
@@ -105,6 +111,10 @@ def run_train(ctx: base.Context, plan: List[Tuple[int, float]]) -> Dict:
             p["resume"] = {"result": "not attempted"}
         pauses.append(p)
         if not base.ok(p["resume"]):
+            try:
+                p["exited_while_paused"] = t.popen.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                p["exited_while_paused"] = None
             break
     d = _collect(s, t, RUN_LIMIT_S)
     d["pauses"] = pauses

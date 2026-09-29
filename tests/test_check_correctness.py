@@ -62,3 +62,14 @@ def test_a_failed_pause_is_a_hazard():
 
 def test_no_pause_landed_is_invalid():
     assert co.verdict([_run(), _run()], _run(pauses=[]))[0] == results.INVALID
+
+
+def test_a_run_that_exits_during_its_last_pause_is_ok():
+    last = dict(_pause(4), resume={"result": "CUDA_ERROR_NOT_INITIALIZED", "hung": False}, exited_while_paused=0)
+    v, why = co.verdict([_run(), _run()], _run(pauses=[_pause(), last]))
+    assert v == results.OK and "exited normally during pause 2" in why
+
+
+def test_a_failed_resume_on_a_live_process_is_still_a_hazard():
+    last = dict(_pause(4), resume={"result": "CUDA_ERROR_NOT_INITIALIZED", "hung": False}, exited_while_paused=None)
+    assert co.verdict([_run(), _run()], _run(pauses=[_pause(), last]))[0] == results.HAZARD
