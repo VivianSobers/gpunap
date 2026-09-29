@@ -83,3 +83,10 @@ def test_cgroup_without_limit(tmp_path):
     (sysfs / "a" / "memory.max").write_text("max\n")
     m = pi.cgroup_memory(51, str(proc), str(sysfs))
     assert m["max_bytes"] is None and m["current_bytes"] is None
+
+
+def test_vm_rss_mb(tmp_path):
+    d = proc_entry(tmp_path, 60)
+    (d / "status").write_text("Name:\tpython3\nVmRSS:\t  819200 kB\nVmLck:\t0 kB\n")
+    assert pi.vm_rss_mb(60, str(tmp_path)) == 800
+    assert pi.vm_rss_mb(61, str(tmp_path)) is None

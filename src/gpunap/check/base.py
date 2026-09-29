@@ -112,8 +112,10 @@ class NotReady(Exception):
         self.rc = rc
 
 
-def start_target(ctx: Context, kind: str, *args, ready_timeout: float = 120) -> Tuple[Target, Session]:
-    t = ctx.owned.start(ctx.argv(kind, *args), kind=kind, stdin=PIPE, stdout=PIPE, stderr=STDOUT, text=True,
+def start_target(ctx: Context, kind: str, *args, ready_timeout: float = 120,
+                 prefix: Optional[List[str]] = None) -> Tuple[Target, Session]:
+    """Start a target and wait for READY. prefix runs it under another command, e.g. systemd-run."""
+    t = ctx.owned.start((prefix or []) + ctx.argv(kind, *args), kind=kind, stdin=PIPE, stdout=PIPE, stderr=STDOUT, text=True,
                         bufsize=1, env=child_env())
     s = Session(t.popen)
     if s.wait_for("READY", ready_timeout) is None:

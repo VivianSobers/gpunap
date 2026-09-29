@@ -104,3 +104,13 @@ def cgroup_memory(pid: int, proc: str = "/proc", sys_fs: str = "/sys/fs/cgroup")
             best, at = m, sub
     current = _int_or_none(_read(os.path.join(sys_fs, *parts, "memory.current")))
     return {"path": path, "max_bytes": best, "limit_at": at, "current_bytes": current}
+
+
+def vm_rss_mb(pid: int, proc: str = "/proc") -> Optional[int]:
+    text = _read(f"{proc}/{pid}/status")
+    if text is None:
+        return None
+    for line in text.splitlines():
+        if line.startswith("VmRSS:"):
+            return int(line.split()[1]) // 1024
+    return None
