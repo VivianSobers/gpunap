@@ -3,12 +3,12 @@ from __future__ import annotations
 
 from typing import Dict, List
 
-from gpunap.check import api, errors, exit_while_paused, managed_memory, roundtrip, sigstop, sync_first_call
+from gpunap.check import api, child_context, errors, exit_while_paused, managed_memory, roundtrip, sigstop, sync_first_call
 from gpunap.check.base import Check
 
 CHECKS: List[Check] = [api.CHECK, roundtrip.CHECK, errors.CHECK, sync_first_call.CHECK,
                      managed_memory.CHECK, sigstop.CHECK,
-                     exit_while_paused.CHECK]
+                     exit_while_paused.CHECK, child_context.CHECK]
 
 
 def by_name() -> Dict[str, Check]:
