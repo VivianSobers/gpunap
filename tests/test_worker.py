@@ -63,3 +63,12 @@ def test_call_builds_a_worker_command_that_finds_the_package(monkeypatch):
     assert seen["argv"][1:] == ["-m", "gpunap.worker", "lock", "12", "--timeout-ms", "5000"]
     assert seen["limit"] == 7.5 and d["op"] == "lock"
     assert SRC in seen["env"]["PYTHONPATH"].split(os.pathsep)
+
+
+def test_announce_prints_a_calling_line_before_the_result():
+    out = io.StringIO()
+    with redirect_stdout(out):
+        worker.main(["checkpoint", "5", "--announce"], driver=Driver(lib=FakeLib()))
+    first, last = [json.loads(x) for x in out.getvalue().strip().splitlines()]
+    assert first["event"] == "CALLING" and first["op"] == "checkpoint"
+    assert first["time"] <= last["start"] and last["op"] == "checkpoint"

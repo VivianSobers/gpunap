@@ -5,6 +5,7 @@ its own process means a hung call can be killed without taking the caller with i
 rule 6).
 
     python -m gpunap.worker <op> <pid> [--timeout-ms N]    one call, one JSON line on stdout
+    python -m gpunap.worker <op> <pid> --announce           first a CALLING line, right before the call
     python -m gpunap.worker reserve <pid> <mb>             claim-before-restore helper
 """
 from __future__ import annotations
@@ -91,10 +92,14 @@ def main(argv: Optional[List[str]] = None, driver: Optional[Driver] = None) -> i
     p.add_argument("pid", type=int)
     p.add_argument("mb", type=int, nargs="?", default=0)
     p.add_argument("--timeout-ms", type=int, default=0)
+    p.add_argument("--announce", action="store_true")
     a = p.parse_args(argv)
     d = driver or Driver()
     if a.op == "reserve":
         return _reserve(a.pid, a.mb, d)
+    if a.announce:  # load and initialise the library first, so the line marks the call itself
+        d.lib()
+        print(json.dumps({"event": "CALLING", "op": a.op, "time": time.time()}), flush=True)
     if a.op in ("pause", "resume"):
         calls = d.pause(a.pid, a.timeout_ms) if a.op == "pause" else d.resume(a.pid)
         failed = next((c for c in calls if not c.ok), None)
