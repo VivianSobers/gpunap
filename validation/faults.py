@@ -3,7 +3,7 @@ Each test writes results/fault_<NAME>.json (fault_<NAME>-2.json and so on if it 
 """
 import json, os, signal, subprocess, sys, threading, time
 
-import cu, resultfile
+import cu, procinfo, resultfile
 
 PY = sys.executable
 os.makedirs("results", exist_ok=True)
@@ -20,7 +20,7 @@ def start(name, gb=1.0, kind="ballast", sleep=0.02, steps=10 ** 7, script="targe
         c = [PY, script, "--kind", kind, "--ballast_gb", str(gb), "--steps", str(steps),
              "--step_sleep", str(sleep), "--log", log, "--stop_file", stop, *extra]
     else:
-        c = [PY, script, log, stop]
+        c = [PY, script, log, stop, *extra]
     # restore default SIGINT: a shell's background job ignores it, and children would inherit that
     pr = subprocess.Popen(c, stdout=open(log + ".out", "w"), stderr=subprocess.STDOUT,
                           preexec_fn=lambda: signal.signal(signal.SIGINT, signal.SIG_DFL))
@@ -486,14 +486,6 @@ def t_state_blocking():
     return r
 
 
-def uvm_maps(pid):
-    """Mappings of /dev/nvidia-uvm in the process: a candidate signal for managed memory."""
-    try:
-        return [l.split()[0] + " " + l.split()[-1] for l in open(f"/proc/{pid}/maps") if "nvidia-uvm" in l]
-    except FileNotFoundError:
-        return None
-
-
 def t_uvm_detect():
     r = {}
     cases = [("plain_torch", dict(gb=1)), ("pinned_loader", dict(kind="loader", gb=0, sleep=0.0, steps=100000)),
@@ -502,14 +494,14 @@ def t_uvm_detect():
         pr, log, stop = start(f"uvmdet_{name}", **kw)
         wait_lines(log, 10, pr)
         time.sleep(1)
-        m = uvm_maps(pr.pid)
+        m = procinfo.uvm_maps(pr.pid)
         r[name] = {"n_uvm_maps": len(m) if m is not None else None, "sample": (m or [])[:4],
                    "fds_uvm": sum(1 for fd in os.listdir(f"/proc/{pr.pid}/fd")
                                   if "nvidia-uvm" in os.path.realpath(f"/proc/{pr.pid}/fd/{fd}"))}
         if os.path.exists(log + ".childpid"):
             cp = int(open(log + ".childpid").read())
             MINE.append(cp)
-            mc = uvm_maps(cp)
+            mc = procinfo.uvm_maps(cp)
             r[name]["child_n_uvm_maps"] = len(mc) if mc is not None else None
         r[name]["finish"] = finish(pr, log, stop, timeout=60)
         if r[name]["finish"]["rc"] == "timeout":
@@ -674,6 +666,49 @@ def t_sync_locked_only():
     return r
 
 
+def t_uvm_maps(repeats=3):
+    """/dev/nvidia-uvm mapping counts for processes with and without managed memory, repeated."""
+    import psutil
+    cases = [("plain_torch", dict(gb=0.5), False),
+             ("pinned_loader", dict(kind="loader", gb=0, sleep=0.0, steps=100000), False),
+             ("driver_api_plain", dict(script="uvm_target.py", extra=("plain",)), False),
+             ("driver_api_managed", dict(script="uvm_target.py"), True),
+             ("torch_managed", dict(kind="managed", gb=0.5), True)]
+    runs = []
+    for rep in range(repeats):
+        for name, kw, managed in cases:
+            pr, log, stop = start(f"uvmmaps_{name}", **kw)
+            wait_lines(log, 10, pr)
+            time.sleep(1)
+            m = procinfo.uvm_maps(pr.pid)
+            kids = [c.pid for c in psutil.Process(pr.pid).children(recursive=True)]
+            runs.append({"case": name, "managed": managed, "repeat": rep,
+                         "n_uvm_maps": len(m) if m is not None else None, "maps": m,
+                         "children_n_uvm_maps": [len(procinfo.uvm_maps(k) or []) for k in kids]})
+            kill(pr)
+    counts = {}
+    for x in runs:
+        counts.setdefault(x["case"], []).append(x["n_uvm_maps"])
+    return {"counts_by_case": counts, "runs": runs}
+
+
+def t_thread_names(repeats=3):
+    """Thread names of a single-GPU NCCL job and of a plain PyTorch job, repeated."""
+    cases = [("nccl1", dict(kind="nccl1", gb=0, sleep=0.0, steps=100000)), ("plain_torch", dict(gb=0.5))]
+    runs = []
+    for rep in range(repeats):
+        for name, kw in cases:
+            pr, log, stop = start(f"threads_{name}", **kw)
+            wait_lines(log, 20, pr)
+            time.sleep(1)
+            names = procinfo.thread_names(pr.pid) or []
+            runs.append({"case": name, "repeat": rep, "threads": names,
+                         "has_pt_nccl_watchdg": "pt_nccl_watchdg" in names,
+                         "has_pt_nccl_heartbt": "pt_nccl_heartbt" in names})
+            kill(pr)
+    return {"runs": runs}
+
+
 TESTS = {"errors": t_errors, "short_far": lambda: t_restore_short(0.4), "short_near": lambda: t_restore_short(0.93),
          "ctlkill_ckpt": lambda: t_ctl_killed("checkpoint"), "ctlkill_restore": lambda: t_ctl_killed("restore"),
          "sigkill": lambda: t_target_signal("SIGKILL"), "sigterm": lambda: t_target_signal("SIGTERM"),
@@ -682,7 +717,8 @@ TESTS = {"errors": t_errors, "short_far": lambda: t_restore_short(0.4), "short_n
          "uvm": t_uvm, "two_jobs": t_two_jobs, "zombie": t_zombie, "handoff": t_handoff, "leak": t_leak,
          "longpause": t_longpause, "cgroup": t_cgroup, "sigint_control": t_sigint_control, "state_blocking": t_state_blocking, "uvm_detect": t_uvm_detect, "retry_far": lambda: t_restore_retry(0.4),
          "retry_near": lambda: t_restore_retry(0.93), "retry_far_small": lambda: t_restore_retry(0.4, gb=1),
-         "reserve": t_reserve, "exit_while_paused": t_exit_while_paused, "tail_ops": t_tail_ops, "sync_locked_only": t_sync_locked_only}
+         "reserve": t_reserve, "exit_while_paused": t_exit_while_paused, "tail_ops": t_tail_ops, "sync_locked_only": t_sync_locked_only,
+         "uvm_maps": t_uvm_maps, "thread_names": t_thread_names}
 
 if __name__ == "__main__":
     for name in sys.argv[1:]:

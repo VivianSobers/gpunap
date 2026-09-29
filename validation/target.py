@@ -255,6 +255,21 @@ def run_longkernel():
     return "ok"
 
 
+def run_managed():
+    """Ballast job that also holds 64 MB of CUDA managed (unified) memory, allocated through the driver API."""
+    import ctypes
+    lib = ctypes.CDLL("libcuda.so.1")
+    torch.zeros(1, device=dev)  # makes PyTorch's context current on this thread
+    ptr = ctypes.c_uint64()
+    rc = lib.cuMemAllocManaged(ctypes.byref(ptr), ctypes.c_size_t(64 * 2 ** 20), ctypes.c_uint(1))
+    if rc != 0:
+        raise RuntimeError(f"cuMemAllocManaged failed rc={rc}")
+    rc = lib.cuMemsetD32_v2(ptr, ctypes.c_uint(7), ctypes.c_size_t(16 * 2 ** 20))
+    if rc != 0:
+        raise RuntimeError(f"cuMemsetD32 on managed memory failed rc={rc}")
+    return run_ballast()
+
+
 def run_parent_child():
     """Parent and a child process each hold their own CUDA context and ballast."""
     import subprocess
@@ -376,7 +391,7 @@ def run_nccl1():
     return params_sig(m)
 
 
-kinds = {"nccl1": run_nccl1, "tail2": run_tail2, "tail": run_tail, "paged": run_paged, "mlp": run_mlp, "compile": lambda: run_mlp(True), "amp_tf": run_amp_tf, "cnn": run_cnn,
+kinds = {"managed": run_managed, "nccl1": run_nccl1, "tail2": run_tail2, "tail": run_tail, "paged": run_paged, "mlp": run_mlp, "compile": lambda: run_mlp(True), "amp_tf": run_amp_tf, "cnn": run_cnn,
          "cudagraph": run_cudagraph, "loader": run_loader, "threads": run_threads, "hf": run_hf,
          "ballast": run_ballast, "longkernel": run_longkernel, "parent_child": run_parent_child}
 
