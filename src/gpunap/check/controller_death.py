@@ -141,10 +141,10 @@ def run(ctx: base.Context) -> results.CheckResult:
     phases = []
     for phase in PHASES:
         time.sleep(1)
-        free = (nvsmi.gpu() or {}).get("memory.free")
-        mb = pick_mb(free, procinfo.mem_available_mb())
+        free, host = (nvsmi.gpu() or {}).get("memory.free"), procinfo.mem_available_mb()
+        mb = pick_mb(free, host)
         if mb is None:
-            phases.append({"phase": phase, "skipped": fits(SIZES_MB[-1], free, procinfo.mem_available_mb())})
+            phases.append({"phase": phase, "skipped": fits(SIZES_MB[-1], free, host)})
             continue
         phases.append(run_phase(ctx, phase, mb))
     v, summary = verdict(phases)
